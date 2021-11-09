@@ -9,34 +9,34 @@ const Header = () => {
     <StyledHeader>
       <div className='header__container'>
         <div className='logo__container'>
-          <span className='logo'>Logo</span>
-        </div>
-        <div className='searchbar__container'>
-          <SearchIcon className='search__icon' />
-          <input type='text' placeholder='what would you like to search' className='search__input' />
+          <span className='logo'>Lg</span>
+          <div className='searchbar__container'>
+            <SearchIcon className='search__icon' />
+            <input type='text' placeholder='Search Lg' className='search__input' />
+          </div>
         </div>
         <div className='links__container'>
           <div className='header__links'>
-            <div className='link link--home'>
+            <div className='link'>
               <HomeIcon />
             </div>
-            <span className='link'>Timeline</span>
-          </div>
-          <div className='header__icons'>
-            <div className='icon__item'>
+            <div className='link'>
               <PersonIcon />
-              <span className='icon__badge'>1</span>
+              <span className='link__badge'>1</span>
             </div>
-            <div className='icon__item'>
+            <div className='link'>
               <ChatIcon />
-              <span className='icon__badge'>2</span>
+              <span className='link__badge'>2</span>
             </div>
-            <div className='icon__item'>
+            <div className='link'>
               <NotificationsIcon />
-              <span className='icon__badge'>3</span>
+              <span className='link__badge'>3</span>
             </div>
           </div>
-          <img src='/assets/profile/default_user.png' alt='user ' className='profile__picture' />
+        </div>
+        <div className='profile__container'>
+          <img className='profile__picture' src='/assets/profile/default_user.png' alt='user ' />
+          <p className='profile__name'>Jonny</p>
         </div>
       </div>
     </StyledHeader>
