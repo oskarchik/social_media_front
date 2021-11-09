@@ -1,13 +1,16 @@
 import Header from '../components/Header/Header';
 import Feed from '../components/Feed/Feed';
+import LeftSidebar from '../components/LeftSidebar/LeftSidebar';
+import RightSidebar from '../components/RightSidebar/RightSidebar';
+import './Home.css';
 const Home = () => {
   return (
     <>
       <Header />
       <div className='home__container'>
-        <div>left sidebar</div>
-        <Feed />
-        <div>right sidebar</div>
+        <LeftSidebar className='left' />
+        <Feed className='feed' />
+        <RightSidebar className='right__sidebar' />
       </div>
     </>
   );

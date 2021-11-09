@@ -4,8 +4,10 @@ export const StyledPost = styled.div`
   .post__container {
     width: 100%;
     border-radius: 7px;
-    -webkit-box-shadow: 5px 2px 15px 1px rgba(0, 0, 0, 0.55);
-    box-shadow: 5px 2px 15px 1px rgba(0, 0, 0, 0.55);
+    background-color: white;
+    -webkit-box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.5);
     margin: 30px 0;
     padding: 10px;
     .post__top {
@@ -62,6 +64,7 @@ export const StyledPost = styled.div`
         }
         .fav {
           background-color: red;
+          margin-right: 6px;
         }
         .counter {
           font-size: 15px;

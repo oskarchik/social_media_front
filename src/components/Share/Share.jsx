@@ -6,7 +6,7 @@ import LabelIcon from '@mui/icons-material/Label';
 
 const Share = () => {
   return (
-    <StyledShare className='share'>
+    <StyledShare>
       <div className='share__container'>
         <div className='share__top'>
           <img className='profile__picture' src='/assets/profile/man1.jpg' alt='user' />
