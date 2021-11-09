@@ -1,0 +1,27 @@
+.home__container {
+  display: flex;
+}
+.left-sidebar__wrapper {
+  flex: 3;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.left-sidebar__wrapper::-webkit-scrollbar {
+  width: 5px;
+}
+.left-sidebar__wrapper::-webkit-scrollbar-track {
+  background-color: white;
+  border-radius: 5px;
+}
+.left-sidebar__wrapper::-webkit-scrollbar-thumb {
+  background-color: lightgrey;
+  border-radius: 5px;
+}
+.feed {
+  flex: 6;
+  background-color: red;
+}
+.right-sidebar__wrapper {
+  flex: 3;
+}
