@@ -6,7 +6,7 @@ export const StyledForm = styled.form`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 15px 0;
     .login__input {
       display: block;
       width: 90%;
@@ -28,6 +28,7 @@ export const StyledForm = styled.form`
       font-size: 26px;
       font-weight: bold;
       margin-bottom: 20px;
+      cursor: pointer;
     }
     .login__forgot {
       text-decoration: none;
@@ -47,6 +48,7 @@ export const StyledForm = styled.form`
       font-weight: bold;
       border-radius: 5px;
       border: none;
+      cursor: pointer;
     }
   }
 `;

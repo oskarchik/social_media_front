@@ -41,7 +41,7 @@ export const StyledLoginPage = styled.main`
     .login__right {
       flex: 6;
       background-color: white;
-      border-radius: 30px;
+      border-radius: 10px;
     }
   }
 `;
