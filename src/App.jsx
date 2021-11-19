@@ -1,19 +1,27 @@
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-
+import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Home from './pages/Home';
+import routes from './routes';
+import './index.css';
+import SecureRoute from './components/SecureRoute/SecureRoute';
 import Profile from './pages/Profile/Profile';
 import Login from './pages/Login/Login';
-import './index.css';
+import { checkSessionAsync } from './redux/slices/user.slice';
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(checkSessionAsync());
+  }, []);
+
   return (
     <Router>
-      <Routes>
-        <Route exact path='/user' element={<Profile />} />
-        <Route exact path='/auth' element={<Login />} />
-        <Route exact path='/' element={<Home />} />
-        <Route path='*' element={<Navigate to='/auth' />} />
-      </Routes>
+      <Switch>
+        <SecureRoute exact path='/' component={(props) => <Home {...props} />} />
+        <SecureRoute exact path='/profile' component={(props) => <Profile {...props} />} />
+        <Route exact path='/auth' component={Login} />
+      </Switch>
     </Router>
   );
 };
