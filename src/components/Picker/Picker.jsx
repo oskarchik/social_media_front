@@ -47,39 +47,6 @@ const Picker = (props) => {
           ))}
         </select>
       )}
-      {/* {years && (
-        <select className={styled} defaultValue={currentDate.getFullYear()}>
-          {years.map((year) => (
-            <option value={year} key={year}>
-              {year}
-            </option>
-          ))}
-        </select>
-      )} */}
-      {/* {months &&
-        months.map((month) =>
-          month !== currentMonth ? (
-            <option value={month} key={month}>
-              {month}
-            </option>
-          ) : (
-            <option value={month} key={month} selected>
-              {month}
-            </option>
-          )
-        )}
-      {year &&
-        years.map((year) =>
-          year !== currentDate.getFullYear() ? (
-            <option value={year} key={year}>
-              {year}
-            </option>
-          ) : (
-            <option value={year} key={year} selected>
-              {year}
-            </option>
-          )
-        )} */}
     </>
   );
 };

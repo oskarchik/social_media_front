@@ -63,12 +63,9 @@ export const userSlice = createSlice({
         state.error = '';
       } else {
         state.hasUser = false;
-        // state.error = '';
+        state.error = action.payload;
       }
     });
-    // builder.addCase(checkSessionAsync.pending, async (state, action) => {
-    //   state.isLoading = true;
-    // });
   },
 });
 export const { logOutUser } = userSlice.actions;

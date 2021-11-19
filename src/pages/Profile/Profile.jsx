@@ -85,11 +85,6 @@ const Profile = (props) => {
           <main className='profile__main'>
             <div className='left'>
               <Share></Share>
-              {/* <Post></Post> */}
-              {/* {user &&
-                user.posts.map((post) => {
-                  return <Post post={post} />;
-                })} */}
               {posts &&
                 posts.map((post) => {
                   return <Post post={post} />;

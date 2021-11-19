@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Feed from '../components/Feed/Feed';
 import Header from '../components/Header/Header';
 import LeftSidebar from '../components/LeftSidebar/LeftSidebar';

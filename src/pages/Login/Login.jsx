@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { StyledLoginPage } from './Login.style';
 import Form from '../../components/Form/Form';
 import Modal from '../../components/Modal/Modal';
-import { useSelector } from 'react-redux';
 
 const Login = () => {
   const [isOpen, setIsOpen] = useState(false);

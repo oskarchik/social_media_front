@@ -106,7 +106,6 @@ export const StyledHeader = styled.header`
       align-items: center;
       justify-content: space-evenly;
       flex: 3;
-      /* border: 1px solid black; */
       .profile__picture {
         width: 32px;
         height: 32px;

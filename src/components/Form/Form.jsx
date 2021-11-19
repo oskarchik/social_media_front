@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useState } from 'react';
+
 import { StyledForm } from './Form.style';
 import { useDispatch } from 'react-redux';
 import { signInAsync } from '../../redux/slices/user.slice';
@@ -8,7 +8,6 @@ const Form = (props) => {
   const { handleForm } = props;
   const history = useHistory();
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
   const [userData, setUserData] = useState({});
 
   const onInputChange = (e) => {
@@ -19,7 +18,6 @@ const Form = (props) => {
     e.preventDefault();
     await dispatch(signInAsync(userData));
     history.push('/');
-    // navigate('/');
   };
 
   return (

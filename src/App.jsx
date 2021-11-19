@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Home from './pages/Home';
-import routes from './routes';
 import './index.css';
 import SecureRoute from './components/SecureRoute/SecureRoute';
 import Profile from './pages/Profile/Profile';
