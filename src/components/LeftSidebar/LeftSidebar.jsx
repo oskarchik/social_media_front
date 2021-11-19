@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { StyledLeftSidebar } from './LeftSidebar.style';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
 import ChatIcon from '@mui/icons-material/Chat';
@@ -11,6 +12,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const LeftSidebar = () => {
+  const { user } = useSelector((state) => state.user.user);
   return (
     <div className='left-sidebar__wrapper'>
       <StyledLeftSidebar>
@@ -61,66 +63,15 @@ const LeftSidebar = () => {
           </div>
           <hr className='sidebar__hr' />
           <ul className='friends__list'>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/woman1.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/woman2.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/man2.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/woman3.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/woman4.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/woman4.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/woman4.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/woman4.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/woman4.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/woman4.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/woman4.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/woman4.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/woman4.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/woman4.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
-            <li className='friends__item'>
-              <img className='friends__profile-pic' src='/assets/profile/woman4.jpg' alt='' />
-              <span className='friends__name'>Ana</span>
-            </li>
+            {user &&
+              user.following?.map((follow) => {
+                return (
+                  <li className='friends__item' key={follow._id}>
+                    <img className='friends__profile-pic' src={follow.avatar} alt={follow.firstName} />
+                    <span className='friends__name'>{follow.firstName}</span>
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </StyledLeftSidebar>

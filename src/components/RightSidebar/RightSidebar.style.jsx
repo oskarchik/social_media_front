@@ -7,6 +7,7 @@ export const StyledRightSidebar = styled.aside`
     .birthday__container {
       display: flex;
       align-items: center;
+      margin-bottom: 30px;
       .birthday__img {
         width: 40px;
         height: 40px;
@@ -19,7 +20,7 @@ export const StyledRightSidebar = styled.aside`
     .ad__img {
       width: 100%;
       border-radius: 10px;
-      margin: 30px 0;
+      margin: 0 0 30px 0;
     }
     .friends__title {
       margin-bottom: 10px;
@@ -35,6 +36,7 @@ export const StyledRightSidebar = styled.aside`
         align-items: center;
         margin-bottom: 15px;
         .profile-image__container {
+          width: 100%;
           margin-right: 10px;
           position: relative;
           display: flex;
@@ -54,7 +56,7 @@ export const StyledRightSidebar = styled.aside`
             border: 2px solid white;
             position: absolute;
             top: 0px;
-            right: 55px;
+            left: 25px;
           }
         }
       }

@@ -74,6 +74,14 @@ export const StyledHeader = styled.header`
         position: relative;
         cursor: pointer;
         color: #6e7074;
+
+        .anchor {
+          text-decoration: none;
+          color: #6e7074;
+        }
+        .anchor:hover {
+          color: #1877f2;
+        }
         .link__badge {
           display: flex;
           justify-content: center;
@@ -96,6 +104,7 @@ export const StyledHeader = styled.header`
     .profile__container {
       display: flex;
       align-items: center;
+      justify-content: space-evenly;
       flex: 3;
       /* border: 1px solid black; */
       .profile__picture {
@@ -109,6 +118,10 @@ export const StyledHeader = styled.header`
       .profile__name {
         color: black;
         font-size: 14px;
+      }
+      .logout {
+        color: #6e7074;
+        cursor: pointer;
       }
     }
   }

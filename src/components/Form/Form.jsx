@@ -1,13 +1,39 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import { StyledForm } from './Form.style';
-
+import { useDispatch } from 'react-redux';
+import { signInAsync } from '../../redux/slices/user.slice';
+import { useHistory } from 'react-router-dom';
 const Form = (props) => {
   const { handleForm } = props;
+  const history = useHistory();
+  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  const [userData, setUserData] = useState({});
+
+  const onInputChange = (e) => {
+    const value = e.target.value;
+    setUserData({ ...userData, [e.target.name]: value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await dispatch(signInAsync(userData));
+    history.push('/');
+    // navigate('/');
+  };
+
   return (
-    <StyledForm>
+    <StyledForm onSubmit={() => handleSubmit(userData)}>
       <div className='login-form__wrapper'>
-        <input className='login__input' type='text' placeholder='Email or phone number' />
-        <input className='login__input' type='email' placeholder='Password' />
-        <button className='login__btn' type='submit'>
+        <input
+          className='login__input'
+          onChange={onInputChange}
+          type='text'
+          placeholder='Email or phone number'
+          name='device'
+        />
+        <input className='login__input' onChange={onInputChange} type='email' placeholder='Password' name='password' />
+        <button className='login__btn' type='submit' onClick={handleSubmit}>
           Log in
         </button>
         <a href='#' className='login__forgot'>

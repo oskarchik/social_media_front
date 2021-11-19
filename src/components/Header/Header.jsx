@@ -1,15 +1,28 @@
+import { useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import HomeIcon from '@mui/icons-material/Home';
 import { StyledHeader } from './Header.styled';
+import LogoutIcon from '@mui/icons-material/Logout';
+// import { logOutA } from '../../redux/slices/user.slice';
+import { signOutAsync } from '../../redux/slices/user.slice';
+import { Link } from 'react-router-dom';
+
 const Header = () => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user.user);
+
+  const logOut = () => {
+    dispatch(signOutAsync());
+  };
+
   return (
     <StyledHeader>
       <div className='header__container'>
         <div className='logo__container'>
-          <span className='logo'>Lg</span>
+          <span className='logo'>Fb</span>
           <div className='searchbar__container'>
             <SearchIcon className='search__icon' />
             <input type='text' placeholder='Search Lg' className='search__input' />
@@ -18,7 +31,9 @@ const Header = () => {
         <div className='links__container'>
           <div className='header__links'>
             <div className='link'>
-              <HomeIcon />
+              <Link to='/' className='anchor'>
+                <HomeIcon />
+              </Link>
             </div>
             <div className='link'>
               <PersonIcon />
@@ -35,8 +50,15 @@ const Header = () => {
           </div>
         </div>
         <div className='profile__container'>
-          <img className='profile__picture' src='/assets/profile/default_user.png' alt='user ' />
-          <p className='profile__name'>Jonny</p>
+          <Link to='/profile'>
+            <img
+              className='profile__picture'
+              src={user ? user.avatar : '/assets/profile/default_user.png'}
+              alt='user'
+            />
+          </Link>
+          <p className='profile__name'>{user?.firstName}</p>
+          <LogoutIcon className='logout' onClick={logOut} />
         </div>
       </div>
     </StyledHeader>

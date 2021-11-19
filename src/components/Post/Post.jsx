@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { StyledPost } from './Post.style';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -6,8 +7,12 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import ShareIcon from '@mui/icons-material/Share';
-const Post = () => {
-  const [likesCounter, setLikesCounter] = useState(0); //initial state should be post.likes
+const Post = (props) => {
+  const { user } = useSelector((state) => state.user.user);
+  const { post } = props;
+  console.log('props post', post);
+
+  const [likesCounter, setLikesCounter] = useState(post?.likes?.length);
   const [isLiked, setIsLiked] = useState(false);
 
   const likeHandler = () => {
@@ -22,17 +27,25 @@ const Post = () => {
       <div className='post__container'>
         <div className='post__top'>
           <div className='top__left'>
-            <img className='profile__picture' src='/assets/profile/man1.jpg' alt='person' />
-            <span className='post__user-name'>dsfg</span>
-            <span className='post__date'>2 minutes ago</span>
+            <img className='profile__picture' src={post.userId?.avatar} alt='person' />
+            {post && (
+              <span className='post__user-name'>
+                {post?.userId?.firstName} {post.userId?.lastName}
+              </span>
+            )}
+            {post && <span className='post__date'>{post?.createdAt?.substring(0, post?.createdAt?.indexOf('T'))}</span>}
           </div>
           <div className='top__right'>
             <MoreHorizIcon />
           </div>
         </div>
         <div className='post__center'>
-          <span className='postText'>My first post</span>
-          <img className='post__img' src='/assets/posts/food.jpg' alt='post' />
+          {post && (
+            <React.Fragment key={post?._id}>
+              <span className='postText'>{post?.description}</span>
+              <img className='post__img' src={post?.image} alt='post' />
+            </React.Fragment>
+          )}
         </div>
         <div className='post__bottom'>
           <div className='bottom__left'>

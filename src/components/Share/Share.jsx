@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { StyledShare } from './Share.style';
 import PermMediaIcon from '@mui/icons-material/PermMedia';
 import RoomIcon from '@mui/icons-material/Room';
@@ -5,12 +6,13 @@ import TagFacesIcon from '@mui/icons-material/TagFaces';
 import LabelIcon from '@mui/icons-material/Label';
 
 const Share = () => {
+  const { user } = useSelector((state) => state.user.user);
   return (
     <StyledShare>
       <div className='share__container'>
         <div className='share__top'>
-          <img className='profile__picture' src='/assets/profile/man1.jpg' alt='user' />
-          <input type='text' className='share__input' placeholder="what's in your mind, man?" />
+          <img className='profile__picture' src={user?.avatar} alt='user' />
+          <input type='text' className='share__input' placeholder={`what's in your mind, ${user?.firstName}?`} />
         </div>
         <hr className='shareHr' />
         <div className='share__bottom'>

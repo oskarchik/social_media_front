@@ -1,10 +1,11 @@
-// import Header from '../components/Header/Header';
+import axios from 'axios';
 import Feed from '../components/Feed/Feed';
 import Header from '../components/Header/Header';
 import LeftSidebar from '../components/LeftSidebar/LeftSidebar';
 import RightSidebar from '../components/RightSidebar/RightSidebar';
 import './Home.css';
-const Home = () => {
+const Home = (props) => {
+  console.log(props.user);
   return (
     <>
       <Header />

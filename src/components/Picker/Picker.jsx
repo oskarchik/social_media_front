@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Picker = (props) => {
-  const { days, months, year, styled } = props;
+  const { days, months, year, styled, onInputChange } = props;
 
   const currentDate = new Date();
   const currentDay = currentDate.getDate();
@@ -11,11 +11,11 @@ const Picker = (props) => {
   for (let i = year; i <= currentDate.getFullYear(); i++) {
     years.push(i);
   }
-  console.log(year);
+
   return (
     <>
       {days && (
-        <select className={styled} defaultValue={currentDay}>
+        <select className={styled} onChange={onInputChange} id='days' name='dateOfBirth' defaultValue={currentDay}>
           {days.map((day) => (
             <option value={day} key={day}>
               {day}
@@ -24,7 +24,7 @@ const Picker = (props) => {
         </select>
       )}
       {months && (
-        <select className={styled} defaultValue={currentMonth}>
+        <select className={styled} onChange={onInputChange} id='months' name='dateOfBirth' defaultValue={currentMonth}>
           {months.map((month) => (
             <option value={month} key={month}>
               {month}
@@ -33,7 +33,13 @@ const Picker = (props) => {
         </select>
       )}
       {year && (
-        <select className={styled} defaultValue={currentDate.getFullYear()}>
+        <select
+          className={styled}
+          onChange={onInputChange}
+          id='years'
+          name='dateOfBirth'
+          defaultValue={currentDate.getFullYear()}
+        >
           {years.map((year) => (
             <option value={year} key={year}>
               {year}

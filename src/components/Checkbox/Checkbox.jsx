@@ -1,12 +1,10 @@
-import React from 'react';
-
 const Checkbox = (props) => {
-  const { text, styled } = props;
+  const { text, styled, onInputChange } = props;
 
   return (
     <div className={styled}>
       <span className='checkbox__text'>{text}</span>
-      <input className='checkbox__input' type='radio' name='gender' />
+      <input className='checkbox__input' onChange={onInputChange} id={text} name='gender' type='radio' value={text} />
     </div>
   );
 };

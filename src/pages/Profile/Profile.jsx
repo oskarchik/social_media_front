@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { StyledProfile } from './Profile.style';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
@@ -5,8 +6,21 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import Header from '../../components/Header/Header';
 import Share from '../../components/Share/Share';
 import Post from '../../components/Post/Post';
+import { useEffect } from 'react';
+import { getUserPostsAsync } from '../../redux/slices/post.slice';
 
-const Profile = () => {
+const Profile = (props) => {
+  const { user } = useSelector((state) => state.user.user);
+  const { posts } = useSelector((state) => state.post);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserPostsAsync(user._id));
+    console.log('useSelector posts profile', posts);
+  }, [dispatch]);
+
+  console.log(user);
   return (
     <>
       <Header />
@@ -14,8 +28,8 @@ const Profile = () => {
         <div className='profile__container'>
           <header className='profile__header'>
             <div className='profile__top'>
-              <img className='cover__img' src='/assets/cover/landscape1.jpg' alt='cover' />
-              <img className='user__img' src='/assets/profile/man1.jpg' alt='' />
+              <img className='cover__img' src={user.coverPic} alt='cover' />
+              <img className='user__img' src={user.avatar} alt='profile' />
               <button className='btn__add-profile'>
                 <CameraAltIcon />
               </button>
@@ -25,7 +39,7 @@ const Profile = () => {
               </button>
             </div>
             <div className='profile__name'>
-              <h1 className='username'>Oscar</h1>
+              <h1 className='username'>{user.firstName}</h1>
               <hr className='name__hr' />
             </div>
             <div className='menu__container'>
@@ -71,7 +85,15 @@ const Profile = () => {
           <main className='profile__main'>
             <div className='left'>
               <Share></Share>
-              <Post></Post>
+              {/* <Post></Post> */}
+              {/* {user &&
+                user.posts.map((post) => {
+                  return <Post post={post} />;
+                })} */}
+              {posts &&
+                posts.map((post) => {
+                  return <Post post={post} />;
+                })}
             </div>
             <div className='right'>
               <div className='main__photos'>
