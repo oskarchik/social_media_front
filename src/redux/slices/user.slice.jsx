@@ -1,24 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { signIn, signUp, signOut, checkSession } from '../../api/auth';
+import { getAllUsers } from '../../api/user';
 
 const INITIAL_STATE = {
-  user: {},
-  hasUser: null,
+  users: [],
   error: '',
 };
-export const signUpAsync = createAsyncThunk('user/signUp', async (userData) => {
-  return await signUp(userData);
-});
-export const signInAsync = createAsyncThunk('user/signIn', async (userData) => {
-  return await signIn(userData);
-});
 
-export const signOutAsync = createAsyncThunk('user/signOut', async () => {
-  return await signOut();
-});
-
-export const checkSessionAsync = createAsyncThunk('user/checkSession', async () => {
-  return await checkSession();
+export const getAllUsersAsync = createAsyncThunk('user/getAll', async () => {
+  return await getAllUsers();
 });
 
 export const userSlice = createSlice({
@@ -31,39 +20,9 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(signUpAsync.fulfilled, (state, action) => {
+    builder.addCase(getAllUsersAsync.fulfilled, (state, action) => {
       if (!action.payload?.error) {
-        state.user = action.payload;
-        state.hasUser = true;
-        state.error = '';
-      } else {
-        state.hasUser = false;
-        state.error = action.payload.error;
-      }
-    });
-    builder.addCase(signInAsync.fulfilled, (state, action) => {
-      if (!action.payload?.error) {
-        state.user = action.payload;
-        state.hasUser = true;
-        state.error = '';
-      } else {
-        state.hasUser = false;
-        state.error = action.payload.error;
-      }
-    });
-    builder.addCase(signOutAsync.fulfilled, (state, action) => {
-      state.user = null;
-      state.hasUser = false;
-      state.error = '';
-    });
-    builder.addCase(checkSessionAsync.fulfilled, (state, action) => {
-      if (!action.payload?.error) {
-        state.user = action.payload;
-        state.hasUser = true;
-        state.error = '';
-      } else {
-        state.hasUser = false;
-        state.error = action.payload;
+        state.users = action.payload.users;
       }
     });
   },
