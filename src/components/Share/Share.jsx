@@ -6,7 +6,7 @@ import TagFacesIcon from '@mui/icons-material/TagFaces';
 import LabelIcon from '@mui/icons-material/Label';
 
 const Share = () => {
-  const { user } = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.auth.user);
   return (
     <StyledShare>
       <div className='share__container'>

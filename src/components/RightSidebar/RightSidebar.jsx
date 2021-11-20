@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { StyledRightSidebar } from './RightSidebar.style';
 
 const RightSidebar = () => {
-  const { user } = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.auth.user);
+
   const [birthDays, setBirthDays] = useState([]);
 
   const checkBirthDays = (user) => {

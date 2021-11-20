@@ -10,7 +10,6 @@ import ShareIcon from '@mui/icons-material/Share';
 const Post = (props) => {
   // const { user } = useSelector((state) => state.user.user);
   const { post } = props;
-  console.log('props post', post);
 
   const [likesCounter, setLikesCounter] = useState(post?.likes?.length);
   const [isLiked, setIsLiked] = useState(false);

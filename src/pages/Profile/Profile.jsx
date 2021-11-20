@@ -10,17 +10,18 @@ import { useEffect } from 'react';
 import { getUserPostsAsync } from '../../redux/slices/post.slice';
 
 const Profile = (props) => {
-  const { user } = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.auth.user);
   const { posts } = useSelector((state) => state.post);
+  console.log('props', props);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUserPostsAsync(user._id));
-    console.log('useSelector posts profile', posts);
+    // console.log('useSelector posts profile', posts);
   }, [dispatch]);
 
-  console.log(user);
+  // console.log(user);
   return (
     <>
       <Header />

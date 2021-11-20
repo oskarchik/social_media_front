@@ -12,7 +12,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const LeftSidebar = () => {
-  const { user } = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.auth.user);
   return (
     <div className='left-sidebar__wrapper'>
       <StyledLeftSidebar>

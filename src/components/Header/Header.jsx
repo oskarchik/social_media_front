@@ -1,21 +1,70 @@
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import HomeIcon from '@mui/icons-material/Home';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { StyledHeader } from './Header.styled';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { signOutAsync } from '../../redux/slices/user.slice';
-import { Link } from 'react-router-dom';
+import { signOutAsync } from '../../redux/slices/auth.slice';
+import { getAllUsersAsync } from '../../redux/slices/user.slice';
+import { Link, useHistory } from 'react-router-dom';
+import { getTimeLineAsync } from '../../redux/slices/post.slice';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.auth.user);
+  const { users } = useSelector((state) => state.user);
+  const { posts } = useSelector((state) => state.post);
+  const [input, setInput] = useState('');
+  const history = useHistory();
 
   const logOut = () => {
     dispatch(signOutAsync());
   };
+
+  const filterData = (str) => {
+    dispatch(getTimeLineAsync(user._id));
+    const filteredPosts = posts.filter((post) => {
+      return (
+        post.description.toLowerCase().includes(str.toLowerCase()) ||
+        post.userId.firstName.toLowerCase().includes(str.toLowerCase()) ||
+        post.userId.lastName.toLowerCase().includes(str.toLowerCase())
+      );
+    });
+    const filteredUsers = users.filter((user) => {
+      return (
+        user.firstName.toLowerCase().includes(str.toLowerCase()) ||
+        user.lastName.toLowerCase().includes(str.toLowerCase())
+      );
+    });
+    const filteredContacts = filteredUsers.filter((filteredUser) => {
+      return user.followers.includes(filteredUser._id) ? filteredUser : null;
+    });
+    const filteredNoContacts = filteredUsers.filter((filteredUser) => {
+      return !user.followers.includes(filteredUser._id) ? filteredUser : null;
+    });
+    console.log('posts', filteredPosts);
+    return { users: filteredNoContacts, posts: filteredPosts, contacts: filteredContacts };
+  };
+
+  const searchValue = (e) => {
+    e.preventDefault();
+    const res = filterData(input);
+    history.push({ pathname: '/search', state: { data: res } });
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInput(value);
+  };
+
+  useEffect(() => {
+    dispatch(getAllUsersAsync());
+    console.log('effect dipatch', posts);
+  }, [dispatch]);
 
   return (
     <StyledHeader>
@@ -24,7 +73,15 @@ const Header = () => {
           <span className='logo'>Fb</span>
           <div className='searchbar__container'>
             <SearchIcon className='search__icon' />
-            <input type='text' placeholder='Search Lg' className='search__input' />
+            <form onSubmit={searchValue}>
+              <input
+                type='text'
+                placeholder='Search Fb'
+                className='search__input'
+                name='searchBar'
+                onChange={handleInputChange}
+              />
+            </form>
           </div>
         </div>
         <div className='links__container'>
@@ -49,15 +106,22 @@ const Header = () => {
           </div>
         </div>
         <div className='profile__container'>
-          <Link to='/profile'>
-            <img
-              className='profile__picture'
-              src={user ? user.avatar : '/assets/profile/default_user.png'}
-              alt='user'
-            />
-          </Link>
-          <p className='profile__name'>{user?.firstName}</p>
-          <LogoutIcon className='logout' onClick={logOut} />
+          <div className='profile__user'>
+            <Link to='/profile'>
+              <img
+                className='profile__picture'
+                src={user ? user.avatar : '/assets/profile/default_user.png'}
+                alt='user'
+              />
+            </Link>
+            <p className='profile__name'>{user?.firstName}</p>
+          </div>
+          <div className='profile__links'>
+            <Link className='link'>
+              <SettingsIcon className='profile__settings' />
+            </Link>
+            <LogoutIcon className='logout' onClick={logOut} />
+          </div>
         </div>
       </div>
     </StyledHeader>

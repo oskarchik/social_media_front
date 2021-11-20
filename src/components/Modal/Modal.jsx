@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { StyledModal } from './Modal.style';
 import { useDispatch } from 'react-redux';
-import { signUpAsync } from '../../redux/slices/user.slice';
+import { signUpAsync } from '../../redux/slices/auth.slice';
 
 import CloseIcon from '@mui/icons-material/Close';
 import HelpIcon from '@mui/icons-material/Help';

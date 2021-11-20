@@ -104,23 +104,47 @@ export const StyledHeader = styled.header`
     .profile__container {
       display: flex;
       align-items: center;
-      justify-content: space-evenly;
+      justify-content: space-around;
       flex: 3;
-      .profile__picture {
-        width: 32px;
-        height: 32px;
-        margin: 0 10px;
-        border-radius: 50%;
-        object-fit: cover;
-        cursor: pointer;
+
+      .profile__user {
+        display: flex;
+        align-items: center;
+
+        .profile__picture {
+          width: 32px;
+          height: 32px;
+          margin: 0 10px;
+          border-radius: 50%;
+          object-fit: cover;
+          cursor: pointer;
+        }
+        .profile__name {
+          color: black;
+          font-size: 14px;
+        }
       }
-      .profile__name {
-        color: black;
-        font-size: 14px;
-      }
-      .logout {
-        color: #6e7074;
-        cursor: pointer;
+      .profile__links {
+        display: flex;
+        align-items: center;
+
+        .link {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 10px;
+          font-size: 14px;
+          position: relative;
+          cursor: pointer;
+          color: #6e7074;
+        }
+        .link:hover {
+          color: #1877f2;
+        }
+        .logout {
+          color: #6e7074;
+          cursor: pointer;
+        }
       }
     }
   }

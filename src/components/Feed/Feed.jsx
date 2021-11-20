@@ -5,7 +5,7 @@ import Share from '../Share/Share';
 import Post from '../Post/Post';
 import { getTimeLineAsync } from '../../redux/slices/post.slice';
 const Feed = () => {
-  const { user } = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.auth.user);
   const { posts } = useSelector((state) => state.post);
 
   const dispatch = useDispatch();

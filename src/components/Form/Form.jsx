@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { StyledForm } from './Form.style';
 import { useDispatch } from 'react-redux';
-import { signInAsync } from '../../redux/slices/user.slice';
+import { signInAsync } from '../../redux/slices/auth.slice';
 import { useHistory } from 'react-router-dom';
 const Form = (props) => {
   const { handleForm } = props;

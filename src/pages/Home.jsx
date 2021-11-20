@@ -4,7 +4,6 @@ import LeftSidebar from '../components/LeftSidebar/LeftSidebar';
 import RightSidebar from '../components/RightSidebar/RightSidebar';
 import './Home.css';
 const Home = (props) => {
-  console.log(props.user);
   return (
     <>
       <Header />
