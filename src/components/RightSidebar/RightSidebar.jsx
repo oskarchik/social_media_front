@@ -8,10 +8,10 @@ const RightSidebar = () => {
   const [birthDays, setBirthDays] = useState([]);
 
   const checkBirthDays = (user) => {
-    user.following.map((follow) => {
-      return new Date(follow.dateOfBirth).toLocaleString('en-us', { day: 'numeric', month: 'short' }) ==
+    user.contacts.map((contact) => {
+      return new Date(contact.dateOfBirth).toLocaleString('en-us', { day: 'numeric', month: 'short' }) ==
         new Date().toLocaleString('en-us', { day: 'numeric', month: 'short' })
-        ? setBirthDays((prevState) => [...prevState, follow])
+        ? setBirthDays((prevState) => [...prevState, contact])
         : null;
     });
   };
@@ -46,13 +46,13 @@ const RightSidebar = () => {
           <img className='ad__img' src='/assets/ad.jpg' alt='advertisement' />
           <h4 className='friends__title'>Online Friends</h4>
           <ul className='friends__list'>
-            {user?.following?.map((follow) => {
+            {user?.contacts?.map((contact) => {
               return (
-                <li className='friends__item' key={follow._id}>
+                <li className='friends__item' key={contact._id}>
                   <div className='profile-image__container'>
-                    <img className='friends__image' src={follow.avatar} alt='friend' />
+                    <img className='friends__image' src={contact.avatar} alt='friend' />
                     <span className='friends__online'></span>
-                    <span className='friends__name'>{follow.firstName}</span>
+                    <span className='friends__name'>{contact.firstName}</span>
                   </div>
                 </li>
               );

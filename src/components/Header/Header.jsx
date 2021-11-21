@@ -41,10 +41,10 @@ const Header = () => {
       );
     });
     const filteredContacts = filteredUsers.filter((filteredUser) => {
-      return user.followers.includes(filteredUser._id) ? filteredUser : null;
+      return user.contacts.includes(filteredUser._id) ? filteredUser : null;
     });
     const filteredNoContacts = filteredUsers.filter((filteredUser) => {
-      return !user.followers.includes(filteredUser._id) ? filteredUser : null;
+      return !user.contacts.includes(filteredUser._id) ? filteredUser : null;
     });
     console.log('posts', filteredPosts);
     return { users: filteredNoContacts, posts: filteredPosts, contacts: filteredContacts };

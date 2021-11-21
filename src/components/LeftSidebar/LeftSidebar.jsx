@@ -64,11 +64,11 @@ const LeftSidebar = () => {
           <hr className='sidebar__hr' />
           <ul className='friends__list'>
             {user &&
-              user.following?.map((follow) => {
+              user.contacts?.map((contact) => {
                 return (
-                  <li className='friends__item' key={follow._id}>
-                    <img className='friends__profile-pic' src={follow.avatar} alt={follow.firstName} />
-                    <span className='friends__name'>{follow.firstName}</span>
+                  <li className='friends__item' key={contact._id}>
+                    <img className='friends__profile-pic' src={contact.avatar} alt={contact.firstName} />
+                    <span className='friends__name'>{contact.firstName}</span>
                   </li>
                 );
               })}
