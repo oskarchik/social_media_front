@@ -7,13 +7,14 @@ import SecureRoute from './components/SecureRoute/SecureRoute';
 import Profile from './pages/Profile/Profile';
 import Login from './pages/Login/Login';
 import Search from './pages/Search/Search';
+import Friends from './pages/Friends/Friends';
 import { checkSessionAsync } from './redux/slices/auth.slice';
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(checkSessionAsync());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Router>
@@ -21,6 +22,7 @@ const App = () => {
         <SecureRoute exact path='/' component={(props) => <Home {...props} />} />
         <SecureRoute exact path='/profile' component={(props) => <Profile {...props} />} />
         <SecureRoute exact path='/search' component={(props) => <Search {...props} />} />
+        <SecureRoute exact path='/friends' component={(props) => <Friends {...props} />} />
         <Route exact path='/auth' component={Login} />
       </Switch>
     </Router>
