@@ -86,14 +86,16 @@ export const StyledHeader = styled.header`
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 12px;
-          height: 12px;
+          width: 14px;
+          height: 14px;
+          padding: 5px;
           position: absolute;
           top: -5px;
           right: 30px;
           background-color: red;
           border-radius: 50%;
-          font-size: 8px;
+          font-size: 10px;
+          font-weight: 600;
           color: white;
         }
       }

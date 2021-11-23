@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { StyledHeader } from './Header.styled';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { StyledHeader } from './Header.styled';
 import { signOutAsync } from '../../redux/slices/auth.slice';
 import { getAllUsersAsync } from '../../redux/slices/user.slice';
-import { Link, useHistory } from 'react-router-dom';
 import { getTimeLineAsync } from '../../redux/slices/post.slice';
 
 const Header = () => {
@@ -41,12 +41,13 @@ const Header = () => {
       );
     });
     const filteredContacts = filteredUsers.filter((filteredUser) => {
-      return user.contacts.includes(filteredUser._id) ? filteredUser : null;
+      return filteredUser.contacts.includes(user._id) ? filteredUser : null;
     });
     const filteredNoContacts = filteredUsers.filter((filteredUser) => {
-      return !user.contacts.includes(filteredUser._id) ? filteredUser : null;
+      return !filteredUser.contacts.includes(user._id) ? filteredUser : null;
     });
-    console.log('posts', filteredPosts);
+
+    user.contacts.map((contact) => console.log(contact._id));
     return { users: filteredNoContacts, posts: filteredPosts, contacts: filteredContacts };
   };
 
@@ -63,7 +64,6 @@ const Header = () => {
 
   useEffect(() => {
     dispatch(getAllUsersAsync());
-    console.log('effect dipatch', posts);
   }, [dispatch]);
 
   return (
@@ -92,8 +92,12 @@ const Header = () => {
               </Link>
             </div>
             <div className='link'>
-              <PersonIcon />
-              <span className='link__badge'>1</span>
+              <Link to='/friends' className='anchor'>
+                <PersonIcon />
+                {user?.receivedRequests?.length > 0 && (
+                  <span className='link__badge'>{user.receivedRequests.length}</span>
+                )}
+              </Link>
             </div>
             <div className='link'>
               <ChatIcon />
@@ -117,7 +121,7 @@ const Header = () => {
             <p className='profile__name'>{user?.firstName}</p>
           </div>
           <div className='profile__links'>
-            <Link className='link'>
+            <Link to='/' className='link'>
               <SettingsIcon className='profile__settings' />
             </Link>
             <LogoutIcon className='logout' onClick={logOut} />

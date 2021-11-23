@@ -42,7 +42,7 @@ const Post = (props) => {
           {post && (
             <React.Fragment key={post?._id}>
               <span className='postText'>{post?.description}</span>
-              <img className='post__img' src={post?.image} alt='post' />
+              {post.image && <img className='post__img' src={post?.image} alt='post' />}
             </React.Fragment>
           )}
         </div>

@@ -5,8 +5,9 @@ import Header from '../../components/Header/Header';
 import Post from '../../components/Post/Post';
 const Search = (props) => {
   const { users, contacts, posts } = props.location.state.data;
-  console.log(posts);
-  console.log(props);
+  console.log('users', users);
+  console.log('contacts', contacts);
+
   return (
     <>
       <Header />
@@ -17,23 +18,34 @@ const Search = (props) => {
               <h3 className='title'>People</h3>
               {contacts.length > 0 && (
                 <div className='contacts__wrapper'>
-                  {contacts.map((user, i) => {
+                  {contacts.map((contact, i) => {
                     return i === contacts.length - 1 ? (
-                      <Card user={user} key={user._id} index={i} last={true} />
+                      <Card contact={contact} key={contact._id} index={i} last={true} />
                     ) : (
-                      <Card user={user} key={user._id} index={i} last={false} />
+                      <Card contact={contact} key={contact._id} index={i} last={false} />
+                    );
+                  })}
+                </div>
+              )}
+              {contacts.length < 1 && users.length > 0 && (
+                <div className='contacts__wrapper'>
+                  {users.map((person, i) => {
+                    return i === users.length - 1 ? (
+                      <Card person={person} key={person._id} index={i} last={true} />
+                    ) : (
+                      <Card person={person} key={person._id} index={i} last={false} />
                     );
                   })}
                 </div>
               )}
             </div>
-            {users.length > 0 && (
+            {users.length > 0 && contacts.length < 1 ? null : (
               <div className='users__wrapper'>
-                {users.map((user, i) => {
+                {users.map((person, i) => {
                   return i === users.length - 1 ? (
-                    <Card user={user} key={user._id} index={i} last={true} contact={true} />
+                    <Card person={person} key={person._id} index={i} last={true} />
                   ) : (
-                    <Card user={user} key={user._id} index={i} last={false} contact={true} />
+                    <Card person={person} key={person._id} index={i} last={false} />
                   );
                 })}
               </div>

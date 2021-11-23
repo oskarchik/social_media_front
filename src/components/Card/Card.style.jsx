@@ -35,11 +35,13 @@ export const StyledCard = styled.div`
     .card__icon {
       background-color: #e4e6eb;
       border-radius: 50%;
+      border: none;
       width: 40px;
       height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
       /* border: 1px solid black; */
 
       .icon {

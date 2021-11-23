@@ -24,3 +24,6 @@
 .right-sidebar__wrapper {
   flex: 3;
 }
+.friends-page {
+  display: flex;
+}
