@@ -41,8 +41,8 @@ export const signOut = async () => {
   const req = await fetch(signOutUrl, {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
       'Content-Type': 'application/json',
+      Accept: 'application/json',
       'Access-Control-Allow-Origin': '*',
     },
     credentials: 'include',
