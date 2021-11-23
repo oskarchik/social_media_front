@@ -1,8 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { signIn, signUp, signOut, checkSession } from '../../api/auth';
+import { acceptRequest, declineRequest, removeContact, sendContactRequest } from '../../api/user';
 
 const INITIAL_STATE = {
-  user: {},
+  user: {
+    contacts: [],
+    receivedRequests: [],
+  },
   hasUser: null,
   error: '',
 };
@@ -20,6 +24,19 @@ export const signOutAsync = createAsyncThunk('user/signOut', async () => {
 
 export const checkSessionAsync = createAsyncThunk('user/checkSession', async () => {
   return await checkSession();
+});
+
+export const acceptRequestAsync = createAsyncThunk('user/acceptRequest', async (data) => {
+  return await acceptRequest(data);
+});
+export const declineRequestAsync = createAsyncThunk('user/declineRequest', async (data) => {
+  return await declineRequest(data);
+});
+export const removeContactAsync = createAsyncThunk('user/removeContact', async (data) => {
+  return await removeContact(data);
+});
+export const sendContactRequestAsync = createAsyncThunk('user/sendContactRequest', async (data) => {
+  return await sendContactRequest(data);
 });
 
 export const authSlice = createSlice({
@@ -65,6 +82,30 @@ export const authSlice = createSlice({
       } else {
         state.hasUser = false;
         state.error = action.payload;
+      }
+    });
+    builder.addCase(acceptRequestAsync.fulfilled, (state, action) => {
+      if (!action.payload?.error) {
+        const user = action.payload.user;
+        state.user = { ...state.user, user };
+      }
+    });
+    builder.addCase(declineRequestAsync.fulfilled, (state, action) => {
+      if (!action.payload?.error) {
+        const user = action.payload.user;
+        state.user = { ...state.user, user };
+      }
+    });
+    builder.addCase(removeContactAsync.fulfilled, (state, action) => {
+      if (!action.payload?.error) {
+        const user = action.payload.user;
+        state.user = { ...state.user, user };
+      }
+    });
+    builder.addCase(sendContactRequestAsync.fulfilled, (state, action) => {
+      if (!action.payload?.error) {
+        const user = action.payload.user;
+        state.user = { ...state.user, user };
       }
     });
   },
