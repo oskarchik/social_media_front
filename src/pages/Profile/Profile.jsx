@@ -12,7 +12,7 @@ import { getUserPostsAsync } from '../../redux/slices/post.slice';
 const Profile = (props) => {
   const { user } = useSelector((state) => state.auth.user);
   const { posts } = useSelector((state) => state.post);
-  console.log('props', props);
+  console.log('posts', posts);
 
   const dispatch = useDispatch();
 
@@ -52,7 +52,7 @@ const Profile = (props) => {
                   <button className='item__btn'>About</button>
                 </li>
                 <li className='menu__item'>
-                  <button className='item__btn'>Friends 123</button>
+                  <button className='item__btn'>Friends {user.contacts?.length}</button>
                 </li>
                 <li className='menu__item'>
                   <button className='item__btn'>Photos</button>
@@ -87,7 +87,7 @@ const Profile = (props) => {
             <div className='left'>
               <Share></Share>
               {posts &&
-                posts.map((post) => {
+                posts?.map((post) => {
                   return <Post post={post} />;
                 })}
             </div>
@@ -99,33 +99,18 @@ const Profile = (props) => {
                     See all photos
                   </a>
                 </div>
-                <div className='photos__grid'>
-                  <div className='grid__tile'>
-                    <img className='photos__friends' src='/assets/profile/man2.jpg' alt='' />
-                  </div>
-                  <div className='grid__tile'>
-                    <img className='photos__friends' src='/assets/profile/man2.jpg' alt='' />
-                  </div>
-                  <div className='grid__tile'>
-                    <img className='photos__friends' src='/assets/profile/man2.jpg' alt='' />
-                  </div>
-                  <div className='grid__tile'>
-                    <img className='photos__friends' src='/assets/profile/man2.jpg' alt='' />
-                  </div>
-                  <div className='grid__tile'>
-                    <img className='photos__friends' src='/assets/profile/man2.jpg' alt='' />
-                  </div>
-                  <div className='grid__tile'>
-                    <img className='photos__friends' src='/assets/profile/man2.jpg' alt='' />
-                  </div>
-                  <div className='grid__tile'>
-                    <img className='photos__friends' src='/assets/profile/man2.jpg' alt='' />
-                  </div>
-                  <div className='grid__tile'>
-                    <img className='photos__friends' src='/assets/profile/man2.jpg' alt='' />
-                  </div>
-                  <div className='grid__tile'>
-                    <img className='photos__friends' src='/assets/profile/man2.jpg' alt='' />
+                <div className='grid__container'>
+                  <div className='photos__grid'>
+                    {posts &&
+                      posts.map((post) => {
+                        return (
+                          post.image && (
+                            <div className='grid__tile' key={post._id}>
+                              <img className='photos__friends' src={post.image} alt='Post' />
+                            </div>
+                          )
+                        );
+                      })}
                   </div>
                 </div>
               </div>
@@ -133,7 +118,7 @@ const Profile = (props) => {
                 <div className='contacts__top'>
                   <div className='contacts__title'>
                     <h3 className='title'>Friends</h3>
-                    <span className='counter'>80 friends</span>
+                    <span className='counter'> {user.contacts?.length} friends</span>
                   </div>
                   <div className='contacts__list'>
                     <a className='contacts__link' href='#'>
@@ -141,43 +126,19 @@ const Profile = (props) => {
                     </a>
                   </div>
                 </div>
+
                 <div className='contacts__grid'>
-                  <div className='contacts__tile'>
-                    <img className='contacts__picture' src='/assets/profile/woman3.jpg' alt='contact' />
-                    <h4 className='contacts__name'>Jane</h4>
-                  </div>
-                  <div className='contacts__tile'>
-                    <img className='contacts__picture' src='/assets/profile/woman3.jpg' alt='contact' />
-                    <h4 className='contacts__name'>Jane</h4>
-                  </div>
-                  <div className='contacts__tile'>
-                    <img className='contacts__picture' src='/assets/profile/woman3.jpg' alt='contact' />
-                    <h4 className='contacts__name'>Jane</h4>
-                  </div>
-                  <div className='contacts__tile'>
-                    <img className='contacts__picture' src='/assets/profile/woman3.jpg' alt='contact' />
-                    <h4 className='contacts__name'>Jane</h4>
-                  </div>
-                  <div className='contacts__tile'>
-                    <img className='contacts__picture' src='/assets/profile/woman3.jpg' alt='contact' />
-                    <h4 className='contacts__name'>Jane</h4>
-                  </div>
-                  <div className='contacts__tile'>
-                    <img className='contacts__picture' src='/assets/profile/woman3.jpg' alt='contact' />
-                    <h4 className='contacts__name'>Jane</h4>
-                  </div>
-                  <div className='contacts__tile'>
-                    <img className='contacts__picture' src='/assets/profile/woman3.jpg' alt='contact' />
-                    <h4 className='contacts__name'>Jane</h4>
-                  </div>
-                  <div className='contacts__tile'>
-                    <img className='contacts__picture' src='/assets/profile/woman3.jpg' alt='contact' />
-                    <h4 className='contacts__name'>Jane</h4>
-                  </div>
-                  <div className='contacts__tile'>
-                    <img className='contacts__picture' src='/assets/profile/woman3.jpg' alt='contact' />
-                    <h4 className='contacts__name'>Jane</h4>
-                  </div>
+                  {user &&
+                    user.contacts?.map((contact) => {
+                      return (
+                        <div className='contacts__tile' key={contact._id}>
+                          <img className='contacts__picture' src={contact.avatar} alt='contact' />
+                          <h4 className='contacts__name'>
+                            {contact.firstName} {contact.lastName}
+                          </h4>
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             </div>

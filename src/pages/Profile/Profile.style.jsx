@@ -163,6 +163,8 @@ export const StyledProfile = styled.main`
         .main__photos {
           background-color: white;
           border-radius: 10px;
+          height: auto;
+          padding: 10px;
           -webkit-box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
           box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
             inset 0 0 0 1px rgba(255, 255, 255, 0.5);
@@ -176,36 +178,31 @@ export const StyledProfile = styled.main`
               text-decoration: none;
             }
           }
-          .photos__grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            padding: 10px;
-            .grid__tile {
-              border-radius: 10px;
-              .photos__friends {
-                width: 100%;
+          .grid__container {
+            overflow: hidden;
+            border-radius: 10px;
+
+            .photos__grid {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              grid-template-rows: repeat(3, 1fr);
+              gap: 10px;
+
+              .grid__tile {
+                .photos__friends {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                }
               }
             }
-          }
-          .photos__grid .grid__tile:first-child img {
-            border-radius: 10px 0 0 0;
-          }
-          .photos__grid .grid__tile:nth-child(3) img {
-            border-radius: 0 10px 0 0;
-          }
-          .photos__grid .grid__tile:nth-child(7) img {
-            border-radius: 0 0 0 10px;
-          }
-          .photos__grid .grid__tile:last-child img {
-            border-radius: 0 0 10px 0;
           }
         }
         .main__friends {
           background-color: white;
           border-radius: 10px;
-          padding: 20px 10px;
-          margin-top: 20px;
+          padding: 20px 10px 30px 10px;
+          margin: 20px 0;
           -webkit-box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
           box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
             inset 0 0 0 1px rgba(255, 255, 255, 0.5);
@@ -217,16 +214,19 @@ export const StyledProfile = styled.main`
               text-decoration: none;
             }
           }
+
           .contacts__grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 10px;
             margin-top: 20px;
             .contacts__tile {
-            }
-            .contacts__picture {
-              width: 100%;
-              border-radius: 10px;
+              .contacts__picture {
+                width: 100%;
+                height: 100%;
+                /*  */
+                object-fit: cover;
+              }
             }
           }
         }
