@@ -7,7 +7,7 @@ import { getTimeLineAsync } from '../../redux/slices/post.slice';
 const Feed = () => {
   const { user } = useSelector((state) => state.auth.user);
   const { posts } = useSelector((state) => state.post);
-  console.log(posts);
+
   const dispatch = useDispatch();
 
   useEffect(() => {

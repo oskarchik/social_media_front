@@ -57,7 +57,6 @@ const Post = (props) => {
     const data = { postId, userId };
     dispatch(deletePostAsync(data));
   };
-  console.log(post.userId._id, user._id);
 
   return (
     <StyledPost>
