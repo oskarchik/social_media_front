@@ -32,6 +32,9 @@ export const StyledPost = styled.div`
           font-size: 12px;
         }
       }
+      .top__right {
+        cursor: pointer;
+      }
     }
     .post__center {
       margin: 20px 0;
@@ -74,11 +77,12 @@ export const StyledPost = styled.div`
         .comments {
           font-size: 15px;
           border-bottom: lightgrey dashed;
+          cursor: pointer;
         }
       }
     }
     .buttons {
-      margin-top: 8px;
+      margin: 8px 0;
       display: flex;
       align-items: center;
       justify-content: space-evenly;
@@ -92,12 +96,68 @@ export const StyledPost = styled.div`
         margin: 0 1px;
         padding: 4px;
         color: grey;
+        cursor: pointer;
       }
       .btn:hover {
         background-color: #e2e4e6;
       }
       .btn__text {
         margin-left: 4px;
+      }
+    }
+    .comments__container {
+      width: 100%;
+      .old-comments__container {
+        border-top: 1px solid lightgrey;
+        padding-top: 16px;
+        margin-bottom: 10px;
+        width: 100%;
+        /* .sub-comment {
+          margin-left: 20px;
+        } */
+      }
+    }
+    .add-comments__container {
+      display: flex;
+      align-items: center;
+
+      .add-comments__avatar {
+        width: 11%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .user__avatar {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+      .add-comments__input {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        border-radius: 20px;
+        .input {
+          width: 100%;
+          padding: 10px;
+          border-radius: 20px;
+          border: none;
+          font-size: 14px;
+          background-color: #f0f2f5;
+          outline: none;
+        }
+        .icon {
+          border: none;
+          position: absolute;
+          right: 10px;
+          cursor: pointer;
+        }
+        .icon:hover {
+          color: #1877f2;
+        }
       }
     }
   }

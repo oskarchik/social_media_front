@@ -7,7 +7,7 @@ import { getTimeLineAsync } from '../../redux/slices/post.slice';
 const Feed = () => {
   const { user } = useSelector((state) => state.auth.user);
   const { posts } = useSelector((state) => state.post);
-
+  console.log(posts);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Feed = () => {
 
         {posts &&
           posts?.map((post) => {
-            return <Post post={post} />;
+            return <Post post={post} key={post._id} />;
           })}
       </div>
     </StyledFeed>
