@@ -29,7 +29,7 @@ const Header = () => {
     dispatch(getTimeLineAsync(user._id));
     const filteredPosts = posts.filter((post) => {
       return (
-        post.description.toLowerCase().includes(str.toLowerCase()) ||
+        post.text.toLowerCase().includes(str.toLowerCase()) ||
         post.userId.firstName.toLowerCase().includes(str.toLowerCase()) ||
         post.userId.lastName.toLowerCase().includes(str.toLowerCase())
       );

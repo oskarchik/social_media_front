@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Comment from '../Comment/Comment';
+import PostMenu from '../PostMenu/PostMenu';
 import { StyledPost } from './Post.style';
 
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -9,23 +10,27 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import ShareIcon from '@mui/icons-material/Share';
 import SendIcon from '@mui/icons-material/Send';
+
 import { commentPostAsync } from '../../redux/slices/post.slice';
-import { handlePostsLikesAsync, deletePostAsync } from '../../redux/slices/post.slice';
+import { handlePostsLikesAsync, deletePostAsync, updatePostAsync } from '../../redux/slices/post.slice';
 
 const Post = (props) => {
   const { user } = useSelector((state) => state.auth.user);
   const { post } = props;
+
+  console.log('post', post);
 
   const dispatch = useDispatch();
 
   const [likesPostCounter, setLikesPostCounter] = useState(post?.likes?.length);
   const [isOpenComments, setIsOpenComments] = useState(false);
   const [isOpenDelete, setIsOpenDelete] = useState(false);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [input, setInput] = useState('');
   const [isLiked, setIsLiked] = useState(post.likes?.some((like) => (like._id === user._id ? true : false)));
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -42,8 +47,8 @@ const Post = (props) => {
   const handleOpenComments = () => {
     setIsOpenComments((prevState) => !prevState);
   };
-  const handleOpenDelete = () => {
-    setIsOpenDelete((prevState) => !prevState);
+  const handleOpenMenu = () => {
+    setIsOpenMenu((prevState) => !prevState);
   };
 
   const handleSubmit = (e) => {
@@ -56,6 +61,9 @@ const Post = (props) => {
   const deletePost = (postId, userId) => {
     const data = { postId, userId };
     dispatch(deletePostAsync(data));
+  };
+  const handleEditing = () => {
+    setIsEditing((prevState) => !prevState);
   };
 
   return (
@@ -71,16 +79,14 @@ const Post = (props) => {
             )}
             {post && <span className='post__date'>{post?.createdAt?.substring(0, post?.createdAt?.indexOf('T'))}</span>}
           </div>
-          {post.userId._id === user._id ? (
-            <div className='top__right' onClick={handleOpenDelete}>
-              {isOpenDelete ? <DeleteIcon onClick={() => deletePost(post._id, user._id)} /> : <MoreHorizIcon />}
-            </div>
-          ) : null}
+          <div className='top__right'>
+            <MoreHorizIcon onClick={handleOpenMenu} />
+          </div>
         </div>
         <div className='post__center'>
           {post && (
             <React.Fragment key={post?._id}>
-              <span className='postText'>{post?.description}</span>
+              <span className='postText'>{post?.text}</span>
               {post.image && <img className='post__img' src={post?.image} alt='post' />}
             </React.Fragment>
           )}
@@ -142,6 +148,16 @@ const Post = (props) => {
                 </button>
               </form>
             </div>
+          </div>
+        )}
+        {isOpenMenu && (
+          <div className='post__menu'>
+            <PostMenu
+              handleOpenMenu={handleOpenMenu}
+              handleEditing={handleEditing}
+              deletePost={deletePost}
+              data={{ postId: post._id, userId: user._id }}
+            />
           </div>
         )}
       </div>

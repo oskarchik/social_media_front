@@ -10,6 +10,8 @@ export const StyledPost = styled.div`
       inset 0 0 0 1px rgba(255, 255, 255, 0.5);
     margin: 30px 0;
     padding: 10px;
+    position: relative;
+
     .post__top {
       display: flex;
       align-items: center;
@@ -33,6 +35,7 @@ export const StyledPost = styled.div`
         }
       }
       .top__right {
+        display: flex;
         cursor: pointer;
       }
     }
@@ -159,6 +162,19 @@ export const StyledPost = styled.div`
           color: #1877f2;
         }
       }
+    }
+    .post__menu {
+      width: 25%;
+      display: flex;
+      margin-right: 10px;
+      padding: 20px 10px;
+      background-color: white;
+      position: absolute;
+      top: 10px;
+      right: 5%;
+      -webkit-box-shadow: 0px 5px 15px -4px rgba(0, 0, 0, 0.48);
+      -moz-box-shadow: 0px 5px 15px -4px rgba(0, 0, 0, 0.48);
+      box-shadow: 0px 5px 15px -4px rgba(0, 0, 0, 0.48);
     }
   }
 `;
