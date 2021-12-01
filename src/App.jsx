@@ -9,6 +9,7 @@ import Login from './pages/Login/Login';
 import Search from './pages/Search/Search';
 import Friends from './pages/Friends/Friends';
 import { checkSessionAsync } from './redux/slices/auth.slice';
+import { PostModalProvider } from './context/PostModalContext';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -19,11 +20,13 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <SecureRoute exact path='/' component={(props) => <Home {...props} />} />
-        <SecureRoute exact path='/profile' component={(props) => <Profile {...props} />} />
-        <SecureRoute exact path='/search' component={(props) => <Search {...props} />} />
-        <SecureRoute exact path='/friends' component={(props) => <Friends {...props} />} />
-        <Route exact path='/auth' component={Login} />
+        <PostModalProvider>
+          <SecureRoute exact path='/' component={(props) => <Home {...props} />} />
+          <SecureRoute exact path='/profile' component={(props) => <Profile {...props} />} />
+          <SecureRoute exact path='/search' component={(props) => <Search {...props} />} />
+          <SecureRoute exact path='/friends' component={(props) => <Friends {...props} />} />
+          <Route exact path='/auth' component={Login} />
+        </PostModalProvider>
       </Switch>
     </Router>
   );
