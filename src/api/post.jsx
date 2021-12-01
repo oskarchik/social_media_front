@@ -100,3 +100,36 @@ export const deletePost = async (data) => {
 
   return response;
 };
+
+export const createPost = async (data) => {
+  const request = await fetch(`${baseUrl}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+    credentials: 'include',
+    body: JSON.stringify(data),
+  });
+  const response = await request.json();
+
+  return response;
+};
+
+export const updatePost = async (data) => {
+  const request = await fetch(`${baseUrl}/${data.postId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+    credentials: 'include',
+    body: JSON.stringify(data),
+  });
+
+  const response = await request.json();
+
+  return response;
+};

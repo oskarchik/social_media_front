@@ -1,6 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { deleteComment, likeUnlikeComment, sendComment } from '../../api/comment';
-import { getTimeLine, getUserPosts, getPostById, commentPost, handlePostsLikes, deletePost } from '../../api/post';
+import {
+  getTimeLine,
+  getUserPosts,
+  getPostById,
+  commentPost,
+  handlePostsLikes,
+  deletePost,
+  createPost,
+  updatePost,
+} from '../../api/post';
 
 const INITIAL_STATE = {
   posts: [],
@@ -40,6 +49,14 @@ export const deleteCommentAsync = createAsyncThunk('post/commentDelete', async (
 
 export const deletePostAsync = createAsyncThunk('post/deletePost', async (id) => {
   return await deletePost(id);
+});
+
+export const createPostAsync = createAsyncThunk('post/createPost', async (data) => {
+  return await createPost(data);
+});
+
+export const updatePostAsync = createAsyncThunk('post/updatePost', async (data) => {
+  return await updatePost(data);
 });
 
 export const postSlice = createSlice({
@@ -158,6 +175,33 @@ export const postSlice = createSlice({
       console.log(updatedPost);
       if (!action.payload.error) {
         const index = state.posts.findIndex((post) => post._id === action.payload._id);
+
+        const newPostsArray = [...state.posts];
+        newPostsArray[index] = updatedPost;
+
+        return {
+          ...state,
+          posts: newPostsArray,
+        };
+      } else {
+        state.error = action.payload;
+      }
+    });
+    builder.addCase(createPostAsync.fulfilled, (state, action) => {
+      const newPost = action.payload;
+      console.log('new Post ', newPost);
+      if (!action.payload.error) {
+        state.posts = [action.payload.post, ...state.posts];
+      } else {
+        state.error = action.payload;
+      }
+    });
+
+    builder.addCase(updatePostAsync.fulfilled, (state, action) => {
+      const { updatedPost } = action.payload;
+
+      if (!action.payload.error) {
+        const index = state.posts.findIndex((post) => post._id === updatedPost._id);
 
         const newPostsArray = [...state.posts];
         newPostsArray[index] = updatedPost;
