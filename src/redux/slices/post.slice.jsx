@@ -204,7 +204,7 @@ export const postSlice = createSlice({
 
     builder.addCase(updatePostAsync.fulfilled, (state, action) => {
       console.log('action.payload', action.payload);
-      const { updatedPost } = action.payload;
+      const updatedPost = action.payload;
 
       if (!action.payload.error) {
         const index = state.posts.findIndex((post) => post._id === updatedPost._id);
@@ -215,6 +215,7 @@ export const postSlice = createSlice({
         return {
           ...state,
           posts: newPostsArray,
+          postDetails: updatedPost,
         };
       } else {
         state.error = action.payload;
@@ -225,11 +226,6 @@ export const postSlice = createSlice({
       const sharedPost = action.payload;
       if (!action.payload.error) {
         state.postDetails = action.payload;
-        // const index = state.posts.findIndex((post) => post._id === action.payload._id);
-
-        // const newPostsArray = [...state.posts];
-        // newPostsArray[index] = sharedPost;
-        // return { ...state, posts: newPostsArray };
       } else {
         state.error = action.payload;
       }
