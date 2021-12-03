@@ -47,6 +47,33 @@ export const StyledPost = styled.div`
         max-height: 500px;
         object-fit: contain;
       }
+      .shared__post {
+        width: 100%;
+        margin: 10px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .image__container {
+          width: 100%;
+          height: 120px;
+          .shared__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .shared__text {
+          width: 98%;
+          font-size: 12px;
+          color: #757575;
+
+          padding: 10px 0 10px 10px;
+          border: 1px solid #d5d5d5;
+
+          border-radius: 0 0 2px 2px;
+        }
+      }
     }
     .post__bottom {
       display: flex;

@@ -7,32 +7,29 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import PostModalContext from '../../context/PostModalContext';
 
 import CloseIcon from '@mui/icons-material/Close';
-import { updatePostAsync, createPostAsync } from '../../redux/slices/post.slice';
+import { updatePostAsync, createPostAsync, sharePostAsync } from '../../redux/slices/post.slice';
 import { useEffect } from 'react';
 
 const PostModal = (props) => {
-  const { isEditing, postId } = props;
+  const { mode } = props;
+
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.user);
-  const { isOpen, setIsOpen } = useContext(PostModalContext);
+  const { posts } = useSelector((state) => state.post);
+  const { isOpen, setIsOpen, setMode, postId, setPostId } = useContext(PostModalContext);
   const [isFileLoaderOpen, setIsFileLoaderOpen] = useState(false);
-  const currentPost = user.posts.find((post) => {
+  const [data, setData] = useState();
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  const currentPost = posts.find((post) => {
     return post._id === postId ? post : null;
   });
-
-  const [data, setData] = useState(
-    isEditing
-      ? {
-          text: currentPost.text,
-          image: currentPost.image,
-          userId: user._id,
-          postId,
-        }
-      : { userId: user._id }
-  );
+  // console.log('currentpost text', currentPost.text);
+  // console.log('data text', data.text);
 
   const onInputChange = (e) => {
     const value = e.target.value;
+    // value.length > 0 ? setIsDisabled(false) : setIsDisabled(true);
     setData({ ...data, [e.target.name]: value });
   };
 
@@ -46,19 +43,57 @@ const PostModal = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    isEditing ? dispatch(updatePostAsync(data)) : dispatch(createPostAsync(data));
+    if (mode === 'Create') {
+      dispatch(createPostAsync(data));
+    }
+    if (mode === 'Edit' && (currentPost.text !== data.text || currentPost.image !== data.image)) {
+      dispatch(updatePostAsync(data));
+    }
+    if (mode === 'Share') {
+      dispatch(sharePostAsync(data));
+    }
+
     setData({ userId: '' });
     setIsOpen((prevState) => !prevState);
   };
 
-  useEffect(() => {}, []);
+  const selectMode = () => {
+    switch (mode) {
+      case 'Edit':
+        setData({
+          text: currentPost.text,
+          image: currentPost.image,
+          userId: user._id,
+          postId,
+        });
+        break;
+      case 'Create':
+        setData({
+          userId: user._id,
+        });
+        break;
+      case 'Share':
+        setData({
+          userId: user._id,
+          postRef: postId,
+          text: '',
+        });
+        break;
+      default:
+        return null;
+    }
+  };
+  useEffect(() => {
+    selectMode();
+  }, []);
+
   return (
     <StyledPostModal>
       <div className='modal__wrapper'>
         <div className='modal__container'>
           <div className='modal__top'>
             <div className='title__container'>
-              <h2 className='modal__title'>{isEditing ? 'Edit post' : 'Create post'}</h2>
+              <h2 className='modal__title'>{`${mode} post`}</h2>
               <button className='modal__close' onClick={closeModal}>
                 <CloseIcon className='icon' />
               </button>
@@ -68,7 +103,11 @@ const PostModal = (props) => {
           <div className='modal__center'>
             <div className='modal__user-info'>
               <div className='avatar'>
-                <img className='profile__picture' src='/assets/profile/man1.jpg' alt='user' />
+                <img
+                  className='profile__picture'
+                  src={user?.avatar ? user.avatar : '/assets/profile/default_profile.png'}
+                  alt='user'
+                />
               </div>
               <p className='user__name'>
                 {user.firstName} {user.lastName}
@@ -80,9 +119,11 @@ const PostModal = (props) => {
                 onChange={onInputChange}
                 name='text'
                 id=''
-                rows='8'
-                value={data.text}
-                placeholder={`What's on your mind, ${user.firstName}?`}
+                rows='4'
+                value={data?.text}
+                placeholder={
+                  mode === 'Share' ? `Make a comment about this...` : `What's on your mind, ${user.firstName}?`
+                }
               ></textarea>
               {isFileLoaderOpen && (
                 <input
@@ -90,16 +131,38 @@ const PostModal = (props) => {
                   type='text'
                   onChange={onInputChange}
                   name='image'
-                  value={data.image}
+                  value={data?.image}
                   placeholder='Add your photo/video'
                 />
               )}
+              {/* {mode === 'Share' ? (
+                <div className='shared__post'>
+                  {currentPost.image ? (
+                    <div className='image__container'>
+                      <img className='shared__image' src={currentPost.image} alt='post' />
+                    </div>
+                  ) : null}
+                  {currentPost.text ? <div className='shared__text'>{currentPost.text}</div> : null}
+                </div>
+              ) : null} */}
+              {mode === 'Share' && currentPost ? (
+                <div className='shared__post'>
+                  {currentPost.image && (
+                    <div className='image__container'>
+                      <img className='shared__image' src={currentPost.image} alt='post' />
+                    </div>
+                  )}
+                  {currentPost.text && <div className='shared__text'>{currentPost.text}</div>}
+                </div>
+              ) : null}
               <div className='modal__actions'>
                 <span className='actions__text'>Add to your post</span>
                 <ul className='actions__list'>
-                  <li className='actions__item'>
-                    <PhotoLibraryIcon className='icon image' onClick={handleInputFile} />
-                  </li>
+                  {mode !== 'Share' && (
+                    <li className='actions__item'>
+                      <PhotoLibraryIcon className='icon image' onClick={handleInputFile} />
+                    </li>
+                  )}
                   <li className='actions__item'>
                     <PersonAddAlt1Icon className='icon person' />
                   </li>

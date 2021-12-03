@@ -88,14 +88,14 @@ export const StyledPostModal = styled.div`
         }
         .modal__content {
           width: 100%;
-
           min-height: 300px;
           margin-top: 10px;
           padding-left: 10px;
           .modal__text {
             width: 100%;
-            height: 80%;
+            height: 40%;
             font-size: 24px;
+            margin-bottom: 10px;
             border: none;
             outline: none;
             overflow: scroll;
@@ -111,6 +111,34 @@ export const StyledPostModal = styled.div`
             margin-top: 20px;
             outline: none;
           }
+          .shared__post {
+            width: 100%;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .image__container {
+              width: 100%;
+              height: 120px;
+              .shared__image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+            .shared__text {
+              width: 98%;
+              font-size: 12px;
+              color: #757575;
+
+              padding: 10px 0 10px 10px;
+              border: 1px solid #d5d5d5;
+
+              border-radius: 0 0 2px 2px;
+            }
+          }
+
           .modal__actions {
             display: flex;
             align-items: center;
@@ -149,7 +177,7 @@ export const StyledPostModal = styled.div`
           .modal__bottom {
             width: 100%;
             margin-top: 20px;
-            /* padding: 10px; */
+
             .modal__btn {
               width: 100%;
               height: 36px;

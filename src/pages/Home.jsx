@@ -9,9 +9,7 @@ import PostModal from '../components/PostModal/PostModal';
 import './Home.css';
 const Home = (props) => {
   const { user } = useSelector((state) => state.auth.user);
-  const { isOpen, setIsOpen, isEditing, setIsEditing, postId, setPostId } = useContext(PostModalContext);
-
-  // console.log('postId', postId);
+  const { isOpen, setIsOpen, mode, setMode, postId, setPostId } = useContext(PostModalContext);
 
   return (
     <>
@@ -21,7 +19,7 @@ const Home = (props) => {
         <Feed className='feed' />
         <RightSidebar className='right__sidebar' />
       </div>
-      {isOpen && <PostModal className='post__modal' isEditing={isEditing ? isEditing : null} postId={postId} />}
+      {isOpen && <PostModal className='post__modal' mode={mode} postId={postId} />}
     </>
   );
 };

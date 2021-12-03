@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { StyledPostMenu } from './PostMenu.style';
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,14 +9,19 @@ import PostModalContext from '../../context/PostModalContext';
 
 const PostMenu = (props) => {
   const { handleOpenMenu, deletePost, data } = props;
-  const { isOpen, setIsOpen, isEditing, setIsEditing, postId, setPostId } = useContext(PostModalContext);
+  const { isOpen, setIsOpen, mode, setMode, postId, setPostId } = useContext(PostModalContext);
 
   const handleEditMenu = () => {
     setIsOpen((prevState) => !prevState);
     handleOpenMenu((prevState) => !prevState);
-    setIsEditing((prevState) => !prevState);
+    setMode('Edit');
+
     setPostId(data.postId);
   };
+
+  useEffect(() => {
+    setPostId(data.postId);
+  }, []);
 
   return (
     <StyledPostMenu>

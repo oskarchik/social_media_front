@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Comment from '../Comment/Comment';
 import PostMenu from '../PostMenu/PostMenu';
 import { StyledPost } from './Post.style';
+
+import PostModalContext from '../../context/PostModalContext';
 
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -14,13 +16,13 @@ import ShareIcon from '@mui/icons-material/Share';
 import SendIcon from '@mui/icons-material/Send';
 
 import { commentPostAsync } from '../../redux/slices/post.slice';
-import { handlePostsLikesAsync, deletePostAsync, updatePostAsync } from '../../redux/slices/post.slice';
+import { handlePostsLikesAsync, deletePostAsync, updatePostAsync, sharePostAsync } from '../../redux/slices/post.slice';
 
 const Post = (props) => {
   const { user } = useSelector((state) => state.auth.user);
-  const { post } = props;
+  const { postDetails } = useSelector((state) => state.post);
 
-  console.log('post', post);
+  const { post } = props;
 
   const dispatch = useDispatch();
 
@@ -30,7 +32,8 @@ const Post = (props) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [input, setInput] = useState('');
   const [isLiked, setIsLiked] = useState(post.likes?.some((like) => (like._id === user._id ? true : false)));
-  const [isEditing, setIsEditing] = useState(false);
+  // const [isEditing, setIsEditing] = useState(false);
+  const { isOpen, setIsOpen, mode, setMode, postId, setPostId } = useContext(PostModalContext);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -63,7 +66,17 @@ const Post = (props) => {
     dispatch(deletePostAsync(data));
   };
   const handleEditing = () => {
-    setIsEditing((prevState) => !prevState);
+    setMode('Edit');
+  };
+  const handleShare = (postId, userId) => {
+    const data = { postId, userId };
+    dispatch(sharePostAsync(data));
+  };
+
+  const handleOpenSharePost = () => {
+    setIsOpen((prevState) => !prevState);
+    setPostId(post._id);
+    setMode('Share');
   };
 
   return (
@@ -71,7 +84,12 @@ const Post = (props) => {
       <div className='post__container'>
         <div className='post__top'>
           <div className='top__left'>
-            <img className='profile__picture' src={post.userId?.avatar} alt='person' />
+            <img
+              className='profile__picture'
+              // src={user?.avatar ? user.avatar : '/assets/profile/default_profile.png'}
+              src={post.userId?.avatar || '/assets/profile/default_profile.png'}
+              alt='person'
+            />
             {post && (
               <span className='post__user-name'>
                 {post?.userId?.firstName} {post.userId?.lastName}
@@ -79,9 +97,11 @@ const Post = (props) => {
             )}
             {post && <span className='post__date'>{post?.createdAt?.substring(0, post?.createdAt?.indexOf('T'))}</span>}
           </div>
-          <div className='top__right'>
-            <MoreHorizIcon onClick={handleOpenMenu} />
-          </div>
+          {post.userId._id === user._id && (
+            <div className='top__right'>
+              <MoreHorizIcon onClick={handleOpenMenu} />
+            </div>
+          )}
         </div>
         <div className='post__center'>
           {post && (
@@ -89,6 +109,16 @@ const Post = (props) => {
               <span className='postText'>{post?.text}</span>
               {post.image && <img className='post__img' src={post?.image} alt='post' />}
             </React.Fragment>
+          )}
+          {post.postRef && (
+            <div className='shared__post'>
+              {post.postRef?.image && (
+                <div className='image__container'>
+                  <img className='shared__image' src={post.postRef?.image} alt='post' />
+                </div>
+              )}
+              {post.postRef?.text && <div className='shared__text'>{post.postRef?.text}</div>}
+            </div>
           )}
         </div>
         <div className='post__bottom'>
@@ -117,7 +147,11 @@ const Post = (props) => {
             <ChatBubbleOutlineIcon />
             <p className='btn__text'>Comment</p>
           </button>
-          <button className='btn'>
+          <button
+            className='btn'
+            onClick={handleOpenSharePost}
+            // onClick={() => handleShare(post._id, user._id)}
+          >
             <ShareIcon />
             <p className='btn__text'>Share</p>
           </button>
