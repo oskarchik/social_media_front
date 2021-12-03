@@ -3,6 +3,7 @@ const timeLineUrl = 'timeline/all';
 const userPostsUrl = '/user-posts';
 const commentAPostUrl = 'http://localhost:5500/api/comments/';
 const likesPostUrl = '/likes';
+const sharePostUrl = '/share';
 
 export const getTimeLine = async (id) => {
   const req = await fetch(`${baseUrl}/${id}/${timeLineUrl}`, {
@@ -129,6 +130,23 @@ export const updatePost = async (data) => {
     body: JSON.stringify(data),
   });
 
+  const response = await request.json();
+
+  return response;
+};
+
+export const sharePost = async (data) => {
+  console.log(data);
+  const request = await fetch(`${baseUrl}${sharePostUrl}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+    credentials: 'include',
+    body: JSON.stringify(data),
+  });
   const response = await request.json();
 
   return response;

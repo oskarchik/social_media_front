@@ -9,6 +9,7 @@ import {
   deletePost,
   createPost,
   updatePost,
+  sharePost,
 } from '../../api/post';
 
 const INITIAL_STATE = {
@@ -57,6 +58,10 @@ export const createPostAsync = createAsyncThunk('post/createPost', async (data) 
 
 export const updatePostAsync = createAsyncThunk('post/updatePost', async (data) => {
   return await updatePost(data);
+});
+
+export const sharePostAsync = createAsyncThunk('post/share', async (data) => {
+  return await sharePost(data);
 });
 
 export const postSlice = createSlice({
@@ -198,6 +203,7 @@ export const postSlice = createSlice({
     });
 
     builder.addCase(updatePostAsync.fulfilled, (state, action) => {
+      console.log('action.payload', action.payload);
       const { updatedPost } = action.payload;
 
       if (!action.payload.error) {
@@ -210,6 +216,20 @@ export const postSlice = createSlice({
           ...state,
           posts: newPostsArray,
         };
+      } else {
+        state.error = action.payload;
+      }
+    });
+    builder.addCase(sharePostAsync.fulfilled, (state, action) => {
+      console.log(action.payload);
+      const sharedPost = action.payload;
+      if (!action.payload.error) {
+        state.postDetails = action.payload;
+        // const index = state.posts.findIndex((post) => post._id === action.payload._id);
+
+        // const newPostsArray = [...state.posts];
+        // newPostsArray[index] = sharedPost;
+        // return { ...state, posts: newPostsArray };
       } else {
         state.error = action.payload;
       }
