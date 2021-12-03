@@ -29,7 +29,15 @@ const RequestCard = (props) => {
       <StyledRequestCard className='request-card'>
         <div className='request-card__wrapper'>
           <div className='request-card__img'>
-            <img className='profile__img' src={isContact ? contact.avatar : request.avatar} alt='user' />
+            <img
+              className='profile__img'
+              src={
+                isContact
+                  ? contact.avatar || 'assets/profile/default_profile.png'
+                  : request.avatar || 'assets/profile/default_profile.png'
+              }
+              alt='user'
+            />
           </div>
           <div className='request-card__name'>
             <h3 className='name'>

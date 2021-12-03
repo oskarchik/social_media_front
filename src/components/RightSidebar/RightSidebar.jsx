@@ -50,7 +50,11 @@ const RightSidebar = () => {
               return (
                 <li className='friends__item' key={contact._id}>
                   <div className='profile-image__container'>
-                    <img className='friends__image' src={contact.avatar} alt='friend' />
+                    <img
+                      className='friends__image'
+                      src={contact.avatar || 'assets/profile/default_profile.png'}
+                      alt='friend'
+                    />
                     <span className='friends__online'></span>
                     <span className='friends__name'>{contact.firstName}</span>
                   </div>

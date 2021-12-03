@@ -67,7 +67,11 @@ const LeftSidebar = () => {
               user.contacts?.map((contact) => {
                 return (
                   <li className='friends__item' key={contact._id}>
-                    <img className='friends__profile-pic' src={contact.avatar} alt={contact.firstName} />
+                    <img
+                      className='friends__profile-pic'
+                      src={contact.avatar || 'assets/profile/default_profile.png'}
+                      alt={contact.firstName}
+                    />
                     <span className='friends__name'>{contact.firstName}</span>
                   </li>
                 );

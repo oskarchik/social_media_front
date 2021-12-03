@@ -114,7 +114,7 @@ const Header = () => {
             <Link to='/profile'>
               <img
                 className='profile__picture'
-                src={user ? user.avatar : '/assets/profile/default_user.png'}
+                src={user?.avatar ? user.avatar : '/assets/profile/default_profile.png'}
                 alt='user'
               />
             </Link>
