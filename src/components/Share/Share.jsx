@@ -13,19 +13,23 @@ import LabelIcon from '@mui/icons-material/Label';
 
 const Share = () => {
   const { user } = useSelector((state) => state.auth.user);
-  const { isOpen, setIsOpen, isEditing, setIsEditing } = useContext(PostModalContext);
+  const { isOpen, setIsOpen, mode, setMode } = useContext(PostModalContext);
 
   const handleCreatePostForm = (e) => {
     e.preventDefault();
     setIsOpen((prevState) => !prevState);
-    setIsEditing(false);
+    setMode('Create');
   };
   return (
     <>
       <StyledShare>
         <div className='share__container'>
           <div className='share__top'>
-            <img className='profile__picture' src={user?.avatar} alt='user' />
+            <img
+              className='profile__picture'
+              src={user?.avatar ? user.avatar : '/assets/profile/default_profile.png'}
+              alt='user'
+            />
             <input
               type='text'
               className='share__input'

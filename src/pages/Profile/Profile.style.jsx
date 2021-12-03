@@ -29,6 +29,12 @@ export const StyledProfile = styled.main`
           object-fit: cover;
           border-radius: 10px;
         }
+        .cover__div {
+          width: 100%;
+          height: 348px;
+          background-color: #efefef;
+          border-radius: 10px;
+        }
         .user__img {
           max-width: 168px;
           height: 168px;

@@ -29,8 +29,12 @@ const Profile = (props) => {
         <div className='profile__container'>
           <header className='profile__header'>
             <div className='profile__top'>
-              <img className='cover__img' src={user.coverPic} alt='cover' />
-              <img className='user__img' src={user.avatar} alt='profile' />
+              {user.coverPic ? (
+                <img className='cover__img' src={user.coverPic} alt='cover' />
+              ) : (
+                <div className='cover__div'></div>
+              )}
+              <img className='user__img' src={user.avatar || 'assets/profile/default_profile.png'} alt='profile' />
               <button className='btn__add-profile'>
                 <CameraAltIcon />
               </button>
@@ -86,8 +90,8 @@ const Profile = (props) => {
           <main className='profile__main'>
             <div className='left'>
               <Share></Share>
-              {posts &&
-                posts?.map((post) => {
+              {posts.length > 0 &&
+                posts.map((post) => {
                   return <Post post={post} />;
                 })}
             </div>
@@ -101,7 +105,7 @@ const Profile = (props) => {
                 </div>
                 <div className='grid__container'>
                   <div className='photos__grid'>
-                    {posts &&
+                    {posts.length > 0 &&
                       posts.map((post) => {
                         return (
                           post.image && (
