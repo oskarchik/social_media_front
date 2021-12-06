@@ -45,8 +45,6 @@ export const StyledHeader = styled.header`
           border: none;
           background-color: #f0f2f5;
           font-size: 11px;
-        }
-        .search__input:focus {
           outline: none;
         }
       }

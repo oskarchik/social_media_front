@@ -5,7 +5,13 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
   font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
   background-color: #f0f2f5;
@@ -16,4 +22,9 @@ body {
   align-items: center;
   justify-content: center;
   margin-top: 30px;
+}
+.messenger {
+  height: calc(100vh - 50px);
+  display: flex;
+  background-color: white;
 }

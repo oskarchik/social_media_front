@@ -8,6 +8,7 @@ import Profile from './pages/Profile/Profile';
 import Login from './pages/Login/Login';
 import Search from './pages/Search/Search';
 import Friends from './pages/Friends/Friends';
+import Messenger from './pages/Messenger/Messenger';
 import { checkSessionAsync } from './redux/slices/auth.slice';
 import { PostModalProvider } from './context/PostModalContext';
 
@@ -25,6 +26,7 @@ const App = () => {
           <SecureRoute exact path='/profile' component={(props) => <Profile {...props} />} />
           <SecureRoute exact path='/search' component={(props) => <Search {...props} />} />
           <SecureRoute exact path='/friends' component={(props) => <Friends {...props} />} />
+          <SecureRoute exact path='/messenger' component={(props) => <Messenger {...props} />} />
           <Route exact path='/auth' component={Login} />
         </PostModalProvider>
       </Switch>
