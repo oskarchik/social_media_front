@@ -3,19 +3,16 @@ import { useSelector } from 'react-redux';
 import { StyledConversation } from './Conversation.style';
 import { getMessages } from '../../api/message';
 
-const Conversation = ({ conversation }) => {
+const Conversation = ({ conversation, setChatter }) => {
   const { user } = useSelector((state) => state.auth.user);
-  // const [conversationUsers, setConversationUsers] = useState([]);
 
-  const filteredUsers = conversation.members.filter((person) => {
-    return person._id !== user._id;
+  const filteredUsers = user.contacts.filter((contact) => {
+    return conversation.members.includes(contact._id);
   });
 
-  // console.log('filtered', filteredUsers);
-
-  // useEffect(() => {
-  //   getMessages(Conversation._id);
-  // },[]);
+  useEffect(() => {
+    setChatter(conversation.members.find((member) => member !== user._id));
+  }, []);
 
   return (
     <>
@@ -23,7 +20,11 @@ const Conversation = ({ conversation }) => {
         filteredUsers.map((user) => {
           return (
             <StyledConversation className='conversation' key={user._id}>
-              <img className='conversation__image' src={user.avatar} alt='' />
+              <img
+                className='conversation__image'
+                src={user.avatar ? user.avatar : 'assets/profile/default_profile.png'}
+                alt=''
+              />
               <span className='conversation__name'>
                 {user.firstName} {user.lastName}
               </span>
