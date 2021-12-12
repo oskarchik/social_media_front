@@ -4,6 +4,7 @@ const acceptRequestUrl = '/accept-contact';
 const declineRequestUrl = '/decline-contact';
 const removeContactUrl = '/remove-contact';
 const requestContactUrl = '/request-contact';
+const removeMentionsUrl = '/mentions';
 
 export const getAllUsers = async () => {
   const req = await fetch(`${baseUrl}`, {
@@ -85,4 +86,20 @@ export const sendContactRequest = async (data) => {
   const res = req.json();
 
   return res;
+};
+
+export const removeMention = async (data) => {
+  const request = await fetch(`${baseUrl}${data.userId}${removeMentionsUrl}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+    credentials: 'include',
+    body: JSON.stringify(data),
+  });
+  const response = request.json();
+
+  return response;
 };

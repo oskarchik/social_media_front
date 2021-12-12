@@ -91,9 +91,17 @@ export const StyledPostModal = styled.div`
           min-height: 300px;
           margin-top: 10px;
           padding-left: 10px;
+          .editor {
+            box-sizing: border-box;
+            border: 1px solid #bcc0c4;
+            cursor: text;
+            padding: 16px;
+            border-radius: 5px;
+            margin-bottom: 2em;
+          }
           .modal__text {
             width: 100%;
-            height: 40%;
+            min-height: 100px;
             font-size: 24px;
             margin-bottom: 10px;
             border: none;

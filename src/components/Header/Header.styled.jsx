@@ -8,7 +8,7 @@ export const StyledHeader = styled.header`
     display: flex;
     align-items: center;
 
-    position: sticky;
+    position: relative;
     top: 0;
     .logo__container {
       display: flex;
@@ -144,6 +144,84 @@ export const StyledHeader = styled.header`
         .logout {
           color: #6e7074;
           cursor: pointer;
+        }
+      }
+    }
+    .notifications {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 200px;
+      max-height: 300px;
+      padding: 10px;
+      overflow: auto;
+      scroll-y: auto;
+      /* background-color: red; */
+      background-color: #f0f2f5;
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      z-index: 1;
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background-color: white;
+        border-radius: 5px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #0084ff;
+        border-radius: 5px;
+      }
+      .notification__wrapper {
+        text-align: center;
+        .notification {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+
+          .notification__avatar {
+            width: 32px;
+            height: 32px;
+            margin: 0 10px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+          }
+          .notification__data {
+            .notification__sender {
+              display: block;
+              /* font-size: 18px; */
+              font-weight: 600;
+            }
+            /* .notification__msg {
+              display: block;
+              font-size: 14px;
+            } */
+          }
+        }
+        .notification__btn {
+          width: 100px;
+          height: 24px;
+          margin: 10px 0;
+          /* padding: 10px; */
+          font-size: 12px;
+          font-weight: 600;
+          color: white;
+          background-color: #0084ff;
+          border: none;
+          border-radius: 5px;
+        }
+        .notification__btn:hover {
+          background-color: #007fef;
+        }
+        .notification__hr {
+          width: 100%;
+
+          background-color: #e4e6eb;
+          margin-bottom: 10px;
         }
       }
     }

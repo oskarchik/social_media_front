@@ -1,10 +1,17 @@
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useMemo, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyledPostModal } from './PostModal.style';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import PostModalContext from '../../context/PostModalContext';
+import { EditorState } from 'draft-js';
+import Editor from '@draft-js-plugins/editor';
+import createMentionPlugin, { defaultSuggestionsFilter } from '@draft-js-plugins/mention';
+import createEmojiPlugin from '@draft-js-plugins/emoji';
+import '@draft-js-plugins/mention/lib/plugin.css';
+import '@draft-js-plugins/emoji/lib/plugin.css';
+import styled from '@emotion/styled';
 
 import CloseIcon from '@mui/icons-material/Close';
 import { updatePostAsync, createPostAsync, sharePostAsync } from '../../redux/slices/post.slice';
@@ -12,7 +19,7 @@ import { useEffect } from 'react';
 
 const PostModal = (props) => {
   const { mode } = props;
-
+  const myInput = useRef();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.user);
   const { posts } = useSelector((state) => state.post);
@@ -20,16 +27,41 @@ const PostModal = (props) => {
   const [isFileLoaderOpen, setIsFileLoaderOpen] = useState(false);
   const [data, setData] = useState();
   const [isDisabled, setIsDisabled] = useState(true);
+  const [contacts, setContacts] = useState([]);
+  const [content, setContent] = useState('');
+  /////////////////////////
+  const [mentions, setMentions] = useState([]);
+  const editor = useRef(null);
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+  const [open, setOpen] = useState(false);
+  const [suggestions, setSuggestions] = useState(contacts);
+  const ref = useRef(null);
+
+  const { MentionSuggestions, plugins, EmojiSuggestions } = useMemo(() => {
+    const emojiPlugin = createEmojiPlugin({ useNativeArt: true });
+    const mentionPlugin = createMentionPlugin();
+
+    const { MentionSuggestions } = mentionPlugin;
+    const { EmojiSuggestions } = emojiPlugin;
+
+    const plugins = [mentionPlugin, emojiPlugin];
+    return { plugins, MentionSuggestions, EmojiSuggestions };
+  }, []);
+
+  const onOpenChange = useCallback((_open) => {
+    setOpen(_open);
+  }, []);
+  const onSearchChange = useCallback(({ value }) => {
+    setSuggestions(defaultSuggestionsFilter(value, contacts));
+  }, []);
+  /////////////////////////////////////////
 
   const currentPost = posts.find((post) => {
     return post._id === postId ? post : null;
   });
-  // console.log('currentpost text', currentPost.text);
-  // console.log('data text', data.text);
 
   const onInputChange = (e) => {
     const value = e.target.value;
-    // value.length > 0 ? setIsDisabled(false) : setIsDisabled(true);
     setData({ ...data, [e.target.name]: value });
   };
 
@@ -65,11 +97,14 @@ const PostModal = (props) => {
           image: currentPost.image,
           userId: user._id,
           postId,
+          mentions: mentions,
         });
         break;
       case 'Create':
         setData({
           userId: user._id,
+          text: editorState.getCurrentContent().getPlainText(),
+          mentions: mentions,
         });
         break;
       case 'Share':
@@ -83,8 +118,35 @@ const PostModal = (props) => {
         return null;
     }
   };
+
+  useEffect(() => {
+    contacts.some((contact) => {
+      if (editorState.getCurrentContent().getPlainText().indexOf(contact.name) > -1) {
+        !mentions.some((mention) => mention.id === contact.id) && setMentions((prev) => [...prev, contact]);
+        setData({
+          ...data,
+          text: editorState.getCurrentContent().getPlainText(),
+        });
+      }
+      setData({
+        ...data,
+        text: editorState.getCurrentContent().getPlainText(),
+      });
+    });
+  }, [editorState]);
+
+  useEffect(() => {
+    setData({ ...data, mentions: mentions });
+    setContacts(contacts.filter((contact) => mentions.some((mention) => mention.id !== contact.id)));
+  }, [mentions]);
+
   useEffect(() => {
     selectMode();
+    setContacts(
+      user.contacts.map((contact) => {
+        return { avatar: contact.avatar, name: `${contact.firstName} ${contact.lastName}`, id: contact._id };
+      })
+    );
   }, []);
 
   return (
@@ -114,17 +176,21 @@ const PostModal = (props) => {
               </p>
             </div>
             <form className='modal__content' id='post-form' onSubmit={handleSubmit}>
-              <textarea
-                className='modal__text'
-                onChange={onInputChange}
-                name='text'
-                id=''
-                rows='4'
-                value={data?.text}
-                placeholder={
-                  mode === 'Share' ? `Make a comment about this...` : `What's on your mind, ${user.firstName}?`
-                }
-              ></textarea>
+              <div
+                className='editor'
+                onClick={() => {
+                  editor.current && editor.current.focus();
+                }}
+              >
+                <Editor ref={editor} editorState={editorState} onChange={setEditorState} plugins={plugins} />
+                <MentionSuggestions
+                  open={open}
+                  onOpenChange={onOpenChange}
+                  suggestions={contacts}
+                  onSearchChange={onSearchChange}
+                />
+                <EmojiSuggestions />
+              </div>
               {isFileLoaderOpen && (
                 <input
                   className='modal__image'
@@ -135,16 +201,6 @@ const PostModal = (props) => {
                   placeholder='Add your photo/video'
                 />
               )}
-              {/* {mode === 'Share' ? (
-                <div className='shared__post'>
-                  {currentPost.image ? (
-                    <div className='image__container'>
-                      <img className='shared__image' src={currentPost.image} alt='post' />
-                    </div>
-                  ) : null}
-                  {currentPost.text ? <div className='shared__text'>{currentPost.text}</div> : null}
-                </div>
-              ) : null} */}
               {mode === 'Share' && currentPost ? (
                 <div className='shared__post'>
                   {currentPost.image && (
