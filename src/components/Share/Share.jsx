@@ -1,5 +1,5 @@
 // import { useState } from 'react';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { StyledShare } from './Share.style';
@@ -14,12 +14,17 @@ import LabelIcon from '@mui/icons-material/Label';
 const Share = () => {
   const { user } = useSelector((state) => state.auth.user);
   const { isOpen, setIsOpen, mode, setMode } = useContext(PostModalContext);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleCreatePostForm = (e) => {
     e.preventDefault();
+    setIsDisabled(true);
     setIsOpen((prevState) => !prevState);
     setMode('Create');
   };
+  useEffect(() => {
+    !isOpen && setIsDisabled(false);
+  }, [isOpen]);
   return (
     <>
       <StyledShare>
@@ -35,6 +40,7 @@ const Share = () => {
               className='share__input'
               placeholder={`what's in your mind, ${user?.firstName}?`}
               onFocus={handleCreatePostForm}
+              disabled={isDisabled}
             />
           </div>
           <hr className='shareHr' />
