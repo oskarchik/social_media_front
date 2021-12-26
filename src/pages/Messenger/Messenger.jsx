@@ -10,6 +10,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { getUserConversations } from '../../api/conversation';
 import { getMessages, newMessage } from '../../api/message';
+import { useSocket } from '../../hooks/useSocket';
 
 const Messenger = () => {
   const { user } = useSelector((state) => state.auth.user);
@@ -20,7 +21,8 @@ const Messenger = () => {
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [isDisabled, setIsDisabled] = useState(true);
   const [onlineUsers, setOnlineUsers] = useState([]);
-  const socket = useRef();
+  const [onlineFriends, setOnlineFriends] = useState([]);
+  const { socket } = useSocket();
   const scrollRef = useRef();
   const [hasNotification, setHasNotification] = useState(true);
   const [chatter, setChatter] = useState(null);
@@ -35,10 +37,7 @@ const Messenger = () => {
   };
 
   useEffect(() => {
-    socket.current = io('ws://localhost:5500', {
-      withCredentials: true,
-    });
-    socket.current?.on('getMessage', (data) => {
+    socket.on('getMessage', (data) => {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
@@ -46,6 +45,7 @@ const Messenger = () => {
       });
     });
   }, []);
+
   useEffect(() => {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
@@ -53,11 +53,12 @@ const Messenger = () => {
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    socket.current?.emit('addUser', user._id);
-    socket.current?.on('getUsers', (users) => {
-      setOnlineUsers(user.contacts.filter((contact) => users.some((user) => user.userId === contact._id)));
+    socket.emit('addUser', user._id);
+    socket.on('getUsers', (users) => {
+      setOnlineFriends(user?.contacts?.filter((contact) => users.some((user) => user.userId === contact._id)));
     });
-  }, [user]);
+    return () => socket.removeAllListeners();
+  }, [user, socket]);
 
   useEffect(() => {
     getUserConversations(user._id).then((conversations) => setConversations(conversations));
@@ -83,7 +84,7 @@ const Messenger = () => {
 
     const receiverId = currentChat.members.find((member) => member !== user._id);
 
-    socket.current.emit('sendMessage', {
+    socket.emit('sendMessage', {
       senderId: user._id,
       receiverId,
       text: input,
@@ -110,7 +111,7 @@ const Messenger = () => {
             {conversations.length > 0 &&
               conversations.map((conversation) => {
                 return (
-                  <div onClick={() => setCurrentChat(conversation)} key={conversation._id}>
+                  <div onClick={() => setCurrentChat(conversation)} key={conversation.createdAt}>
                     <Conversation className='conversation' conversation={conversation} setChatter={setChatter} />
                   </div>
                 );
@@ -124,7 +125,7 @@ const Messenger = () => {
                 <div className='chat-box__top'>
                   {messages.length > 0 &&
                     messages.map((message) => (
-                      <div ref={scrollRef} key={message._id}>
+                      <div ref={scrollRef} key={message.createdAt}>
                         <Message
                           className='message'
                           own={message.sender._id === user._id}
@@ -156,7 +157,12 @@ const Messenger = () => {
         <div className='chat__online'>
           <div className='online__wrapper'>
             <h2 className='online__friend'>Friends online</h2>
-            <ChatOnline onlineUsers={onlineUsers} currentUser={user} setCurrentChat={setCurrentChat} />
+            <ChatOnline
+              onlineUsers={onlineUsers}
+              currentUser={user}
+              setCurrentChat={setCurrentChat}
+              onlineFriends={onlineFriends}
+            />
           </div>
         </div>
       </StyledMessengerPage>

@@ -3,14 +3,8 @@ import { useSelector } from 'react-redux';
 import { StyledChatOnline } from './ChatOnline.style';
 import { getConversationsByMembers, getUserConversations } from '../../api/conversation';
 
-const ChatOnline = ({ onlineUsers, currentUser, setCurrentChat }) => {
+const ChatOnline = ({ onlineUsers, currentUser, setCurrentChat, onlineFriends }) => {
   const { user } = useSelector((state) => state.auth.user);
-  const [friends, setFriends] = useState(user.contacts);
-  const [onlineFriends, setOnlineFriends] = useState([]);
-
-  useEffect(() => {
-    setOnlineFriends(friends.filter((friend) => onlineUsers?.some((onlineUser) => onlineUser._id === friend._id)));
-  }, [friends, onlineUsers]);
 
   const handleClick = async (friend) => {
     const userConversation = await getConversationsByMembers(user._id, friend._id);

@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useSocket } from '../../hooks/useSocket';
 import { StyledRightSidebar } from './RightSidebar.style';
 
 const RightSidebar = () => {
   const { user } = useSelector((state) => state.auth.user);
+  const { socket } = useSocket();
+  const [onlineFriends, setOnlineFriends] = useState([]);
 
   const [birthDays, setBirthDays] = useState([]);
 
@@ -21,6 +24,18 @@ const RightSidebar = () => {
       checkBirthDays(user);
     }
   }, [user]);
+
+  useEffect(() => {
+    socket.emit('addUser', user._id);
+    socket.on('getUsers', (users) => {
+      setOnlineFriends(user?.contacts?.filter((contact) => users.some((user) => user.userId === contact._id)));
+    });
+    return () => socket.removeAllListeners();
+  }, [user, socket]);
+
+  useEffect(() => {
+    console.log('friends', onlineFriends);
+  }, [onlineFriends]);
 
   return (
     <div className='right-sidebar__wrapper'>
@@ -46,21 +61,22 @@ const RightSidebar = () => {
           <img className='ad__img' src='/assets/ad.jpg' alt='advertisement' />
           <h4 className='friends__title'>Online Friends</h4>
           <ul className='friends__list'>
-            {user?.contacts?.map((contact) => {
-              return (
-                <li className='friends__item' key={contact._id}>
-                  <div className='profile-image__container'>
-                    <img
-                      className='friends__image'
-                      src={contact.avatar || 'assets/profile/default_profile.png'}
-                      alt='friend'
-                    />
-                    <span className='friends__online'></span>
-                    <span className='friends__name'>{contact.firstName}</span>
-                  </div>
-                </li>
-              );
-            })}
+            {onlineFriends.length > 0 &&
+              onlineFriends.map((friend) => {
+                return (
+                  <li className='friends__item' key={friend._id}>
+                    <div className='profile-image__container'>
+                      <img
+                        className='friends__image'
+                        src={friend.avatar || 'assets/profile/default_profile.png'}
+                        alt='friend'
+                      />
+                      <span className='friends__online'></span>
+                      <span className='friends__name'>{friend.firstName}</span>
+                    </div>
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </StyledRightSidebar>
