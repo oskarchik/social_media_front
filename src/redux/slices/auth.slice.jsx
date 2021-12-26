@@ -70,7 +70,7 @@ export const authSlice = createSlice({
       }
     });
     builder.addCase(signOutAsync.fulfilled, (state, action) => {
-      state.user = null;
+      state.user = {};
       state.hasUser = false;
       state.error = '';
     });
