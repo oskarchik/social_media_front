@@ -7,8 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import PostModalContext from '../../context/PostModalContext';
 
-const PostMenu = (props) => {
-  const { handleOpenMenu, deletePost, data } = props;
+const PostMenu = ({ handleOpenMenu, deletePost, data }) => {
   const { isOpen, setIsOpen, mode, setMode, postId, setPostId } = useContext(PostModalContext);
 
   const handleEditMenu = () => {

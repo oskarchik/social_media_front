@@ -1,8 +1,6 @@
 import React from 'react';
 
-const Picker = (props) => {
-  const { days, months, year, styled, onInputChange } = props;
-
+const Picker = ({ days, months, year, styled, onInputChange }) => {
   const currentDate = new Date();
   const currentDay = currentDate.getDate();
   const currentMonth = currentDate.toLocaleString('en-us', { month: 'short' });

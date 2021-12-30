@@ -4,11 +4,9 @@ import ChatIcon from '@mui/icons-material/Chat';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-// import Header from '../Header/Header';
 
-const Card = (props) => {
+const Card = ({ contact, person, last }) => {
   const dispatch = useDispatch();
-  const { contact, person } = props;
   const { user } = useSelector((state) => state.auth.user);
   const sendContactRequest = async (userId, contactRequestId) => {
     const data = { userId, contactRequestId };
@@ -38,7 +36,7 @@ const Card = (props) => {
               </button>
             </div>
           </StyledCard>
-          {!props.last && <hr className='card__hr' />}
+          {!last && <hr className='card__hr' />}
         </>
       )}
       {contact && (
@@ -58,7 +56,7 @@ const Card = (props) => {
               </button>
             </div>
           </StyledCard>
-          {!props.last && <hr className='card__hr' />}
+          {!last && <hr className='card__hr' />}
         </>
       )}
     </>

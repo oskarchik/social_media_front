@@ -5,7 +5,6 @@ import Header from '../../components/Header/Header';
 import Post from '../../components/Post/Post';
 const Search = (props) => {
   const { users, contacts, posts } = props.location.state.data;
-
   return (
     <>
       <Header />
@@ -37,7 +36,7 @@ const Search = (props) => {
                 </div>
               )}
             </div>
-            {users.length > 0 && contacts.length < 1 ? null : (
+            {users.length > 0 && (
               <div className='users__wrapper'>
                 {users.map((person, i) => {
                   return i === users.length - 1 ? (

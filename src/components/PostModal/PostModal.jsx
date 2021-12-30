@@ -17,8 +17,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { updatePostAsync, createPostAsync, sharePostAsync } from '../../redux/slices/post.slice';
 import { useEffect } from 'react';
 
-const PostModal = (props) => {
-  const { mode } = props;
+const PostModal = ({ mode }) => {
   const myInput = useRef();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.user);

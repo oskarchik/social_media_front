@@ -4,8 +4,7 @@ import { StyledForm } from './Form.style';
 import { useDispatch } from 'react-redux';
 import { signInAsync } from '../../redux/slices/auth.slice';
 import { useHistory } from 'react-router-dom';
-const Form = (props) => {
-  const { handleForm } = props;
+const Form = ({ handleForm }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [userData, setUserData] = useState({});

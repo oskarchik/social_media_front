@@ -9,7 +9,7 @@ import Post from '../../components/Post/Post';
 import { useEffect } from 'react';
 import { getUserPostsAsync } from '../../redux/slices/post.slice';
 
-const Profile = (props) => {
+const Profile = () => {
   const { user } = useSelector((state) => state.auth.user);
   const { posts } = useSelector((state) => state.post);
 

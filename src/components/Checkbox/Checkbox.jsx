@@ -1,6 +1,4 @@
-const Checkbox = (props) => {
-  const { text, styled, onInputChange } = props;
-
+const Checkbox = ({ text, styled, onInputChange }) => {
   return (
     <div className={styled}>
       <span className='checkbox__text'>{text}</span>

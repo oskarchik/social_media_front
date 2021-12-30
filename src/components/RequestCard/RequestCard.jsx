@@ -3,9 +3,8 @@ import { acceptRequestAsync, declineRequestAsync, removeContactAsync } from '../
 import { StyledRequestCard } from './RequestCard.style';
 import { useHistory } from 'react-router-dom';
 
-const RequestCard = (props) => {
+const RequestCard = ({ request, isContact, contact }) => {
   const history = useHistory();
-  const { request, isContact, contact } = props;
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth.user);

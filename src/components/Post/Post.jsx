@@ -18,11 +18,9 @@ import SendIcon from '@mui/icons-material/Send';
 import { commentPostAsync } from '../../redux/slices/post.slice';
 import { handlePostsLikesAsync, deletePostAsync, updatePostAsync, sharePostAsync } from '../../redux/slices/post.slice';
 
-const Post = (props) => {
+const Post = ({ post }) => {
   const { user } = useSelector((state) => state.auth.user);
   const { postDetails } = useSelector((state) => state.post);
-
-  const { post } = props;
 
   const dispatch = useDispatch();
 
@@ -32,7 +30,6 @@ const Post = (props) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [input, setInput] = useState('');
   const [isLiked, setIsLiked] = useState(post.likes?.some((like) => (like._id === user._id ? true : false)));
-  // const [isEditing, setIsEditing] = useState(false);
   const { isOpen, setIsOpen, mode, setMode, postId, setPostId } = useContext(PostModalContext);
 
   const handleInputChange = (e) => {

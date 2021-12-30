@@ -7,7 +7,7 @@ import RightSidebar from '../components/RightSidebar/RightSidebar';
 import PostModalContext from '../context/PostModalContext';
 import PostModal from '../components/PostModal/PostModal';
 import './Home.css';
-const Home = (props) => {
+const Home = () => {
   const { user } = useSelector((state) => state.auth.user);
   const { isOpen, setIsOpen, mode, setMode, postId, setPostId } = useContext(PostModalContext);
 
