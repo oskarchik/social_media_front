@@ -1,12 +1,24 @@
+import { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+// import SocketContext from '../../context/SocketContext';
+import SocketContext from '../../context/SocketContext';
 import { useSocket } from '../../hooks/useSocket';
 import { StyledRightSidebar } from './RightSidebar.style';
+import { io } from 'socket.io-client';
+import { socket } from '../Socket/Socket';
 
 const RightSidebar = () => {
   const { user } = useSelector((state) => state.auth.user);
-  const { socket } = useSocket();
+  // const { socket } = useSocket();
+  // const socket = io('ws://localhost:5500', {
+  //   withCredentials: true,
+  //   // forceNew: true,
+  // });
+  //  s
   const [onlineFriends, setOnlineFriends] = useState([]);
+  const [onliners, setOnliners] = useState([]);
+  const currentSocket = useContext(SocketContext);
 
   const [birthDays, setBirthDays] = useState([]);
 
@@ -24,18 +36,25 @@ const RightSidebar = () => {
       checkBirthDays(user);
     }
   }, [user]);
-
+  console.log(socket);
   useEffect(() => {
+    if (socket.disconnected) {
+      socket.connect('ws://localhost:5500', {
+        withCredentials: true,
+        forceNew: true,
+      });
+    }
     socket.emit('addUser', user._id);
     socket.on('getUsers', (users) => {
       setOnlineFriends(user?.contacts?.filter((contact) => users.some((user) => user.userId === contact._id)));
     });
-    return () => socket.removeAllListeners();
-  }, [user, socket]);
+    return () => socket.disconnect();
+  }, [socket]);
 
-  useEffect(() => {
-    console.log('friends', onlineFriends);
-  }, [onlineFriends]);
+  // useEffect(() => {
+  //   console.log('friends', onlineFriends);
+  //   console.log('onliners', onliners);
+  // }, [currentSocket, onliners, socket]);
 
   return (
     <div className='right-sidebar__wrapper'>
