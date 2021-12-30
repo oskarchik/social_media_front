@@ -11,8 +11,10 @@ import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { getUserConversations } from '../../api/conversation';
 import { getMessages, newMessage } from '../../api/message';
 import { useSocket } from '../../hooks/useSocket';
+import Spinner from '../../components/Spinner/Spinner';
+import { socket } from '../../components/Socket/Socket';
 
-const Messenger = () => {
+const Messenger = (props) => {
   const { user } = useSelector((state) => state.auth.user);
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
@@ -22,11 +24,18 @@ const Messenger = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [onlineFriends, setOnlineFriends] = useState([]);
-  const { socket } = useSocket();
+  // const { socket } = useSocket();
+  const contact = props?.location?.state?.data;
+  // console.log(props.location.state.data);
+  // if (contact) {
+  //   console.log('contact', contact);
+  // }
+
   const scrollRef = useRef();
   const [hasNotification, setHasNotification] = useState(true);
   const [chatter, setChatter] = useState(null);
   const [scroll, setScroll] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -35,6 +44,19 @@ const Messenger = () => {
       setIsDisabled(false);
     }
   };
+  useEffect(() => {
+    if (socket.disconnected) {
+      socket.connect('ws://localhost:5500', {
+        withCredentials: true,
+        forceNew: true,
+      });
+    }
+    socket.emit('addUser', user._id);
+    socket.on('getUsers', (users) => {
+      setOnlineFriends(user?.contacts?.filter((contact) => users.some((user) => user.userId === contact._id)));
+    });
+    return () => socket.disconnect();
+  }, [socket]);
 
   useEffect(() => {
     socket.on('getMessage', (data) => {
@@ -45,7 +67,11 @@ const Messenger = () => {
       });
     });
   }, []);
-
+  useEffect(() => {
+    if (contact) {
+      setCurrentChat(conversations?.find((conversation) => conversation.members.includes(contact._id)));
+    }
+  }, [contact, conversations]);
   useEffect(() => {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
@@ -53,20 +79,14 @@ const Messenger = () => {
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-    socket.emit('addUser', user._id);
-    socket.on('getUsers', (users) => {
-      setOnlineFriends(user?.contacts?.filter((contact) => users.some((user) => user.userId === contact._id)));
-    });
-    return () => socket.removeAllListeners();
-  }, [user, socket]);
-
-  useEffect(() => {
     getUserConversations(user._id).then((conversations) => setConversations(conversations));
   }, [user._id]);
 
   useEffect(() => {
     if (currentChat) {
+      setLoading(true);
       getMessages(currentChat._id).then((messages) => setMessages(messages));
+      setLoading(false);
     }
   }, [currentChat]);
 
@@ -123,7 +143,7 @@ const Messenger = () => {
             <>
               <div className='chat-box__wrapper'>
                 <div className='chat-box__top'>
-                  {messages.length > 0 &&
+                  {messages.length > 0 ? (
                     messages.map((message) => (
                       <div ref={scrollRef} key={message.createdAt}>
                         <Message
@@ -133,7 +153,10 @@ const Messenger = () => {
                           socket={socket}
                         />
                       </div>
-                    ))}
+                    ))
+                  ) : (
+                    <Spinner />
+                  )}
                 </div>
                 <div className='chat-box__bottom'>
                   <textarea
