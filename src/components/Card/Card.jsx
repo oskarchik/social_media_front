@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 const Card = (props) => {
   const dispatch = useDispatch();
   const { contact, person } = props;
-  console.log(person);
   const { user } = useSelector((state) => state.auth.user);
   const sendContactRequest = async (userId, contactRequestId) => {
     const data = { userId, contactRequestId };

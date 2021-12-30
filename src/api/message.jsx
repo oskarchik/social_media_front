@@ -1,7 +1,6 @@
 const baseUrl = 'http://localhost:5500/api/messages/';
 
 export const getMessages = async (conversationId) => {
-  console.log(conversationId, 'api');
   const request = await fetch(`${baseUrl}${conversationId}`, {
     method: 'GET',
     headers: {

@@ -25,7 +25,6 @@ const RightSidebar = () => {
       checkBirthDays(user);
     }
   }, [user]);
-  console.log(socket);
   useEffect(() => {
     if (socket.disconnected) {
       socket.connect('ws://localhost:5500', {

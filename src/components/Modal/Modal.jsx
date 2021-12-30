@@ -17,7 +17,6 @@ const Modal = (props) => {
     e.preventDefault();
     setUserData({ dateOfBirth: processDate(date) });
     await dispatch(signUpAsync(userData));
-    console.log('submit', userData);
   };
   const processDate = (dObj) => {
     const keys = Object.values(dObj).join('/');

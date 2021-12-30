@@ -5,8 +5,6 @@ import Header from '../../components/Header/Header';
 import Post from '../../components/Post/Post';
 const Search = (props) => {
   const { users, contacts, posts } = props.location.state.data;
-  console.log('users', users);
-  console.log('contacts', contacts);
 
   return (
     <>

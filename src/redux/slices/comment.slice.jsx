@@ -30,7 +30,6 @@ export const commentSlice = createSlice({
       }
     });
     builder.addCase(sendCommentAsync.fulfilled, (state, action) => {
-      console.log('action.payload', action.payload);
       if (!action.payload.error) {
         const comment = action.payload;
         state.comment = { ...state.comment, comment };

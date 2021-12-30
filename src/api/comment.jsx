@@ -20,7 +20,6 @@ export const likeUnlikeComment = async (data) => {
 };
 
 export const sendComment = async (data) => {
-  console.log(`${baseUrl}/${data.commentId}${commentUrl}`);
   const request = await fetch(`${baseUrl}/${data.commentId}${commentUrl}`, {
     method: 'PUT',
     headers: {
@@ -32,7 +31,6 @@ export const sendComment = async (data) => {
     body: JSON.stringify(data),
   });
   const response = await request.json();
-  console.log('response', response);
 
   return response;
 };

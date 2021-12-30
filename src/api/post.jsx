@@ -70,7 +70,6 @@ export const commentPost = async (data) => {
 };
 
 export const handlePostsLikes = async (data) => {
-  console.log(`${baseUrl}/${data.postId}${likesPostUrl}`);
   const request = await fetch(`${baseUrl}/${data.postId}${likesPostUrl}`, {
     method: 'PUT',
     headers: {
@@ -136,7 +135,6 @@ export const updatePost = async (data) => {
 };
 
 export const sharePost = async (data) => {
-  console.log(data);
   const request = await fetch(`${baseUrl}${sharePostUrl}`, {
     method: 'PUT',
     headers: {

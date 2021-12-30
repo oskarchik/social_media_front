@@ -74,7 +74,6 @@ const Header = () => {
       return !filteredUser.contacts.includes(user._id) ? filteredUser : null;
     });
 
-    // user.contacts.map((contact) => console.log(contact._id));
     return { users: filteredNoContacts, posts: filteredPosts, contacts: filteredContacts };
   };
 

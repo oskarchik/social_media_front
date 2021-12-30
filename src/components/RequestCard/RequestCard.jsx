@@ -9,7 +9,6 @@ const RequestCard = (props) => {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth.user);
-  console.log(request);
 
   const acceptRequest = async (userId, reqUserId) => {
     const data = { userId, reqUserId };

@@ -77,7 +77,6 @@ export const postSlice = createSlice({
       }
     });
     builder.addCase(getUserPostsAsync.fulfilled, (state, action) => {
-      console.log(action.payload);
       if (!action.payload.error) {
         state.posts = action.payload;
       } else {
@@ -91,7 +90,6 @@ export const postSlice = createSlice({
       }
     });
     builder.addCase(deletePostAsync.fulfilled, (state, action) => {
-      console.log(action.payload);
       if (!action.payload.error) {
         const index = state.posts.findIndex((post) => post._id === action.payload.postId);
 
@@ -126,7 +124,6 @@ export const postSlice = createSlice({
     });
     builder.addCase(commentACommentAsync.fulfilled, (state, action) => {
       const updatedPost = action.payload;
-      console.log(updatedPost);
       if (!action.payload.error) {
         const index = state.posts.findIndex((post) => post._id === action.payload._id);
 
@@ -160,7 +157,6 @@ export const postSlice = createSlice({
     });
     builder.addCase(handleLikesAsync.fulfilled, (state, action) => {
       const updatedPost = action.payload;
-      console.log('action.payload', updatedPost);
       if (!action.payload.error) {
         const index = state.posts.findIndex((post) => post._id === action.payload._id);
 
@@ -177,7 +173,6 @@ export const postSlice = createSlice({
     });
     builder.addCase(handlePostsLikesAsync.fulfilled, (state, action) => {
       const updatedPost = action.payload;
-      console.log(updatedPost);
       if (!action.payload.error) {
         const index = state.posts.findIndex((post) => post._id === action.payload._id);
 
@@ -194,7 +189,6 @@ export const postSlice = createSlice({
     });
     builder.addCase(createPostAsync.fulfilled, (state, action) => {
       const newPost = action.payload;
-      console.log('new Post ', newPost);
       if (!action.payload.error) {
         state.posts = [action.payload.post, ...state.posts];
       } else {
@@ -203,7 +197,6 @@ export const postSlice = createSlice({
     });
 
     builder.addCase(updatePostAsync.fulfilled, (state, action) => {
-      console.log('action.payload', action.payload);
       const updatedPost = action.payload;
 
       if (!action.payload.error) {
@@ -222,7 +215,6 @@ export const postSlice = createSlice({
       }
     });
     builder.addCase(sharePostAsync.fulfilled, (state, action) => {
-      console.log(action.payload);
       const sharedPost = action.payload;
       if (!action.payload.error) {
         state.postDetails = action.payload;
