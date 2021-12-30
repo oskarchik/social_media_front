@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { acceptRequestAsync, declineRequestAsync, removeContactAsync } from '../../redux/slices/auth.slice';
 import { StyledRequestCard } from './RequestCard.style';
+import { useHistory } from 'react-router-dom';
 
 const RequestCard = (props) => {
+  const history = useHistory();
   const { request, isContact, contact } = props;
   const dispatch = useDispatch();
 
@@ -65,9 +67,9 @@ const RequestCard = (props) => {
             <div className='request-card__buttons'>
               <button
                 className='request-card__confirm btn'
-                // onClick={() => {
-                //   acceptRequest(user._id, request._id);
-                // }}
+                onClick={() => {
+                  history.push({ pathname: '/messenger', state: { data: contact } });
+                }}
               >
                 Message
               </button>
