@@ -1,18 +1,19 @@
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { StyledMessengerPage } from './Messenger.style';
+
+import { socket } from '../../components/Socket/Socket';
 import Header from '../../components/Header/Header';
-import Conversation from '../../components/Conversation/Conversation';
 import Message from '../../components/Message/Message';
+import Conversation from '../../components/Conversation/Conversation';
 import ChatOnline from '../../components/ChatOnline/ChatOnline';
-import { io } from 'socket.io-client';
-import SearchIcon from '@mui/icons-material/Search';
-import SendIcon from '@mui/icons-material/Send';
-import { useEffect, useRef, useState, useLayoutEffect } from 'react';
+import Spinner from '../../components/Spinner/Spinner';
+
 import { getUserConversations } from '../../api/conversation';
 import { getMessages, newMessage } from '../../api/message';
-import { useSocket } from '../../hooks/useSocket';
-import Spinner from '../../components/Spinner/Spinner';
-import { socket } from '../../components/Socket/Socket';
+import { StyledMessengerPage } from './Messenger.style';
+
+import SearchIcon from '@mui/icons-material/Search';
+import SendIcon from '@mui/icons-material/Send';
 
 const Messenger = (props) => {
   const { user } = useSelector((state) => state.auth.user);
@@ -24,15 +25,10 @@ const Messenger = (props) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [onlineFriends, setOnlineFriends] = useState([]);
-  // const { socket } = useSocket();
+
   const contact = props?.location?.state?.data;
-  // console.log(props.location.state.data);
-  // if (contact) {
-  //   console.log('contact', contact);
-  // }
 
   const scrollRef = useRef();
-  const [hasNotification, setHasNotification] = useState(true);
   const [chatter, setChatter] = useState(null);
   const [scroll, setScroll] = useState(false);
   const [loading, setLoading] = useState(false);

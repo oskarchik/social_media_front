@@ -1,24 +1,13 @@
-import { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-// import SocketContext from '../../context/SocketContext';
-import SocketContext from '../../context/SocketContext';
-import { useSocket } from '../../hooks/useSocket';
-import { StyledRightSidebar } from './RightSidebar.style';
-import { io } from 'socket.io-client';
+
 import { socket } from '../Socket/Socket';
+
+import { StyledRightSidebar } from './RightSidebar.style';
 
 const RightSidebar = () => {
   const { user } = useSelector((state) => state.auth.user);
-  // const { socket } = useSocket();
-  // const socket = io('ws://localhost:5500', {
-  //   withCredentials: true,
-  //   // forceNew: true,
-  // });
-  //  s
   const [onlineFriends, setOnlineFriends] = useState([]);
-  const [onliners, setOnliners] = useState([]);
-  const currentSocket = useContext(SocketContext);
 
   const [birthDays, setBirthDays] = useState([]);
 
@@ -50,11 +39,6 @@ const RightSidebar = () => {
     });
     return () => socket.disconnect();
   }, [socket]);
-
-  // useEffect(() => {
-  //   console.log('friends', onlineFriends);
-  //   console.log('onliners', onliners);
-  // }, [currentSocket, onliners, socket]);
 
   return (
     <div className='right-sidebar__wrapper'>
