@@ -36,8 +36,8 @@ const RightSidebar = () => {
     socket.on('getUsers', (users) => {
       setOnlineFriends(user?.contacts?.filter((contact) => users.some((user) => user.userId === contact._id)));
     });
-    return () => socket.disconnect();
-  }, [socket]);
+    return () => socket.removeAllListeners();
+  }, [user]);
 
   return (
     <div className='right-sidebar__wrapper'>

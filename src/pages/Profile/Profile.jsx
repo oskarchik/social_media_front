@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Header, Post, Share } from '../../components';
+import { Post, Share } from '../../components';
 
 import { getUserPostsAsync } from '../../redux/slices/post.slice';
 
@@ -20,7 +20,7 @@ const Profile = () => {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <StyledProfile>
         <div className='profile__container'>
           <header className='profile__header'>
@@ -88,7 +88,7 @@ const Profile = () => {
               <Share></Share>
               {posts.length > 0 &&
                 posts.map((post) => {
-                  return <Post post={post} />;
+                  return <Post post={post} key={post._id} />;
                 })}
             </div>
             <div className='right'>

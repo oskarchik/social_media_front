@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
+import { ChatOnline, Conversation, Message, Spinner } from '../../components';
 import { socket } from '../../components/Socket/Socket';
-import { ChatOnline, Conversation, Header, Message, Spinner } from '../../components';
 
 import { getUserConversations } from '../../api/conversation';
 import { getMessages, newMessage } from '../../api/message';
-import { StyledMessengerPage } from './Messenger.style';
 
-import SearchIcon from '@mui/icons-material/Search';
-import SendIcon from '@mui/icons-material/Send';
+import { StyledMessengerPage } from './Messenger.style';
+import { Search, Send } from '@mui/icons-material';
 
 const Messenger = (props) => {
   const { user } = useSelector((state) => state.auth.user);
@@ -47,8 +46,8 @@ const Messenger = (props) => {
     socket.on('getUsers', (users) => {
       setOnlineFriends(user?.contacts?.filter((contact) => users.some((user) => user.userId === contact._id)));
     });
-    return () => socket.disconnect();
-  }, [socket]);
+    return () => socket.removeAllListeners();
+  }, [user]);
 
   useEffect(() => {
     socket.on('getMessage', (data) => {
@@ -58,6 +57,7 @@ const Messenger = (props) => {
         createdAt: Date.now(),
       });
     });
+    return () => socket.disconnect();
   }, []);
   useEffect(() => {
     if (contact) {
@@ -110,13 +110,12 @@ const Messenger = (props) => {
 
   return (
     <>
-      <Header socket={socket} />
       <StyledMessengerPage className='messenger'>
         <div className='chat__menu'>
           <div className='menu__wrapper'>
             <h2 className='menu__title'>Chats</h2>
             <div className='menu__search'>
-              <SearchIcon className='search__icon' />
+              <Search className='search__icon' />
               <input className='menu__input' type='text' placeholder='Search messenger' />
             </div>
 
@@ -160,7 +159,7 @@ const Messenger = (props) => {
                     value={input}
                   ></textarea>
                   <button className='chat-box__submit' onClick={handleSubmit} disabled={isDisabled}>
-                    <SendIcon className='icon' />
+                    <Send className='icon' />
                   </button>
                 </div>
               </div>

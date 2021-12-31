@@ -8,7 +8,7 @@ const Search = (props) => {
   const { users, contacts, posts } = props.location.state.data;
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <StyledSearch className='search-page__container'>
         {(contacts.length > 0 || users.length > 0) && (
           <>

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { Feed, Header, LeftSidebar, PostModal, RightSidebar } from '../../components';
+import { Feed, LeftSidebar, PostModal, RightSidebar } from '../../components';
 
 import PostModalContext from '../../context/PostModalContext';
 
@@ -11,7 +11,6 @@ const Home = () => {
 
   return (
     <>
-      <Header />
       <div className='home__container'>
         <LeftSidebar className='left' />
         <Feed className='feed' />

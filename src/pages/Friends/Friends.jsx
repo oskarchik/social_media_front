@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { StyledFriendsPage } from './Friends.style';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import RequestCard from '../../components/RequestCard/RequestCard';
-// import Header from '../../components/Header/Header';
-import { Header } from '../../components';
-import { useDispatch } from 'react-redux';
+
+import { StyledFriendsPage } from './Friends.style';
+import { ArrowForwardIos, PeopleAlt, PersonAddAlt1 } from '@mui/icons-material';
+
 const Friends = () => {
   const { user } = useSelector((state) => state.auth.user);
   const [filter, setFilter] = useState(user.receivedRequests.length < 1 ? 'contacts' : 'requests');
@@ -28,23 +25,22 @@ const Friends = () => {
 
   return (
     <>
-      <Header />
       <StyledFriendsPage className='friends-page'>
         <aside className='friends__sidebar'>
           <h2>Friends</h2>
           <ul className='icons__list'>
             <li className='icons__item ' onClick={handleClick} data-id='requests'>
-              <PersonAddAlt1Icon className='icon' />
+              <PersonAddAlt1 className='icon' />
               <span className='icons__text'>Friend requests</span>
               <div className='arrow'>
-                <ArrowForwardIosIcon />
+                <ArrowForwardIos />
               </div>
             </li>
             <li className='icons__item' onClick={handleClick} data-id='contacts'>
-              <PeopleAltIcon className='icon' />
+              <PeopleAlt className='icon' />
               <span className='icons__text'>All friends</span>
               <div className='arrow'>
-                <ArrowForwardIosIcon />
+                <ArrowForwardIos />
               </div>
             </li>
             <li className='icons__item'></li>
