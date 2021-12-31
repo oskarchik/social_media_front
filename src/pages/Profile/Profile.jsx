@@ -1,13 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { StyledProfile } from './Profile.style';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import Header from '../../components/Header/Header';
-import Share from '../../components/Share/Share';
-import Post from '../../components/Post/Post';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { Header, Post, Share } from '../../components';
+
 import { getUserPostsAsync } from '../../redux/slices/post.slice';
+
+import { StyledProfile } from './Profile.style';
+import { CameraAlt, ControlPoint, ModeEdit } from '@mui/icons-material';
 
 const Profile = () => {
   const { user } = useSelector((state) => state.auth.user);
@@ -33,10 +32,10 @@ const Profile = () => {
               )}
               <img className='user__img' src={user.avatar || 'assets/profile/default_profile.png'} alt='profile' />
               <button className='btn__add-profile'>
-                <CameraAltIcon />
+                <CameraAlt />
               </button>
               <button className='btn__add-cover'>
-                <CameraAltIcon className='camera__icon' />
+                <CameraAlt className='camera__icon' />
                 <span className='btn__add-photo-text'>Edit Cover Photo</span>
               </button>
             </div>
@@ -68,13 +67,13 @@ const Profile = () => {
               <ul className='menu__buttons'>
                 <li className='buttons__item '>
                   <button className='buttons__btn add'>
-                    <ControlPointIcon className='buttons__icon edit' />
+                    <ControlPoint className='buttons__icon edit' />
                     <span className='buttons__text'>Add a Story</span>
                   </button>
                 </li>
                 <li className='buttons__item'>
                   <button className='buttons__btn edit'>
-                    <ModeEditIcon className='buttons__icon edit' />
+                    <ModeEdit className='buttons__icon edit' />
                     <span className='buttons__text'>Edit Profile</span>
                   </button>
                 </li>

@@ -40,7 +40,7 @@ export const StyledHeader = styled.header`
           color: #7f8184;
         }
         .search__input {
-          width: 70%;
+          width: 100%;
           height: 20px;
           border: none;
           background-color: #f0f2f5;
@@ -74,11 +74,19 @@ export const StyledHeader = styled.header`
         color: #6e7074;
 
         .anchor {
+          display: flex;
+          align-items: center;
+          justify-content: center;
           text-decoration: none;
           color: #6e7074;
         }
         .anchor:hover {
           color: #1877f2;
+        }
+        .active {
+          color: #1877f2;
+          border-bottom: 3px solid #1877f2;
+          width: 100%;
         }
         .link__badge {
           display: flex;

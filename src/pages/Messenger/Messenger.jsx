@@ -2,11 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { socket } from '../../components/Socket/Socket';
-import Header from '../../components/Header/Header';
-import Message from '../../components/Message/Message';
-import Conversation from '../../components/Conversation/Conversation';
-import ChatOnline from '../../components/ChatOnline/ChatOnline';
-import Spinner from '../../components/Spinner/Spinner';
+import { ChatOnline, Conversation, Header, Message, Spinner } from '../../components';
 
 import { getUserConversations } from '../../api/conversation';
 import { getMessages, newMessage } from '../../api/message';

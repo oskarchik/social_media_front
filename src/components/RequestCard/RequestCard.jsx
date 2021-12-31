@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { acceptRequestAsync, declineRequestAsync, removeContactAsync } from '../../redux/slices/auth.slice';
-import { StyledRequestCard } from './RequestCard.style';
 import { useHistory } from 'react-router-dom';
+
+import { acceptRequestAsync, declineRequestAsync, removeContactAsync } from '../../redux/slices/auth.slice';
+
+import { StyledRequestCard } from './RequestCard.style';
 
 const RequestCard = ({ request, isContact, contact }) => {
   const history = useHistory();

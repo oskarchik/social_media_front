@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
-import SearchIcon from '@mui/icons-material/Search';
-import PersonIcon from '@mui/icons-material/Person';
-import ChatIcon from '@mui/icons-material/Chat';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import HomeIcon from '@mui/icons-material/Home';
-import SettingsIcon from '@mui/icons-material/Settings';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { StyledHeader } from './Header.styled';
+import { Link, NavLink, useHistory } from 'react-router-dom';
+
 import { signOutAsync } from '../../redux/slices/auth.slice';
 import { getAllUsersAsync } from '../../redux/slices/user.slice';
 import { getTimeLineAsync } from '../../redux/slices/post.slice';
-import { SettingsPowerRounded } from '@mui/icons-material';
 import { removeMention } from '../../api/user';
+
+import { Chat, Home, Logout, Notifications, Person, Search, Settings } from '@mui/icons-material';
+
+import { StyledHeader } from './Header.styled';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -101,7 +97,7 @@ const Header = () => {
         <div className='logo__container'>
           <span className='logo'>Fb</span>
           <div className='searchbar__container'>
-            <SearchIcon className='search__icon' />
+            <Search className='search__icon' />
             <form onSubmit={searchValue}>
               <input
                 type='text'
@@ -116,25 +112,27 @@ const Header = () => {
         <div className='links__container'>
           <div className='header__links'>
             <div className='link'>
-              <Link to='/' className='anchor'>
-                <HomeIcon />
-              </Link>
+              <NavLink to='/' exact className='anchor' activeClassName='active'>
+                <Home />
+              </NavLink>
             </div>
             <div className='link'>
-              <Link to='/friends' className='anchor'>
-                <PersonIcon />
+              <NavLink to='/friends' exact className='anchor' activeClassName='active'>
+                <Person />
                 {user?.receivedRequests?.length > 0 && (
                   <span className='link__badge'>{user.receivedRequests.length}</span>
                 )}
-              </Link>
+              </NavLink>
             </div>
-            <Link to='/messenger' className='link'>
-              <ChatIcon />
-              {/* <span className='link__badge'>2</span> */}
-            </Link>
+            <div className='link'>
+              <NavLink to='/messenger' exact className='anchor' activeClassName='active'>
+                <Chat />
+              </NavLink>
+            </div>
+
             {
               <div className='link' onClick={mentions.length > 0 ? () => setIsOpen(!isOpen) : null}>
-                <NotificationsIcon />
+                <Notifications />
                 {mentions.length > 0 && <span className='link__badge'>{mentions.length}</span>}
               </div>
             }
@@ -142,20 +140,20 @@ const Header = () => {
         </div>
         <div className='profile__container'>
           <div className='profile__user'>
-            <Link to='/profile'>
+            <NavLink to='/profile' activeClassName='active'>
               <img
                 className='profile__picture'
                 src={user?.avatar ? user.avatar : '/assets/profile/default_profile.png'}
                 alt='user'
               />
-            </Link>
+            </NavLink>
             <p className='profile__name'>{user?.firstName}</p>
           </div>
           <div className='profile__links'>
-            <Link to='/' className='link'>
-              <SettingsIcon className='profile__settings' />
-            </Link>
-            <LogoutIcon className='logout' onClick={logOut} />
+            <NavLink to='/' className='link' activeClassName='active'>
+              <Settings className='profile__settings' />
+            </NavLink>
+            <Logout className='logout' onClick={logOut} />
           </div>
         </div>
         {isOpen && mentions.length > 0 && (

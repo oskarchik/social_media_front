@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { StyledChatOnline } from './ChatOnline.style';
-import { getConversationsByMembers, getUserConversations } from '../../api/conversation';
 
-const ChatOnline = ({ onlineUsers, currentUser, setCurrentChat, onlineFriends }) => {
+import { getConversationsByMembers } from '../../api/conversation';
+
+import { StyledChatOnline } from './ChatOnline.style';
+
+const ChatOnline = ({ setCurrentChat, onlineFriends }) => {
   const { user } = useSelector((state) => state.auth.user);
 
   const handleClick = async (friend) => {

@@ -8,6 +8,9 @@ export const StyledLeftSidebar = styled.aside`
       margin: 0;
       padding: 0;
       list-style: none;
+      margin-bottom: 20px;
+      height: 200px;
+      overflow: hidden;
       .sidebar__item {
         display: flex;
         align-items: center;
@@ -16,6 +19,9 @@ export const StyledLeftSidebar = styled.aside`
           margin-right: 15px;
         }
       }
+    }
+    .open {
+      height: auto;
     }
     .more__container {
       display: flex;

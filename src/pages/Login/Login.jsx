@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
 import { StyledLoginPage } from './Login.style';
-import Form from '../../components/Form/Form';
-import Modal from '../../components/Modal/Modal';
+import { Form, Modal } from '../../components';
 
 const Login = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,22 +1,16 @@
 import React, { useContext, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Comment from '../Comment/Comment';
-import PostMenu from '../PostMenu/PostMenu';
-import { StyledPost } from './Post.style';
+import { format } from 'timeago.js';
+
+import { Comment, PostMenu } from '../../components';
 
 import PostModalContext from '../../context/PostModalContext';
-
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ShareIcon from '@mui/icons-material/Share';
-import SendIcon from '@mui/icons-material/Send';
-
 import { commentPostAsync } from '../../redux/slices/post.slice';
 import { handlePostsLikesAsync, deletePostAsync, updatePostAsync, sharePostAsync } from '../../redux/slices/post.slice';
+
+import { ChatBubbleOutline, Favorite, MoreHoriz, Send, Share, ThumbUp, ThumbUpOffAlt } from '@mui/icons-material';
+
+import { StyledPost } from './Post.style';
 
 const Post = ({ post }) => {
   const { user } = useSelector((state) => state.auth.user);
@@ -83,7 +77,6 @@ const Post = ({ post }) => {
           <div className='top__left'>
             <img
               className='profile__picture'
-              // src={user?.avatar ? user.avatar : '/assets/profile/default_profile.png'}
               src={post.userId?.avatar || '/assets/profile/default_profile.png'}
               alt='person'
             />
@@ -92,11 +85,11 @@ const Post = ({ post }) => {
                 {post?.userId?.firstName} {post.userId?.lastName}
               </span>
             )}
-            {post && <span className='post__date'>{post?.createdAt?.substring(0, post?.createdAt?.indexOf('T'))}</span>}
+            {post && <span className='post__date'>{format(post?.createdAt)}</span>}
           </div>
           {post.userId._id === user._id && (
             <div className='top__right'>
-              <MoreHorizIcon onClick={handleOpenMenu} />
+              <MoreHoriz onClick={handleOpenMenu} />
             </div>
           )}
         </div>
@@ -120,8 +113,8 @@ const Post = ({ post }) => {
         </div>
         <div className='post__bottom'>
           <div className='bottom__left'>
-            <ThumbUpIcon className='post__icon like' />
-            <FavoriteIcon className='post__icon fav' />
+            <ThumbUp className='post__icon like' />
+            <Favorite className='post__icon fav' />
             {likesPostCounter > 0 && (
               <span className='counter'>
                 {likesPostCounter} {likesPostCounter === 1 ? 'person like it' : 'people like it'}
@@ -135,21 +128,17 @@ const Post = ({ post }) => {
         </div>
         <div className='buttons'>
           <button className='btn' onClick={() => handleLikes(post._id, user._id)}>
-            <ThumbUpOffAltIcon style={{ color: isLiked ? '#1877f2' : null }} />
+            <ThumbUpOffAlt style={{ color: isLiked ? '#1877f2' : null }} />
             <p className='btn__text' style={{ color: isLiked ? '#1877f2' : null }}>
               Like
             </p>
           </button>
           <button className='btn' onClick={handleOpenComments}>
-            <ChatBubbleOutlineIcon />
+            <ChatBubbleOutline />
             <p className='btn__text'>Comment</p>
           </button>
-          <button
-            className='btn'
-            onClick={handleOpenSharePost}
-            // onClick={() => handleShare(post._id, user._id)}
-          >
-            <ShareIcon />
+          <button className='btn' onClick={handleOpenSharePost}>
+            <Share />
             <p className='btn__text'>Share</p>
           </button>
         </div>
@@ -175,7 +164,7 @@ const Post = ({ post }) => {
                   value={input}
                 />
                 <button className='icon' type='submit' onClick={handleSubmit}>
-                  <SendIcon />
+                  <Send />
                 </button>
               </form>
             </div>

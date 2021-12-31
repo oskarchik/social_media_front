@@ -1,8 +1,9 @@
 import React from 'react';
-import Card from '../../components/Card/Card';
+
+import { Card, Header, Post } from '../../components';
+
 import { StyledSearch } from './Search.style';
-import Header from '../../components/Header/Header';
-import Post from '../../components/Post/Post';
+
 const Search = (props) => {
   const { users, contacts, posts } = props.location.state.data;
   return (

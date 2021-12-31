@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Picker = ({ days, months, year, styled, onInputChange }) => {
   const currentDate = new Date();
   const currentDay = currentDate.getDate();

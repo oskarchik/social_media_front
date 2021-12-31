@@ -75,6 +75,7 @@ export const StyledModal = styled.div`
           border: 1px solid #ccd0d5;
           border-radius: 5px;
           font-size: 16px;
+          outline: none;
         }
 
         .form-group__top {

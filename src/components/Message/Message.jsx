@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { format } from 'timeago.js';
+
 import { StyledMessage } from './Message.style';
 
 const Message = ({ message, own }) => {

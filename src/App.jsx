@@ -2,13 +2,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import SecureRoute from './components/SecureRoute/SecureRoute';
-import Home from './pages/Home';
-import Profile from './pages/Profile/Profile';
-import Search from './pages/Search/Search';
-import Friends from './pages/Friends/Friends';
-import Messenger from './pages/Messenger/Messenger';
-import Login from './pages/Login/Login';
+import { SecureRoute } from './components';
+import { Home, Profile, Search, Friends, Messenger, Login } from './pages';
 
 import { checkSessionAsync } from './redux/slices/auth.slice';
 import { PostModalProvider } from './context/PostModalContext';

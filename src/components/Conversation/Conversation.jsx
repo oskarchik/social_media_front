@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+
 import { StyledConversation } from './Conversation.style';
-import { getMessages } from '../../api/message';
 
 const Conversation = ({ conversation, setChatter }) => {
   const { user } = useSelector((state) => state.auth.user);

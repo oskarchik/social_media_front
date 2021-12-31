@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { StyledFriendsPage } from './Friends.style';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
@@ -5,8 +6,8 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import RequestCard from '../../components/RequestCard/RequestCard';
-import Header from '../../components/Header/Header';
-import { useEffect, useState } from 'react';
+// import Header from '../../components/Header/Header';
+import { Header } from '../../components';
 import { useDispatch } from 'react-redux';
 const Friends = () => {
   const { user } = useSelector((state) => state.auth.user);

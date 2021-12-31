@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { StyledModal } from './Modal.style';
 import { useDispatch } from 'react-redux';
+
+import { Checkbox, Picker } from '../../components';
+
 import { signUpAsync } from '../../redux/slices/auth.slice';
 
-import CloseIcon from '@mui/icons-material/Close';
-import HelpIcon from '@mui/icons-material/Help';
-import Picker from '../Picker/Picker';
-import Checkbox from '../Checkbox/Checkbox';
+import { Close, Help } from '@mui/icons-material';
+import { StyledModal } from './Modal.style';
 
 const Modal = ({ handleForm }) => {
   const dispatch = useDispatch();
@@ -58,7 +58,7 @@ const Modal = ({ handleForm }) => {
               <p className='top__text'>It's quick and easy</p>
             </div>
             <button className='modal__close' onClick={handleForm}>
-              <CloseIcon />
+              <Close />
             </button>
           </div>
           <hr className='modal__hr' />
@@ -97,7 +97,7 @@ const Modal = ({ handleForm }) => {
               <div className='form-group__top'>
                 <p className='form-group__text'>Date of birth</p>
                 <span className='help__container'>
-                  <HelpIcon className='help__icon' />
+                  <Help className='help__icon' />
                 </span>
               </div>
               <div className='form-group__middle'>
@@ -110,7 +110,7 @@ const Modal = ({ handleForm }) => {
               <div className='form-group__top'>
                 <p className='form-group__text'>Gender</p>
                 <span className='help__container'>
-                  <HelpIcon className='help__icon' />
+                  <Help className='help__icon' />
                 </span>
               </div>
               <div className='form-group__middle'>

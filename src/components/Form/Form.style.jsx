@@ -15,8 +15,9 @@ export const StyledForm = styled.form`
       border: 1px solid lightgrey;
       margin-bottom: 20px;
       font-size: 18px;
-      color: lightgrey;
+      color: #6e7074;
       padding-left: 20px;
+      outline: none;
     }
     .login__btn {
       width: 90%;

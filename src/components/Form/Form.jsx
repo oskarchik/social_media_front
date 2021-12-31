@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+import { signInAsync } from '../../redux/slices/auth.slice';
 
 import { StyledForm } from './Form.style';
-import { useDispatch } from 'react-redux';
-import { signInAsync } from '../../redux/slices/auth.slice';
-import { useHistory } from 'react-router-dom';
+
 const Form = ({ handleForm }) => {
   const history = useHistory();
   const dispatch = useDispatch();

@@ -25,6 +25,7 @@ export const StyledMessengerPage = styled.div`
           border: none;
           background-color: #f0f2f5;
           font-size: 14px;
+          outline: none;
         }
       }
       .conversation {

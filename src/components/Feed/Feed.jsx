@@ -1,13 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { Post, Share } from '../../components';
+
+import { getTimeLineAsync } from '../../redux/slices/post.slice';
 
 import { StyledFeed } from './Feed.style';
 
-import Share from '../Share/Share';
-import Post from '../Post/Post';
-
-import { getTimeLineAsync } from '../../redux/slices/post.slice';
-import { useState } from 'react';
 const Feed = () => {
   const { user } = useSelector((state) => state.auth.user);
   const { posts, postDetails } = useSelector((state) => state.post);

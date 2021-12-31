@@ -35,7 +35,7 @@ export const StyledPostModal = styled.div`
           display: flex;
           align-items: center;
           justify-content: space-between;
-          width: 65%;
+          width: 70%;
           margin: 0 0 0 auto;
 
           .modal__title {

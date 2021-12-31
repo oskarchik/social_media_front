@@ -90,7 +90,6 @@ export const StyledPost = styled.div`
           border-radius: 50%;
           padding: 4px;
           margin: 2px;
-          cursor: pointer;
         }
         .like {
           background-color: #1877f2;

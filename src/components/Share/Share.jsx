@@ -1,19 +1,14 @@
-// import { useState } from 'react';
 import { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { StyledShare } from './Share.style';
-
 import PostModalContext from '../../context/PostModalContext';
 
-import PermMediaIcon from '@mui/icons-material/PermMedia';
-import RoomIcon from '@mui/icons-material/Room';
-import TagFacesIcon from '@mui/icons-material/TagFaces';
-import LabelIcon from '@mui/icons-material/Label';
+import { Label, PermMedia, Room, TagFaces } from '@mui/icons-material';
+import { StyledShare } from './Share.style';
 
 const Share = () => {
   const { user } = useSelector((state) => state.auth.user);
-  const { isOpen, setIsOpen, mode, setMode } = useContext(PostModalContext);
+  const { isOpen, setIsOpen, setMode } = useContext(PostModalContext);
   const [isDisabled, setIsDisabled] = useState(false);
 
   const handleCreatePostForm = (e) => {
@@ -47,19 +42,19 @@ const Share = () => {
           <div className='share__bottom'>
             <div className='share__options'>
               <div className='option'>
-                <PermMediaIcon className='share__icon media' />
+                <PermMedia className='share__icon media' />
                 <span className='option_text'>Photo/Video</span>
               </div>
               <div className='option'>
-                <RoomIcon className='share__icon location' />
+                <Room className='share__icon location' />
                 <span className='option_text'>Location</span>
               </div>
               <div className='option'>
-                <LabelIcon className='share__icon label' />
+                <Label className='share__icon label' />
                 <span className='option_text'>Tag</span>
               </div>
               <div className='option'>
-                <TagFacesIcon className='share__icon tag' />
+                <TagFaces className='share__icon tag' />
                 <span className='option_text'>Feeling/Activity</span>
               </div>
               <button className='share__btn'>Share</button>

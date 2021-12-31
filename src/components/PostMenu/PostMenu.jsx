@@ -1,14 +1,13 @@
 import { useContext, useEffect } from 'react';
-import { StyledPostMenu } from './PostMenu.style';
-
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import CloseIcon from '@mui/icons-material/Close';
 
 import PostModalContext from '../../context/PostModalContext';
 
+import { Close, Delete, Edit } from '@mui/icons-material';
+
+import { StyledPostMenu } from './PostMenu.style';
+
 const PostMenu = ({ handleOpenMenu, deletePost, data }) => {
-  const { isOpen, setIsOpen, mode, setMode, postId, setPostId } = useContext(PostModalContext);
+  const { setIsOpen, setMode, setPostId } = useContext(PostModalContext);
 
   const handleEditMenu = () => {
     setIsOpen((prevState) => !prevState);
@@ -25,14 +24,14 @@ const PostMenu = ({ handleOpenMenu, deletePost, data }) => {
   return (
     <StyledPostMenu>
       <div className='menu__close' onClick={handleOpenMenu}>
-        <CloseIcon className='icon' />
+        <Close className='icon' />
       </div>
       <div className='menu__delete' onClick={() => deletePost(data.postId, data.userId)}>
-        <DeleteIcon className='icon' />
+        <Delete className='icon' />
         <p className='text'>Delete post</p>
       </div>
       <div className='menu__edit' onClick={handleEditMenu}>
-        <EditIcon className='icon' />
+        <Edit className='icon' />
         <p>Edit Post</p>
       </div>
     </StyledPostMenu>

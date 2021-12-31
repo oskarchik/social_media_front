@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { StyledComment } from './Comment.style';
-
 import { likeUnlikeCommentAsync } from '../../redux/slices/comment.slice';
 import { commentACommentAsync, deleteCommentAsync } from '../../redux/slices/post.slice';
 
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import SendIcon from '@mui/icons-material/Send';
+import { Send, ThumbUp } from '@mui/icons-material';
+
+import { StyledComment } from './Comment.style';
 
 const Comment = (props) => {
   const { comment } = props;
@@ -65,7 +64,7 @@ const Comment = (props) => {
             {likeSCommentCounter > 0 ? (
               <div className='comment__badge'>
                 <span className='badge__icon'>
-                  <ThumbUpIcon className='icon' />
+                  <ThumbUp className='icon' />
                 </span>
                 <span className='badge__counter'>{likeSCommentCounter}</span>
               </div>
@@ -103,7 +102,7 @@ const Comment = (props) => {
               value={input}
             />
             <button className='icon' type='submit' onClick={handleSubmit}>
-              <SendIcon />
+              <Send />
             </button>
           </form>
         </div>

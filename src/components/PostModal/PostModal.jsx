@@ -1,40 +1,31 @@
-import { useCallback, useContext, useMemo, useState, useRef } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyledPostModal } from './PostModal.style';
-import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import PostModalContext from '../../context/PostModalContext';
 import { EditorState } from 'draft-js';
 import Editor from '@draft-js-plugins/editor';
 import createMentionPlugin, { defaultSuggestionsFilter } from '@draft-js-plugins/mention';
 import createEmojiPlugin from '@draft-js-plugins/emoji';
+
+import PostModalContext from '../../context/PostModalContext';
+import { updatePostAsync, createPostAsync, sharePostAsync } from '../../redux/slices/post.slice';
+
+import { Close, LocalOffer, PersonAddAlt1, PhotoLibrary } from '@mui/icons-material';
+import { StyledPostModal } from './PostModal.style';
 import '@draft-js-plugins/mention/lib/plugin.css';
 import '@draft-js-plugins/emoji/lib/plugin.css';
-import styled from '@emotion/styled';
-
-import CloseIcon from '@mui/icons-material/Close';
-import { updatePostAsync, createPostAsync, sharePostAsync } from '../../redux/slices/post.slice';
-import { useEffect } from 'react';
 
 const PostModal = ({ mode }) => {
-  const myInput = useRef();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.user);
   const { posts } = useSelector((state) => state.post);
-  const { isOpen, setIsOpen, setMode, postId, setPostId } = useContext(PostModalContext);
+  const { isOpen, setIsOpen, postId } = useContext(PostModalContext);
   const [isFileLoaderOpen, setIsFileLoaderOpen] = useState(false);
   const [data, setData] = useState();
-  const [isDisabled, setIsDisabled] = useState(true);
   const [contacts, setContacts] = useState([]);
-  const [content, setContent] = useState('');
-  /////////////////////////
   const [mentions, setMentions] = useState([]);
   const editor = useRef(null);
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
   const [open, setOpen] = useState(false);
   const [suggestions, setSuggestions] = useState(contacts);
-  const ref = useRef(null);
 
   const { MentionSuggestions, plugins, EmojiSuggestions } = useMemo(() => {
     const emojiPlugin = createEmojiPlugin({ useNativeArt: true });
@@ -53,7 +44,6 @@ const PostModal = ({ mode }) => {
   const onSearchChange = useCallback(({ value }) => {
     setSuggestions(defaultSuggestionsFilter(value, contacts));
   }, []);
-  /////////////////////////////////////////
 
   const currentPost = posts.find((post) => {
     return post._id === postId ? post : null;
@@ -156,7 +146,7 @@ const PostModal = ({ mode }) => {
             <div className='title__container'>
               <h2 className='modal__title'>{`${mode} post`}</h2>
               <button className='modal__close' onClick={closeModal}>
-                <CloseIcon className='icon' />
+                <Close className='icon' />
               </button>
             </div>
           </div>
@@ -215,14 +205,14 @@ const PostModal = ({ mode }) => {
                 <ul className='actions__list'>
                   {mode !== 'Share' && (
                     <li className='actions__item'>
-                      <PhotoLibraryIcon className='icon image' onClick={handleInputFile} />
+                      <PhotoLibrary className='icon image' onClick={handleInputFile} />
                     </li>
                   )}
                   <li className='actions__item'>
-                    <PersonAddAlt1Icon className='icon person' />
+                    <PersonAddAlt1 className='icon person' />
                   </li>
                   <li className='actions__item'>
-                    <LocalOfferIcon className='icon tag' />
+                    <LocalOffer className='icon tag' />
                   </li>
                 </ul>
               </div>

@@ -1,9 +1,10 @@
-import { StyledCard } from './Card.style';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { sendContactRequestAsync } from '../../redux/slices/auth.slice';
-import ChatIcon from '@mui/icons-material/Chat';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+
+import { StyledCard } from './Card.style';
+
+import { Chat, PersonAddAlt1 } from '@mui/icons-material';
 
 const Card = ({ contact, person, last }) => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const Card = ({ contact, person, last }) => {
                 onClick={() => sendContactRequest(user._id, person._id)}
                 disabled={user.sentRequests.includes(person._id) ? true : false}
               >
-                <PersonAddAlt1Icon className='icon' />
+                <PersonAddAlt1 className='icon' />
               </button>
             </div>
           </StyledCard>
@@ -52,7 +53,7 @@ const Card = ({ contact, person, last }) => {
                 </h3>
               </div>
               <button className='card__icon'>
-                <ChatIcon className='icon' />
+                <Chat className='icon' />
               </button>
             </div>
           </StyledCard>
