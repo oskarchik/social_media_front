@@ -2,42 +2,42 @@ import styled from 'styled-components';
 
 export const StyledHeader = styled.header`
   .header__container {
-    height: 50px;
-    width: 100%;
-    background-color: white;
     display: flex;
     align-items: center;
+    justify-content: space-around;
+    width: 100vw;
+    height: 50px;
+    background-color: white;
 
-    position: relative;
-    top: 0;
     .logo__container {
       display: flex;
       align-items: center;
-      flex: 3;
+      width: 20vw;
+      min-width: 90px;
       .logo {
-        font-size: 24px;
-        margin: 0 10px;
+        margin: 0 5px;
         padding: 5px;
-        font-weight: bold;
+        border-radius: 50%;
         background: linear-gradient(0deg, rgba(2, 104, 226, 1) 0%, rgba(67, 189, 254, 1) 81%);
         color: white;
-        border-radius: 50%;
+        font-size: 24px;
+        font-weight: bold;
         cursor: pointer;
       }
 
       .searchbar__container {
-        flex: 5;
+        display: flex;
+        align-items: center;
         width: 70%;
         height: 30px;
         margin-right: 10px;
-        background-color: #f0f2f5;
+        padding-right: 10px;
         border-radius: 20px;
-        display: flex;
-        align-items: center;
+        background-color: #f0f2f5;
         .search__icon {
-          font-size: 20px;
           margin-left: 10px;
           color: #7f8184;
+          font-size: 20px;
         }
         .search__input {
           width: 100%;
@@ -51,7 +51,6 @@ export const StyledHeader = styled.header`
     }
 
     .links__container {
-      flex: 6;
       display: flex;
       align-items: center;
       justify-content: space-evenly;
@@ -59,50 +58,52 @@ export const StyledHeader = styled.header`
 
       .header__links {
         display: flex;
+        align-items: center;
         justify-content: space-between;
-        align-items: center;
-      }
-      .link {
-        width: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 10px;
-        font-size: 14px;
-        position: relative;
-        cursor: pointer;
-        color: #6e7074;
-
-        .anchor {
+        margin: 0 2vw;
+        .link {
           display: flex;
           align-items: center;
           justify-content: center;
-          text-decoration: none;
+          position: relative;
+          width: 7vw;
+          min-width: 24px;
+          margin-right: 5px;
           color: #6e7074;
-        }
-        .anchor:hover {
-          color: #1877f2;
-        }
-        .active {
-          color: #1877f2;
-          border-bottom: 3px solid #1877f2;
-          width: 100%;
-        }
-        .link__badge {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 14px;
-          height: 14px;
-          padding: 5px;
-          position: absolute;
-          top: -5px;
-          right: 30px;
-          background-color: red;
-          border-radius: 50%;
-          font-size: 10px;
-          font-weight: 600;
-          color: white;
+          font-size: 14px;
+          cursor: pointer;
+
+          .anchor {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6e7074;
+            text-decoration: none;
+          }
+          .anchor:hover {
+            color: #1877f2;
+          }
+          .active {
+            width: 100%;
+            border-bottom: 3px solid #1877f2;
+            color: #1877f2;
+          }
+          .link__badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -5px;
+            right: 30px;
+            width: 14px;
+            height: 14px;
+            padding: 5px;
+            border-radius: 50%;
+            background-color: red;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+          }
         }
       }
       .link:hover {
@@ -113,7 +114,7 @@ export const StyledHeader = styled.header`
       display: flex;
       align-items: center;
       justify-content: space-around;
-      flex: 3;
+      width: 20vw;
 
       .profile__user {
         display: flex;
@@ -135,14 +136,15 @@ export const StyledHeader = styled.header`
       .profile__links {
         display: flex;
         align-items: center;
+        padding-right: 10px;
 
         .link {
           display: flex;
           align-items: center;
           justify-content: center;
+          position: relative;
           margin-right: 10px;
           font-size: 14px;
-          position: relative;
           cursor: pointer;
           color: #6e7074;
         }
@@ -157,30 +159,29 @@ export const StyledHeader = styled.header`
     }
     .notifications {
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      min-width: 200px;
-      max-height: 300px;
-      padding: 10px;
-      overflow: auto;
-      scroll-y: auto;
-      /* background-color: red; */
-      background-color: #f0f2f5;
+      flex-direction: column;
       position: absolute;
       top: 50px;
       left: 50%;
+      min-width: 200px;
+      max-height: 300px;
+      padding: 10px;
+      background-color: #f0f2f5;
+      overflow: auto;
+      scroll-y: auto;
       z-index: 1;
       ::-webkit-scrollbar {
         width: 5px;
       }
       ::-webkit-scrollbar-track {
-        background-color: white;
         border-radius: 5px;
+        background-color: white;
       }
       ::-webkit-scrollbar-thumb {
-        background-color: #0084ff;
         border-radius: 5px;
+        background-color: #0084ff;
       }
       .notification__wrapper {
         text-align: center;
@@ -201,36 +202,42 @@ export const StyledHeader = styled.header`
           .notification__data {
             .notification__sender {
               display: block;
-              /* font-size: 18px; */
               font-weight: 600;
             }
-            /* .notification__msg {
-              display: block;
-              font-size: 14px;
-            } */
           }
         }
         .notification__btn {
           width: 100px;
           height: 24px;
           margin: 10px 0;
-          /* padding: 10px; */
-          font-size: 12px;
-          font-weight: 600;
-          color: white;
-          background-color: #0084ff;
           border: none;
           border-radius: 5px;
+          background-color: #0084ff;
+          color: white;
+          font-size: 12px;
+          font-weight: 600;
         }
         .notification__btn:hover {
           background-color: #007fef;
         }
         .notification__hr {
           width: 100%;
-
-          background-color: #e4e6eb;
           margin-bottom: 10px;
+          background-color: #e4e6eb;
         }
+      }
+    }
+  }
+  @media (max-width: 700px) {
+    .header__container {
+      justify-content: center;
+    }
+    .profile__picture {
+      margin: 0;
+    }
+    .profile__links {
+      .link {
+        margin: 0;
       }
     }
   }

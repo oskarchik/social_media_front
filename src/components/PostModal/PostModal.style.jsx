@@ -2,42 +2,37 @@ import styled from 'styled-components';
 
 export const StyledPostModal = styled.div`
   .modal__wrapper {
-    width: 100%;
-    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    height: 100%;
     background-color: rgba(255, 255, 255, 0.7);
     .modal__container {
-      left: 0;
-      right: 0;
-      min-width: 40vw;
-      min-height: 40vh;
       display: flex;
-
       flex-direction: column;
       align-items: center;
-      background-color: white;
+      min-width: 40vw;
+      min-height: 40vh;
       border-radius: 5px;
       -webkit-box-shadow: 0px 5px 15px -4px rgba(0, 0, 0, 0.48);
       -moz-box-shadow: 0px 5px 15px -4px rgba(0, 0, 0, 0.48);
       box-shadow: 0px 5px 15px -4px rgba(0, 0, 0, 0.48);
+      background-color: white;
       .modal__top {
         width: 100%;
         padding: 20px;
-
         .title__container {
           display: flex;
           align-items: center;
           justify-content: space-between;
           width: 70%;
           margin: 0 0 0 auto;
-
           .modal__title {
           }
           .modal__close {
@@ -46,8 +41,8 @@ export const StyledPostModal = styled.div`
             justify-content: center;
             width: 40px;
             height: 40px;
-            border-radius: 50%;
             border: none;
+            border-radius: 50%;
             background-color: #e4e6eb;
             cursor: pointer;
             .icon {
@@ -61,8 +56,8 @@ export const StyledPostModal = styled.div`
       .modal__hr {
         width: 100%;
         height: 1px;
-        background-color: #d8dade;
         border: none;
+        background-color: #d8dade;
       }
       .modal__center {
         width: 100%;
@@ -77,9 +72,9 @@ export const StyledPostModal = styled.div`
             .profile__picture {
               width: 50px;
               height: 50px;
+              margin-right: 10px;
               border-radius: 50%;
               object-fit: cover;
-              margin-right: 10px;
             }
           }
           .user__name {
@@ -93,38 +88,38 @@ export const StyledPostModal = styled.div`
           padding-left: 10px;
           .editor {
             box-sizing: border-box;
-            border: 1px solid #bcc0c4;
-            cursor: text;
-            padding: 16px;
-            border-radius: 5px;
             margin-bottom: 2em;
+            padding: 16px;
+            border: 1px solid #bcc0c4;
+            border-radius: 5px;
+            cursor: text;
           }
           .modal__text {
             width: 100%;
             min-height: 100px;
-            font-size: 24px;
             margin-bottom: 10px;
             border: none;
+            font-size: 24px;
             outline: none;
             overflow: scroll;
           }
           .modal__image {
             width: 100%;
             height: 32px;
+            margin-top: 20px;
             padding-left: 10px;
             border: none;
             border-radius: 5px;
             background-color: #f7f8fa;
             font-size: 18px;
-            margin-top: 20px;
             outline: none;
           }
           .shared__post {
-            width: 100%;
-            margin-bottom: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
+            margin-bottom: 10px;
 
             .image__container {
               width: 100%;
@@ -137,16 +132,13 @@ export const StyledPostModal = styled.div`
             }
             .shared__text {
               width: 98%;
-              font-size: 12px;
-              color: #757575;
-
               padding: 10px 0 10px 10px;
               border: 1px solid #d5d5d5;
-
               border-radius: 0 0 2px 2px;
+              color: #757575;
+              font-size: 12px;
             }
           }
-
           .modal__actions {
             display: flex;
             align-items: center;
@@ -164,10 +156,10 @@ export const StyledPostModal = styled.div`
               align-items: center;
               justify-content: space-evenly;
               min-width: 150px;
-              list-style: none;
+              margin: 0;
               padding: 0;
               padding-right: 10px;
-              margin: 0;
+              list-style: none;
               .actions__item {
                 height: 24px;
                 .image {
@@ -189,11 +181,11 @@ export const StyledPostModal = styled.div`
             .modal__btn {
               width: 100%;
               height: 36px;
-              font-size: 16px;
-              font-weight: 600;
+              border: none;
               background-color: #e4e6eb;
               color: #bcc0c4;
-              border: none;
+              font-size: 16px;
+              font-weight: 600;
               outline: none;
             }
             .modal__btn:hover {

@@ -1,16 +1,19 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-import { Card, Header, Post } from '../../components';
+import { Card, Post } from '../../components';
 
 import { StyledSearch } from './Search.style';
 
 const Search = (props) => {
+  const { user } = useSelector((state) => state.auth.user);
   const { users, contacts, posts } = props.location.state.data;
+
+  const filteredUsers = users?.filter((u) => u._id !== user._id);
   return (
     <>
-      {/* <Header /> */}
       <StyledSearch className='search-page__container'>
-        {(contacts.length > 0 || users.length > 0) && (
+        {(contacts?.length > 0 || filteredUsers?.length > 0) && (
           <>
             <div className='people__container'>
               <h3 className='title'>People</h3>
@@ -27,7 +30,7 @@ const Search = (props) => {
               )}
               {contacts.length < 1 && users.length > 0 && (
                 <div className='contacts__wrapper'>
-                  {users.map((person, i) => {
+                  {filteredUsers.map((person, i) => {
                     return i === users.length - 1 ? (
                       <Card person={person} key={person._id} index={i} last={true} />
                     ) : (
@@ -37,9 +40,9 @@ const Search = (props) => {
                 </div>
               )}
             </div>
-            {users.length > 0 && (
+            {filteredUsers.length > 0 && (
               <div className='users__wrapper'>
-                {users.map((person, i) => {
+                {filteredUsers.map((person, i) => {
                   return i === users.length - 1 ? (
                     <Card person={person} key={person._id} index={i} last={true} />
                   ) : (

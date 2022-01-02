@@ -9,6 +9,7 @@ import { getMessages, newMessage } from '../../api/message';
 
 import { StyledMessengerPage } from './Messenger.style';
 import { Search, Send } from '@mui/icons-material';
+import { useViewport } from '../../hooks/useViewport';
 
 const Messenger = (props) => {
   const { user } = useSelector((state) => state.auth.user);
@@ -22,8 +23,10 @@ const Messenger = (props) => {
   const [onlineFriends, setOnlineFriends] = useState([]);
 
   const contact = props?.location?.state?.data;
+  const breakpoint = 700;
 
   const scrollRef = useRef();
+  const { width } = useViewport();
   const [chatter, setChatter] = useState(null);
   const [scroll, setScroll] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -168,17 +171,19 @@ const Messenger = (props) => {
             <span className='empty__chat'>Start a new conversation</span>
           )}
         </div>
-        <div className='chat__online'>
-          <div className='online__wrapper'>
-            <h2 className='online__friend'>Friends online</h2>
-            <ChatOnline
-              onlineUsers={onlineUsers}
-              currentUser={user}
-              setCurrentChat={setCurrentChat}
-              onlineFriends={onlineFriends}
-            />
+        {width > breakpoint && (
+          <div className='chat__online'>
+            <div className='online__wrapper'>
+              <h2 className='online__friend'>Friends online</h2>
+              <ChatOnline
+                onlineUsers={onlineUsers}
+                currentUser={user}
+                setCurrentChat={setCurrentChat}
+                onlineFriends={onlineFriends}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </StyledMessengerPage>
     </>
   );

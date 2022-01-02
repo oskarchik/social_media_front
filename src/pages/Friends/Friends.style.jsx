@@ -8,9 +8,9 @@ export const StyledFriendsPage = styled.main`
     padding: 15px;
     background-color: white;
     .icons__list {
-      list-style: none;
       margin: 0;
       padding: 0;
+      list-style: none;
       .icons__item {
         display: flex;
         align-items: center;
@@ -20,13 +20,13 @@ export const StyledFriendsPage = styled.main`
         cursor: pointer;
 
         .icon {
-          max-width: 50px;
-          background-color: #e4e6eb;
           width: 40px;
+          max-width: 50px;
           height: 40px;
           padding: 5px;
-          border-radius: 50%;
           border: none;
+          border-radius: 50%;
+          background-color: #e4e6eb;
         }
         .icons__text {
           width: 90%;

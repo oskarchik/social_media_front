@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 export const StyledSpinner = styled.div`
   .loading-spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
     width: 36px;
     height: 36px;
-    border-radius: 50%;
+    border: 4px solid rgba(0, 0, 0, 0.1);
     border-left-color: #09f;
+    border-radius: 50%;
     cursor: none;
     animation: spinner 1s ease infinite;
   }

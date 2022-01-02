@@ -2,35 +2,33 @@ import styled from 'styled-components';
 
 export const StyledModal = styled.div`
   .modal__wrapper {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
     background-color: rgba(255, 255, 255, 0.7);
 
     .modal__container {
-      left: 0;
-      right: 0;
-      width: 440px;
       display: flex;
-      margin: 40px auto;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      background-color: white;
+      justify-content: center;
+      width: 440px;
+      margin: 40px auto;
       border-radius: 5px;
       -webkit-box-shadow: 0px 5px 15px -4px rgba(0, 0, 0, 0.48);
       -moz-box-shadow: 0px 5px 15px -4px rgba(0, 0, 0, 0.48);
       box-shadow: 0px 5px 15px -4px rgba(0, 0, 0, 0.48);
+      background-color: white;
       .modal__top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
         width: 100%;
         padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
         .modal__title {
           margin-bottom: 10px;
           font-size: 30px;
@@ -40,8 +38,8 @@ export const StyledModal = styled.div`
           color: #8a9096;
         }
         .modal__close {
-          background-color: white;
           border: none;
+          background-color: white;
           cursor: pointer;
         }
       }
@@ -49,31 +47,31 @@ export const StyledModal = styled.div`
         width: 100%;
       }
       .modal__form {
-        padding: 20px;
         width: 100%;
+        padding: 20px;
         .input__inline {
-          width: 100%;
           display: flex;
+          width: 100%;
           .input__name {
             margin-right: 10px;
           }
         }
         .form-group__container {
-          width: 100%;
-          font-size: 14px;
-          color: #606770;
           display: flex;
           flex-direction: column;
+          width: 100%;
           padding: 5px 0;
+          color: #606770;
+          font-size: 14px;
         }
         .modal__input {
           width: 100%;
           height: 40px;
-          padding-left: 10px;
           margin: 5px 0;
-          background-color: #f5f6f7;
+          padding-left: 10px;
           border: 1px solid #ccd0d5;
           border-radius: 5px;
+          background-color: #f5f6f7;
           font-size: 16px;
           outline: none;
         }
@@ -92,9 +90,9 @@ export const StyledModal = styled.div`
           .birth-date__select {
             width: 100%;
             height: 36px;
-            border-radius: 5px;
-            border: 1px solid #ccd0d5;
             padding-left: 10px;
+            border: 1px solid #ccd0d5;
+            border-radius: 5px;
             background-color: white;
             cursor: pointer;
           }
@@ -104,23 +102,23 @@ export const StyledModal = styled.div`
         }
 
         .help__container {
-          width: 18px;
-          height: 18px;
           display: flex;
           align-items: center;
+          width: 18px;
+          height: 18px;
         }
         .help__icon {
           width: 16px;
         }
         .checkbox__container {
-          width: 100%;
-          height: 36px;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          border-radius: 5px;
-          border: 1px solid #ccd0d5;
+          width: 100%;
+          height: 36px;
           padding: 0 10px;
+          border: 1px solid #ccd0d5;
+          border-radius: 5px;
           background-color: white;
           cursor: pointer;
         }
@@ -135,12 +133,12 @@ export const StyledModal = styled.div`
         width: 200px;
         height: 36px;
         margin-bottom: 20px;
+        border: none;
+        border-radius: 5px;
         background-color: #42b72a;
         color: white;
         font-size: 16px;
         font-weight: bold;
-        border-radius: 5px;
-        border: none;
         cursor: pointer;
       }
     }

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledShare = styled.div`
   .share__container {
     width: 100%;
-    height: 170px;
+    min-height: 170px;
     border-radius: 7px;
     background-color: white;
     -webkit-box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
@@ -21,12 +21,12 @@ export const StyledShare = styled.div`
         margin-right: 10px;
       }
       .share__input {
-        border: none;
-        border-radius: 20px;
         width: 80%;
         height: 40px;
-        background-color: #f0f2f5;
+        border: none;
+        border-radius: 20px;
         padding-left: 15px;
+        background-color: #f0f2f5;
       }
       .share__input:focus {
         outline: none;
@@ -37,15 +37,21 @@ export const StyledShare = styled.div`
     }
     .share__bottom {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 5px;
       .share__options {
         display: flex;
-        margin-left: 20px;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 0 0 5px 20px;
+
         .option {
           display: flex;
           align-items: center;
-          margin-right: 15px;
+          margin-right: 10px;
           cursor: pointer;
           .share__icon {
             font-size: 18px;
@@ -65,13 +71,14 @@ export const StyledShare = styled.div`
           }
         }
         .share__btn {
+          margin-right: 20px;
+          margin-top: 5px;
+          padding: 8px;
           border: none;
           border-radius: 5px;
-          padding: 8px;
           background-color: #1877f2;
-          margin-right: 20px;
-          cursor: pointer;
           color: white;
+          cursor: pointer;
         }
       }
     }

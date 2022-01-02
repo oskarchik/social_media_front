@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import { signOutAsync } from '../../redux/slices/auth.slice';
 import { getAllUsersAsync } from '../../redux/slices/user.slice';
 import { getTimeLineAsync } from '../../redux/slices/post.slice';
 import { removeMention } from '../../api/user';
 
-import { Chat, Home, Logout, Notifications, Person, Search, Settings } from '@mui/icons-material';
+import { Chat, Home, Logout, Menu, Notifications, Person, Search, Settings } from '@mui/icons-material';
 
 import { StyledHeader } from './Header.styled';
+import { useViewport } from '../../hooks/useViewport';
 
 const Header = () => {
-  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth.user);
   const { users } = useSelector((state) => state.user);
   const { posts } = useSelector((state) => state.post);
+
   const [input, setInput] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+
   const history = useHistory();
+  const dispatch = useDispatch();
+  const { width } = useViewport();
+  const breakpoint = 700;
 
   const logOut = () => {
     dispatch(signOutAsync());
@@ -76,6 +81,7 @@ const Header = () => {
   const searchValue = (e) => {
     e.preventDefault();
     const res = filterData(input);
+    setInput('');
     history.push({ pathname: '/search', state: { data: res } });
   };
 
@@ -92,7 +98,7 @@ const Header = () => {
   }, []);
 
   return (
-    <StyledHeader>
+    <StyledHeader className='header'>
       <div className='header__container'>
         <div className='logo__container'>
           <span className='logo'>Fb</span>
@@ -104,6 +110,7 @@ const Header = () => {
                 placeholder='Search Fb'
                 className='search__input'
                 name='searchBar'
+                value={input}
                 onChange={handleInputChange}
               />
             </form>
@@ -136,6 +143,11 @@ const Header = () => {
                 {mentions.length > 0 && <span className='link__badge'>{mentions.length}</span>}
               </div>
             }
+            {width < breakpoint && (
+              <div className='link'>
+                <Menu />
+              </div>
+            )}
           </div>
         </div>
         <div className='profile__container'>
@@ -147,7 +159,7 @@ const Header = () => {
                 alt='user'
               />
             </NavLink>
-            <p className='profile__name'>{user?.firstName}</p>
+            {width > breakpoint && <p className='profile__name'>{user?.firstName}</p>}
           </div>
           <div className='profile__links'>
             <NavLink to='/' className='link' activeClassName='active'>

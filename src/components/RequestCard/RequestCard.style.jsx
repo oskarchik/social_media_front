@@ -4,11 +4,11 @@ export const StyledRequestCard = styled.div`
   .request-card__wrapper {
     width: 200px;
     max-height: 350px;
-    background-color: white;
     border-radius: 10px;
     -webkit-box-shadow: 0px 5px 15px -4px rgba(0, 0, 0, 0.48);
     -moz-box-shadow: 0px 5px 15px -4px rgba(0, 0, 0, 0.48);
     box-shadow: 0px 5px 15px -4px rgba(0, 0, 0, 0.48);
+    background-color: white;
     .request-card__img {
       width: 100%;
       height: 200px;
@@ -17,8 +17,8 @@ export const StyledRequestCard = styled.div`
       .profile__img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
         border-radius: 10px 10px;
+        object-fit: cover;
       }
     }
     .request-card__name {
@@ -47,7 +47,6 @@ export const StyledRequestCard = styled.div`
       }
       .request-card__remove {
         background-color: #e4e6eb;
-
         font-size: 14px;
         font-weight: 600;
       }

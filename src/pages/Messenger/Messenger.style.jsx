@@ -3,21 +3,23 @@ import styled from 'styled-components';
 export const StyledMessengerPage = styled.div`
   .chat__menu {
     .menu__wrapper {
-      flex: 3;
+      width: 100%;
+      min-width: 85px;
       .menu__title {
       }
       .menu__search {
-        width: 90%;
-        height: 30px;
-        margin: 0 10px 10px 0;
-        background-color: #f0f2f5;
-        border-radius: 20px;
         display: flex;
         align-items: center;
+        width: 100%;
+        height: 30px;
+        margin: 0 10px 10px 0;
+        padding-right: 10px;
+        border-radius: 20px;
+        background-color: #f0f2f5;
         .search__icon {
-          font-size: 20px;
           margin-left: 10px;
           color: #7f8184;
+          font-size: 20px;
         }
         .menu__input {
           width: 100%;
@@ -41,10 +43,10 @@ export const StyledMessengerPage = styled.div`
     }
   }
   .chat__box {
-    flex: 6;
-    text-align: center;
     position: relative;
+    width: 80%;
     height: calc(100vh - 50px);
+    text-align: center;
     .chat-box__wrapper {
       display: flex;
       flex-direction: column;
@@ -53,6 +55,7 @@ export const StyledMessengerPage = styled.div`
       .chat-box__top {
         padding-right: 10px;
         overflow-y: auto;
+        overflow-x: hidden;
         .message {
           display: flex;
           flex-direction: column;
@@ -70,13 +73,13 @@ export const StyledMessengerPage = styled.div`
           background-color: white;
         }
         ::-webkit-scrollbar-track {
-          background-color: lightgrey;
           border-radius: 5px;
+          background-color: lightgrey;
         }
         ::-webkit-scrollbar-thumb {
-          background-color: #0084ff;
           width: 2px;
           border-radius: 5px;
+          background-color: #0084ff;
         }
       }
 
@@ -89,20 +92,20 @@ export const StyledMessengerPage = styled.div`
         .chat-box__input {
           width: 90%;
           height: 40px;
-          color: #65676b;
-          background-color: #f0f2f5;
+          padding: 10px 0 0 10px;
           border: none;
           border-radius: 20px;
-          padding: 10px 0 0 10px;
+          background-color: #f0f2f5;
+          color: #65676b;
           outline: none;
         }
         .chat-box__submit {
           display: flex;
-          background-color: white;
-          color: #0084ff;
+          padding: 10px;
           border: none;
           border-radius: 50%;
-          padding: 10px;
+          background-color: white;
+          color: #0084ff;
           .icon {
           }
         }
@@ -112,18 +115,17 @@ export const StyledMessengerPage = styled.div`
       }
     }
     .empty__chat {
-      width: 100%;
-
       position: absolute;
       left: 0;
       top: 10%;
+      width: 100%;
+      color: #dbdcdd;
       font-size: 36px;
       text-align: center;
-      color: #dbdcdd;
     }
   }
   .chat__online {
-    flex: 3;
+    width: 20vw;
     .online__wrapper {
     }
   }

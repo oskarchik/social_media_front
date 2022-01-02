@@ -11,15 +11,14 @@ export const StyledCard = styled.div`
     width: 100%;
 
     .card__avatar {
-      flex: 1;
-      /* border: 1px solid black; */
-      padding-right: 10px;
+      /* flex: 1; */
       display: flex;
       align-items: center;
       justify-content: center;
+      padding-right: 10px;
 
       img {
-        width: 100%;
+        /* width: 100%; */
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -33,20 +32,19 @@ export const StyledCard = styled.div`
       justify-content: left;
     }
     .card__icon {
-      background-color: #e4e6eb;
-      border-radius: 50%;
-      border: none;
-      width: 40px;
-      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 50%;
+      background-color: #e4e6eb;
       cursor: pointer;
-      /* border: 1px solid black; */
 
       .icon {
-        height: 20px;
         width: 20;
+        height: 20px;
       }
     }
   }

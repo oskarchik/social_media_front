@@ -19,44 +19,45 @@ export const StyledRightSidebar = styled.aside`
     }
     .ad__img {
       width: 100%;
-      border-radius: 10px;
       margin: 0 0 30px 0;
+      border-radius: 10px;
     }
     .friends__title {
       margin-bottom: 10px;
     }
     .friends__list {
+      max-height: 200px;
       margin: 0;
       padding: 0;
-      max-height: 200px;
       list-style: none;
       overflow-y: scroll;
+      overflow-x: hidden;
       .friends__item {
         display: flex;
         align-items: center;
         margin-bottom: 15px;
         .profile-image__container {
-          width: 100%;
-          margin-right: 10px;
-          position: relative;
           display: flex;
           align-items: center;
+          position: relative;
+          width: 100%;
+          margin-right: 10px;
           .friends__image {
             width: 32px;
             height: 32px;
+            margin-right: 10px;
             border-radius: 50%;
             object-fit: cover;
-            margin-right: 10px;
           }
           .friends__online {
-            width: 12px;
-            height: 12px;
-            background-color: #00c300;
-            border-radius: 50%;
-            border: 2px solid white;
             position: absolute;
             top: 0px;
             left: 25px;
+            width: 12px;
+            height: 12px;
+            border: 2px solid white;
+            border-radius: 50%;
+            background-color: #00c300;
           }
         }
       }
@@ -64,12 +65,12 @@ export const StyledRightSidebar = styled.aside`
         width: 5px;
       }
       ::-webkit-scrollbar-track {
-        background-color: white;
         border-radius: 5px;
+        background-color: white;
       }
       ::-webkit-scrollbar-thumb {
-        background-color: lightgrey;
         border-radius: 5px;
+        background-color: lightgrey;
       }
     }
   }

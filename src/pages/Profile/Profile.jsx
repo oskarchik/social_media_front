@@ -7,12 +7,16 @@ import { getUserPostsAsync } from '../../redux/slices/post.slice';
 
 import { StyledProfile } from './Profile.style';
 import { CameraAlt, ControlPoint, ModeEdit } from '@mui/icons-material';
+import { useViewport } from '../../hooks/useViewport';
 
 const Profile = () => {
   const { user } = useSelector((state) => state.auth.user);
   const { posts } = useSelector((state) => state.post);
 
+  const { width } = useViewport();
   const dispatch = useDispatch();
+
+  const breakpoint = 700;
 
   useEffect(() => {
     dispatch(getUserPostsAsync(user._id));
@@ -25,18 +29,18 @@ const Profile = () => {
         <div className='profile__container'>
           <header className='profile__header'>
             <div className='profile__top'>
-              {user.coverPic ? (
-                <img className='cover__img' src={user.coverPic} alt='cover' />
-              ) : (
-                <div className='cover__div'></div>
-              )}
-              <img className='user__img' src={user.avatar || 'assets/profile/default_profile.png'} alt='profile' />
-              <button className='btn__add-profile'>
-                <CameraAlt />
-              </button>
+              {user.coverPic ? <img className='cover__img' src={user.coverPic} alt='cover' /> : {}}
+              <div className='avatar__container'>
+                <div className='avatar__wrapper'>
+                  <img className='user__img' src={user.avatar || 'assets/profile/default_profile.png'} alt='profile' />
+                  <button className='btn__add-profile'>
+                    <CameraAlt />
+                  </button>
+                </div>
+              </div>
               <button className='btn__add-cover'>
                 <CameraAlt className='camera__icon' />
-                <span className='btn__add-photo-text'>Edit Cover Photo</span>
+                {width > breakpoint && <span className='btn__add-photo-text'>Edit Cover Photo</span>}
               </button>
             </div>
             <div className='profile__name'>
@@ -57,9 +61,11 @@ const Profile = () => {
                 <li className='menu__item'>
                   <button className='item__btn'>Photos</button>
                 </li>
-                <li className='menu__item'>
-                  <button className='item__btn'>Story Archive</button>
-                </li>
+                {width > breakpoint - 150 && (
+                  <li className='menu__item'>
+                    <button className='item__btn'>Story Archive</button>
+                  </li>
+                )}
                 <li className='menu__item'>
                   <button className='item__btn'>More</button>
                 </li>
@@ -84,7 +90,7 @@ const Profile = () => {
             </div>
           </header>
           <main className='profile__main'>
-            <div className='left'>
+            <div className='left' style={width < breakpoint ? { width: '80vw' } : null}>
               <Share></Share>
               {posts.length > 0 &&
                 posts.map((post) => {
