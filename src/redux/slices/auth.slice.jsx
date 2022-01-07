@@ -50,11 +50,7 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(signUpAsync.fulfilled, (state, action) => {
-      if (!action.payload?.error) {
-        state.user = action.payload;
-        state.hasUser = true;
-        state.error = '';
-      } else {
+      if (action.payload?.error) {
         state.hasUser = false;
         state.error = action.payload.error;
       }
@@ -75,6 +71,7 @@ export const authSlice = createSlice({
       state.error = '';
     });
     builder.addCase(checkSessionAsync.fulfilled, (state, action) => {
+      console.log(action.payload);
       if (!action.payload?.error) {
         state.user = action.payload;
         state.hasUser = true;
