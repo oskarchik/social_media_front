@@ -24,12 +24,11 @@ const Profile = () => {
 
   return (
     <>
-      {/* <Header /> */}
       <StyledProfile>
         <div className='profile__container'>
           <header className='profile__header'>
             <div className='profile__top'>
-              {user.coverPic ? <img className='cover__img' src={user.coverPic} alt='cover' /> : {}}
+              {user.coverPic && <img className='cover__img' src={user.coverPic} alt='cover' />}
               <div className='avatar__container'>
                 <div className='avatar__wrapper'>
                   <img className='user__img' src={user.avatar || 'assets/profile/default_profile.png'} alt='profile' />
