@@ -6,8 +6,7 @@ import { Form, Modal } from '../../components';
 const Login = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleForm = (e) => {
-    e.preventDefault();
+  const handleForm = () => {
     setIsOpen((prevState) => !prevState);
   };
 
@@ -26,6 +25,9 @@ const Login = () => {
             </div>
             <div className='login__right'>
               <Form handleForm={handleForm} />
+              <button className='login__new-account' onClick={handleForm}>
+                Create a new account
+              </button>
             </div>
           </div>
         </div>

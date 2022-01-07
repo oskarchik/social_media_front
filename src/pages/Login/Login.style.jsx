@@ -39,13 +39,34 @@ export const StyledLoginPage = styled.main`
       }
       .login__right {
         flex: 6;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         border-radius: 10px;
         background-color: white;
+        .error__message {
+          color: red;
+          font-size: 12px;
+        }
+        .login__new-account {
+          width: 200px;
+          height: 48px;
+          margin: -15px 0 10px 0;
+          border: none;
+          border-radius: 5px;
+          background-color: #42b72a;
+          color: white;
+          font-size: 16px;
+          font-weight: bold;
+          cursor: pointer;
+        }
       }
     }
     @media (max-width: 700px) {
       .login__wrapper {
         flex-direction: column-reverse;
+        margin-top: 25%;
         .login__left {
           margin-top: 20px;
           margin-right: 0;

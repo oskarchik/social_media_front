@@ -49,6 +49,8 @@ export const StyledModal = styled.div`
       .modal__form {
         width: 100%;
         padding: 20px;
+        display: flex;
+        flex-direction: column;
         .input__inline {
           display: flex;
           width: 100%;
@@ -75,6 +77,12 @@ export const StyledModal = styled.div`
           font-size: 16px;
           outline: none;
         }
+        .error__message {
+          align-self: start;
+          margin: 0 0 10px 0;
+          color: red;
+          font-size: 12px;
+        }
 
         .form-group__top {
           display: flex;
@@ -95,6 +103,7 @@ export const StyledModal = styled.div`
             border-radius: 5px;
             background-color: white;
             cursor: pointer;
+            outline: none;
           }
         }
         .form-group__middle .birth-date__select:nth-child(2) {

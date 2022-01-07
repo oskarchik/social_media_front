@@ -19,6 +19,12 @@ export const StyledForm = styled.form`
       font-size: 18px;
       outline: none;
     }
+    .error__message {
+      align-self: start;
+      margin: -15px 0 20px 12px;
+      color: red;
+      font-size: 12px;
+    }
     .login__btn {
       width: 90%;
       height: 48px;
@@ -39,17 +45,6 @@ export const StyledForm = styled.form`
       width: 90%;
       height: 1px;
       margin-bottom: 20px;
-    }
-    .login__new-account {
-      width: 200px;
-      height: 48px;
-      border: none;
-      border-radius: 5px;
-      background-color: #42b72a;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
     }
   }
 `;

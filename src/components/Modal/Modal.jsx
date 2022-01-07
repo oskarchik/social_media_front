@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 import { Checkbox, Picker } from '../../components';
 
@@ -9,31 +11,67 @@ import { Close, Help } from '@mui/icons-material';
 import { StyledModal } from './Modal.style';
 
 const Modal = ({ handleForm }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
-  const [userData, setUserData] = useState({});
-  const [date, setDate] = useState({ months: '', days: '', years: '' });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ mode: 'onTouched' });
+  const today = new Date();
+  const month = today.toLocaleString('en-us', { month: 'short' });
+  const day = today.getDate();
+  const year = today.getFullYear();
+  const [userData, setUserData] = useState({
+    dateOfBirth: `${month}/${day}/${year}`,
+  });
+  const [date, setDate] = useState({ month, day, year });
+  const [dateError, setDateError] = useState({ initial: 'initial error' });
+  const [isTouched, setIsTouched] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setUserData({ dateOfBirth: processDate(date) });
-    await dispatch(signUpAsync(userData));
+  const onSubmit = async () => {
+    if (Object.keys(dateError).length > 0) {
+      setDateError({ error: 'you need to be over 18' });
+      return;
+    } else {
+      await dispatch(signUpAsync(userData));
+      handleForm();
+      history.push('/auth');
+    }
+    return;
   };
-  const processDate = (dObj) => {
-    const keys = Object.values(dObj).join('/');
+  const processDate = () => {
+    const keys = Object.values(date).join('/');
     var d = new Date(keys);
-    return `${d.toLocaleString('en-us', { month: 'short' })}/${d.getDate()}/${d.getFullYear()}`;
+
+    if ((today - d) / 1000 / 60 / 60 / 24 / 365.3 < 18) {
+      setDateError({ error: 'You need to be over 18 years old' });
+      return;
+    } else {
+      setDateError({});
+      return `${d.toLocaleString('en-us', { month: 'short' })}/${d.getDate()}/${d.getFullYear()}`;
+    }
   };
+
+  useEffect(() => {
+    setUserData({ ...userData, dateOfBirth: Object.values(date).join('/') });
+  }, [date]);
+  useEffect(() => {
+    if (isTouched) processDate();
+  }, [isTouched]);
 
   const onInputChange = (e) => {
     const value = e.target.value;
     const targetId = e.target.id;
-    if (e.target.checked) {
-      setUserData({ [e.target.name]: targetId });
+
+    if (targetId !== 'day' && targetId !== 'month' && targetId !== 'year') {
+      setUserData({ ...userData, [e.target.name]: value });
     }
 
-    setDate(() => {
-      return { ...date, [targetId]: value };
-    });
+    if (targetId === 'month' || targetId === 'day' || targetId === 'year') {
+      setDate({ ...date, [targetId]: value });
+      setIsTouched(true);
+    }
 
     if (e.target.name !== 'dateOfBirth') setUserData({ ...userData, [e.target.name]: value.toLowerCase() });
   };
@@ -44,9 +82,6 @@ const Modal = ({ handleForm }) => {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   const startingYear = '1905';
-  useEffect(() => {
-    setUserData({ ...userData, dateOfBirth: `${date.months}/${date.days}/${date.years}` });
-  }, [date]);
 
   return (
     <StyledModal>
@@ -62,11 +97,12 @@ const Modal = ({ handleForm }) => {
             </button>
           </div>
           <hr className='modal__hr' />
-          <form className='modal__form'>
+          <form className='modal__form' onSubmit={handleSubmit(onSubmit)}>
             <div className='input__inline'>
               <input
                 className='modal__input input__name'
                 onChange={onInputChange}
+                id='firstName'
                 name='firstName'
                 type='text'
                 placeholder='First Name'
@@ -74,6 +110,7 @@ const Modal = ({ handleForm }) => {
               <input
                 className='modal__input'
                 onChange={onInputChange}
+                id='lastName'
                 name='lastName'
                 type='text'
                 placeholder='Last Name'
@@ -81,18 +118,46 @@ const Modal = ({ handleForm }) => {
             </div>
             <input
               className='modal__input'
-              onChange={onInputChange}
+              style={errors.device && { border: '1px solid red' }}
+              id='device'
               name='device'
               type='text'
               placeholder='Mobile number or email'
+              {...register('device', {
+                required: {
+                  value: true,
+                  message: 'Required field',
+                },
+                pattern: {
+                  value: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$|^\+[1-9]{1}[0-9]{3,14}$/,
+                  message: 'Invalid email or phone number',
+                },
+                onChange: (e) => onInputChange(e),
+              })}
+              required
             />
+            {errors.device && <span className='error__message'>{errors.device.message}</span>}
             <input
               className='modal__input'
+              style={errors.password && { border: '1px solid red' }}
               onChange={onInputChange}
+              id='password'
               name='password'
               type='password'
-              placeholder='New password'
+              placeholder='Password'
+              {...register('password', {
+                required: {
+                  value: true,
+                  message: 'Required field',
+                },
+                pattern: {
+                  value: /[a-zA-Z0-9]{4,}$/,
+                  message: 'Invalid password. Password should have at least 4 characters ',
+                },
+                onChange: (e) => onInputChange(e),
+              })}
             />
+            {errors.password && <span className='error__message'>{errors.password.message}</span>}
             <div className='form-group__container'>
               <div className='form-group__top'>
                 <p className='form-group__text'>Date of birth</p>
@@ -101,10 +166,35 @@ const Modal = ({ handleForm }) => {
                 </span>
               </div>
               <div className='form-group__middle'>
-                <Picker styled={'birth-date__select'} onInputChange={onInputChange} months={months} />
-                <Picker styled={'birth-date__select'} onInputChange={onInputChange} days={days} />
-                <Picker styled={'birth-date__select'} onInputChange={onInputChange} year={startingYear} />
+                <Picker
+                  styled={'birth-date__select'}
+                  onInputChange={onInputChange}
+                  months={months}
+                  error={{ border: '1px solid red' }}
+                  setDateError={setDateError}
+                  dateError={dateError}
+                  processDate={processDate}
+                />
+                <Picker
+                  styled={'birth-date__select'}
+                  onInputChange={onInputChange}
+                  days={days}
+                  error={{ border: '1px solid red' }}
+                  setDateError={setDateError}
+                  dateError={dateError}
+                  processDate={processDate}
+                />
+                <Picker
+                  styled={'birth-date__select'}
+                  onInputChange={onInputChange}
+                  year={startingYear}
+                  error={{ border: '1px solid red' }}
+                  setDateError={setDateError}
+                  dateError={dateError}
+                  processDate={processDate}
+                />
               </div>
+              {dateError.error && <span className='error__message '>{dateError.error}</span>}
             </div>
             <div className='form-group__container'>
               <div className='form-group__top'>
@@ -126,7 +216,7 @@ const Modal = ({ handleForm }) => {
               quam ab eveniet, corrupti aliquam deleniti? Et mollitia explicabo eaque!
             </small>
           </form>
-          <button className='modal__submit' type='submit' onClick={handleSubmit}>
+          <button className='modal__submit' type='submit' onClick={handleSubmit(onSubmit)}>
             Register
           </button>
         </div>
