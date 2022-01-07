@@ -159,7 +159,7 @@ const Header = () => {
                 alt='user'
               />
             </NavLink>
-            {width > breakpoint && <p className='profile__name'>{user?.firstName}</p>}
+            {width > breakpoint && <p className='profile__name'>{user.firstName ? user.firstName : user.device}</p>}
           </div>
           <div className='profile__links'>
             <NavLink to='/' className='link' activeClassName='active'>
