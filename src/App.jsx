@@ -20,7 +20,7 @@ const App = () => {
       {user ? <Header /> : null}
       <Switch>
         <PostModalProvider>
-          <SecureRoute exact path='/' component={(props) => <Home {...props} />} />
+          <SecureRoute exact path='/home' component={(props) => <Home {...props} />} />
           <SecureRoute exact path='/profile' component={(props) => <Profile {...props} />} />
           <SecureRoute exact path='/search' component={(props) => <Search {...props} />} />
           <SecureRoute exact path='/friends' component={(props) => <Friends {...props} />} />
