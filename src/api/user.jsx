@@ -5,6 +5,8 @@ const declineRequestUrl = '/decline-contact';
 const removeContactUrl = '/remove-contact';
 const requestContactUrl = '/request-contact';
 const removeMentionsUrl = '/mentions';
+const updateAvatarUrl = '/upload-avatar';
+const updateCoverUrl = '/upload-cover';
 
 export const getAllUsers = async () => {
   const req = await fetch(`${baseUrl}`, {
@@ -99,6 +101,29 @@ export const removeMention = async (data) => {
     credentials: 'include',
     body: JSON.stringify(data),
   });
+  const response = request.json();
+
+  return response;
+};
+
+export const updateAvatar = async ({ data, userId }) => {
+  const request = await fetch(`${baseUrl}${userId}${updateAvatarUrl}`, {
+    method: 'PUT',
+    credentials: 'include',
+    body: data,
+  });
+
+  const response = request.json();
+
+  return response;
+};
+export const updateCover = async ({ data, userId }) => {
+  const request = await fetch(`${baseUrl}${userId}${updateCoverUrl}`, {
+    method: 'PUT',
+    credentials: 'include',
+    body: data,
+  });
+
   const response = request.json();
 
   return response;

@@ -7,6 +7,56 @@ export const StyledProfile = styled.main`
     justify-content: center;
     align-items: center;
     width: 100vw;
+    .upload__container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.7);
+      z-index: 2;
+      .image__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        .upload__avatar {
+          width: 288px;
+          height: 288px;
+          border: 4px solid white;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+        .upload__cover {
+          width: 100%;
+          max-width: 688px;
+          max-height: 688px;
+          border: 4px solid white;
+          border-radius: 5px;
+          object-fit: cover;
+        }
+        .upload__btn {
+          width: 20%;
+          max-width: 80px;
+          min-width: 60px;
+          height: 30px;
+          margin-top: 10px;
+          border: none;
+          border-radius: 5px;
+          color: white;
+          background-color: #1877f2;
+          font-weight: 600;
+          /* cursor: pointer; */
+        }
+        .upload__btn:hover {
+          background-color: #0d6ce8;
+        }
+      }
+    }
     .profile__header {
       display: flex;
       flex-direction: column;
@@ -55,6 +105,10 @@ export const StyledProfile = styled.main`
               border: none;
               border-radius: 50%;
               background-color: #e4e6eb;
+              cursor: pointer;
+            }
+            .btn__add-profile:hover {
+              background-color: #c9ccd2;
             }
           }
         }
@@ -70,6 +124,7 @@ export const StyledProfile = styled.main`
           border: none;
           border-radius: 10px;
           background-color: #e4e6eb;
+          cursor: pointer;
           .camera__icon {
             font-size: 20px;
           }
@@ -79,6 +134,9 @@ export const StyledProfile = styled.main`
             font-size: 14px;
             font-weight: bold;
           }
+        }
+        .btn__add-cover:hover {
+          background-color: #c9ccd2;
         }
       }
       .profile__name {

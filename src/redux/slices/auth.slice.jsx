@@ -1,6 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { signIn, signUp, signOut, checkSession } from '../../api/auth';
-import { acceptRequest, declineRequest, removeContact, sendContactRequest } from '../../api/user';
+import {
+  acceptRequest,
+  declineRequest,
+  removeContact,
+  sendContactRequest,
+  updateAvatar,
+  updateCover,
+} from '../../api/user';
 
 const INITIAL_STATE = {
   user: {
@@ -38,6 +45,12 @@ export const removeContactAsync = createAsyncThunk('user/removeContact', async (
 export const sendContactRequestAsync = createAsyncThunk('user/sendContactRequest', async (data) => {
   return await sendContactRequest(data);
 });
+export const updateAvatarAsync = createAsyncThunk('user/updateAvatar', async ({ data, userId }) => {
+  return await updateAvatar({ data, userId });
+});
+export const updateCoverAsync = createAsyncThunk('user/updateCover', async ({ data, userId }) => {
+  return await updateCover({ data, userId });
+});
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -71,7 +84,6 @@ export const authSlice = createSlice({
       state.error = '';
     });
     builder.addCase(checkSessionAsync.fulfilled, (state, action) => {
-      console.log(action.payload);
       if (!action.payload?.error) {
         state.user = action.payload;
         state.hasUser = true;
@@ -103,6 +115,20 @@ export const authSlice = createSlice({
       if (!action.payload?.error) {
         const user = action.payload.user;
         state.user = { ...state.user, user };
+      }
+    });
+    builder.addCase(updateAvatarAsync.fulfilled, (state, action) => {
+      if (!action.payload.error) {
+        state.user = action.payload;
+      } else {
+        state.error = action.payload.error;
+      }
+    });
+    builder.addCase(updateCoverAsync.fulfilled, (state, action) => {
+      if (!action.payload.error) {
+        state.user = action.payload;
+      } else {
+        state.error = action.payload.error;
       }
     });
   },
