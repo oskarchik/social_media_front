@@ -19,13 +19,16 @@ const PostModal = ({ mode }) => {
   const { posts } = useSelector((state) => state.post);
   const { isOpen, setIsOpen, postId } = useContext(PostModalContext);
   const [isFileLoaderOpen, setIsFileLoaderOpen] = useState(false);
-  const [data, setData] = useState();
+  const [formData, setFormData] = useState();
   const [contacts, setContacts] = useState([]);
   const [mentions, setMentions] = useState([]);
   const editor = useRef(null);
+  const hiddenFileInput = useRef(null);
+  const chosenFile = useRef(null);
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
   const [open, setOpen] = useState(false);
   const [suggestions, setSuggestions] = useState(contacts);
+  const [file, setFile] = useState();
 
   const { MentionSuggestions, plugins, EmojiSuggestions } = useMemo(() => {
     const emojiPlugin = createEmojiPlugin({ useNativeArt: true });
@@ -38,6 +41,17 @@ const PostModal = ({ mode }) => {
     return { plugins, MentionSuggestions, EmojiSuggestions };
   }, []);
 
+  const handleClick = (event) => {
+    event.preventDefault();
+    hiddenFileInput.current.click();
+  };
+  const handleChange = (event) => {
+    const fileUploaded = event.target.files[0];
+    setFile(fileUploaded);
+    console.log(fileUploaded);
+    setFormData({ ...formData, file: fileUploaded });
+    chosenFile.current.innerHTML = fileUploaded.name;
+  };
   const onOpenChange = useCallback((_open) => {
     setOpen(_open);
   }, []);
@@ -51,7 +65,7 @@ const PostModal = ({ mode }) => {
 
   const onInputChange = (e) => {
     const value = e.target.value;
-    setData({ ...data, [e.target.name]: value });
+    setFormData({ ...formData, [e.target.name]: value });
   };
 
   const closeModal = () => {
@@ -64,24 +78,30 @@ const PostModal = ({ mode }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const data = new FormData();
+    data.append('userId', user?._id);
+    data.append('text', formData?.text);
+    formData.file && data.append('file', formData.file, file.name);
+
+    console.log(data.get('file'));
     if (mode === 'Create') {
       dispatch(createPostAsync(data));
     }
-    if (mode === 'Edit' && (currentPost.text !== data.text || currentPost.image !== data.image)) {
-      dispatch(updatePostAsync(data));
+    if (mode === 'Edit' && (currentPost.text !== formData.text || currentPost.image !== formData.image)) {
+      dispatch(updatePostAsync(formData));
     }
     if (mode === 'Share') {
-      dispatch(sharePostAsync(data));
+      dispatch(sharePostAsync(formData));
     }
 
-    setData({ userId: '' });
+    setFormData({ userId: '' });
     setIsOpen((prevState) => !prevState);
   };
 
   const selectMode = () => {
     switch (mode) {
       case 'Edit':
-        setData({
+        setFormData({
           text: currentPost.text,
           image: currentPost.image,
           userId: user._id,
@@ -90,14 +110,16 @@ const PostModal = ({ mode }) => {
         });
         break;
       case 'Create':
-        setData({
+        console.log('aqui');
+        setFormData({
           userId: user._id,
           text: editorState.getCurrentContent().getPlainText(),
           mentions: mentions,
+          file,
         });
         break;
       case 'Share':
-        setData({
+        setFormData({
           userId: user._id,
           postRef: postId,
           text: '',
@@ -112,20 +134,20 @@ const PostModal = ({ mode }) => {
     contacts.some((contact) => {
       if (editorState.getCurrentContent().getPlainText().indexOf(contact.name) > -1) {
         !mentions.some((mention) => mention.id === contact.id) && setMentions((prev) => [...prev, contact]);
-        setData({
-          ...data,
+        setFormData({
+          ...formData,
           text: editorState.getCurrentContent().getPlainText(),
         });
       }
-      setData({
-        ...data,
+      setFormData({
+        ...formData,
         text: editorState.getCurrentContent().getPlainText(),
       });
     });
   }, [editorState]);
 
   useEffect(() => {
-    setData({ ...data, mentions: mentions });
+    setFormData({ ...formData, mentions: mentions });
     setContacts(contacts.filter((contact) => mentions.some((mention) => mention.id !== contact.id)));
   }, [mentions]);
 
@@ -136,7 +158,7 @@ const PostModal = ({ mode }) => {
         return { avatar: contact.avatar, name: `${contact.firstName} ${contact.lastName}`, id: contact._id };
       })
     );
-  }, []);
+  }, [mode]);
 
   return (
     <StyledPostModal>
@@ -164,7 +186,7 @@ const PostModal = ({ mode }) => {
                 {user.firstName} {user.lastName}
               </p>
             </div>
-            <form className='modal__content' id='post-form' onSubmit={handleSubmit}>
+            <form className='modal__content' id='post-form' onSubmit={handleSubmit} encType='multipart/form-data'>
               <div
                 className='editor'
                 onClick={() => {
@@ -181,14 +203,22 @@ const PostModal = ({ mode }) => {
                 <EmojiSuggestions />
               </div>
               {isFileLoaderOpen && (
-                <input
-                  className='modal__image'
-                  type='text'
-                  onChange={onInputChange}
-                  name='image'
-                  value={data?.image}
-                  placeholder='Add your photo/video'
-                />
+                <>
+                  <button onClick={handleClick}>Upload file</button>
+                  <input
+                    className='modal__image'
+                    type='file'
+                    // onChange={onInputChange}
+                    ref={hiddenFileInput}
+                    onChange={handleChange}
+                    id='fileInput'
+                    name='image'
+                    value={formData?.image}
+                    placeholder='Add your photo/video'
+                    style={{ display: 'none' }}
+                  />
+                  <span ref={chosenFile}>No file Chosen </span>
+                </>
               )}
               {mode === 'Share' && currentPost ? (
                 <div className='shared__post'>

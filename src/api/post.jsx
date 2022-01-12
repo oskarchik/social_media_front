@@ -104,13 +104,8 @@ export const deletePost = async (data) => {
 export const createPost = async (data) => {
   const request = await fetch(`${baseUrl}`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
     credentials: 'include',
-    body: JSON.stringify(data),
+    body: data,
   });
   const response = await request.json();
 
