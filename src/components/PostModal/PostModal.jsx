@@ -48,7 +48,6 @@ const PostModal = ({ mode }) => {
   const handleChange = (event) => {
     const fileUploaded = event.target.files[0];
     setFile(fileUploaded);
-    console.log(fileUploaded);
     setFormData({ ...formData, file: fileUploaded });
     chosenFile.current.innerHTML = fileUploaded.name;
   };
@@ -62,11 +61,6 @@ const PostModal = ({ mode }) => {
   const currentPost = posts.find((post) => {
     return post._id === postId ? post : null;
   });
-
-  const onInputChange = (e) => {
-    const value = e.target.value;
-    setFormData({ ...formData, [e.target.name]: value });
-  };
 
   const closeModal = () => {
     return !isOpen ? isOpen : setIsOpen((prevState) => !prevState);
@@ -82,8 +76,8 @@ const PostModal = ({ mode }) => {
     data.append('userId', user?._id);
     data.append('text', formData?.text);
     formData.file && data.append('file', formData.file, file.name);
+    data.append('mentions', JSON.stringify(formData.mentions));
 
-    console.log(data.get('file'));
     if (mode === 'Create') {
       dispatch(createPostAsync(data));
     }
@@ -110,7 +104,6 @@ const PostModal = ({ mode }) => {
         });
         break;
       case 'Create':
-        console.log('aqui');
         setFormData({
           userId: user._id,
           text: editorState.getCurrentContent().getPlainText(),
@@ -148,7 +141,8 @@ const PostModal = ({ mode }) => {
 
   useEffect(() => {
     setFormData({ ...formData, mentions: mentions });
-    setContacts(contacts.filter((contact) => mentions.some((mention) => mention.id !== contact.id)));
+    const updatedContacts = contacts.filter((contact) => !mentions.find((mention) => mention.id === contact.id));
+    setContacts(updatedContacts);
   }, [mentions]);
 
   useEffect(() => {
@@ -208,7 +202,6 @@ const PostModal = ({ mode }) => {
                   <input
                     className='modal__image'
                     type='file'
-                    // onChange={onInputChange}
                     ref={hiddenFileInput}
                     onChange={handleChange}
                     id='fileInput'
