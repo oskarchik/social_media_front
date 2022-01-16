@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import { Header, SecureRoute } from './components';
 import { Home, Profile, Search, Friends, Messenger, Login } from './pages';
@@ -20,12 +20,13 @@ const App = () => {
       {user ? <Header /> : null}
       <Switch>
         <PostModalProvider>
-          <SecureRoute exact path='/home' component={(props) => <Home {...props} />} />
+          <SecureRoute exact path='/' component={(props) => <Home {...props} />} />
           <SecureRoute exact path='/profile' component={(props) => <Profile {...props} />} />
           <SecureRoute exact path='/search' component={(props) => <Search {...props} />} />
           <SecureRoute exact path='/friends' component={(props) => <Friends {...props} />} />
           <SecureRoute exact path='/messenger' component={(props) => <Messenger {...props} />} />
           <Route exact path='/auth' component={Login} />
+          <Redirect from='*' to='/' />
         </PostModalProvider>
       </Switch>
     </Router>
