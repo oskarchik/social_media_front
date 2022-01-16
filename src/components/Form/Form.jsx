@@ -30,7 +30,7 @@ const Form = () => {
   const onSubmit = async () => {
     const response = await dispatch(signInAsync(userData));
 
-    response.payload.error ? setError('apiError', { message: response.payload.error }) : history.push('/home');
+    response.payload.error ? setError('apiError', { message: response.payload.error }) : history.push('/');
   };
 
   return (
