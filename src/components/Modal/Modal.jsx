@@ -55,9 +55,13 @@ const Modal = ({ handleForm }) => {
 
   useEffect(() => {
     setUserData({ ...userData, dateOfBirth: Object.values(date).join('/') });
+    setIsTouched(false);
   }, [date]);
   useEffect(() => {
-    if (isTouched) processDate();
+    if (isTouched) {
+      setDateError({});
+      processDate();
+    }
   }, [isTouched]);
 
   const onInputChange = (e) => {
