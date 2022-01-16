@@ -24,7 +24,6 @@ const Profile = () => {
 
   const { width } = useViewport();
   const dispatch = useDispatch();
-  console.log(user);
   const breakpoint = 700;
   const handleClick = (e) => {
     e.preventDefault();
