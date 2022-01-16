@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:5500/api/conversations/';
+const baseUrl = 'https://node-social-face.herokuapp.com/api/conversations/';
 const conversationByMembersUrl = 'find/';
 
 export const getUserConversations = async (userId) => {

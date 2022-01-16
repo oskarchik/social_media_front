@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:5500/api/';
+const baseUrl = 'https://node-social-face.herokuapp.com/api/';
 const signUpUrl = `${baseUrl}auth/signup`;
 const signInUrl = `${baseUrl}auth/signin`;
 const signOutUrl = `${baseUrl}auth/signout`;
