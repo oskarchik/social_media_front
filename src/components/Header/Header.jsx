@@ -125,10 +125,12 @@ const Header = () => {
             </div>
             <div className='link'>
               <NavLink to='/friends' exact className='anchor' activeClassName='active'>
-                <Person />
-                {user?.receivedRequests?.length > 0 && (
-                  <span className='link__badge'>{user.receivedRequests.length}</span>
-                )}
+                <div className='badge__container'>
+                  <Person />
+                  {user?.receivedRequests?.length > 0 && (
+                    <span className='link__badge'>{user.receivedRequests.length}</span>
+                  )}
+                </div>
               </NavLink>
             </div>
             <div className='link'>
@@ -139,8 +141,10 @@ const Header = () => {
 
             {
               <div className='link' onClick={mentions.length > 0 ? () => setIsOpen(!isOpen) : null}>
-                <Notifications />
-                {mentions.length > 0 && <span className='link__badge'>{mentions.length}</span>}
+                <div className='badge__container'>
+                  <Notifications />
+                  {mentions.length > 0 && <span className='link__badge'>{mentions.length}</span>}
+                </div>
               </div>
             }
             {width < breakpoint && (

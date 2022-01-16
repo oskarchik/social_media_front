@@ -63,15 +63,17 @@ export const StyledHeader = styled.header`
         margin: 0 2vw;
         .link {
           display: flex;
-          align-items: center;
+          align-items: stretch;
           justify-content: center;
           position: relative;
           width: 7vw;
           min-width: 24px;
+          height: 30px;
           margin-right: 5px;
           color: #6e7074;
           font-size: 14px;
           cursor: pointer;
+          /* border: 1px solid black; */
 
           .anchor {
             display: flex;
@@ -79,6 +81,9 @@ export const StyledHeader = styled.header`
             justify-content: center;
             color: #6e7074;
             text-decoration: none;
+          }
+          .badge__container {
+            position: absolute;
           }
           .anchor:hover {
             color: #1877f2;
@@ -94,7 +99,7 @@ export const StyledHeader = styled.header`
             justify-content: center;
             position: absolute;
             top: -5px;
-            right: 30px;
+            right: -5px;
             width: 14px;
             height: 14px;
             padding: 5px;
