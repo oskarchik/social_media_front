@@ -1,4 +1,4 @@
-const baseUrl = 'https://node-social-face.herokuapp.com/api/messages/';
+const baseUrl = '//node-social-face.herokuapp.com/api/messages/';
 
 export const getMessages = async (conversationId) => {
   const request = await fetch(`${baseUrl}${conversationId}`, {

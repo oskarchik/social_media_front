@@ -15,6 +15,8 @@ const App = () => {
   useEffect(() => {
     dispatch(checkSessionAsync());
   }, [dispatch]);
+  console.log(process.env);
+  console.log(process.env.RECT_APP_API_URL);
   return (
     <Router>
       {user ? <Header /> : null}

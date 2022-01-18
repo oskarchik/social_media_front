@@ -1,4 +1,4 @@
-const baseUrl = 'https://node-social-face.herokuapp.com/api/comments';
+const baseUrl = '//node-social-face.herokuapp.com/api/comments';
 const likeUnlikeCommentUrl = '/like-comment';
 const commentUrl = '/comment';
 

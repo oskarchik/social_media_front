@@ -1,7 +1,7 @@
-const baseUrl = 'https://node-social-face.herokuapp.com/api/posts';
+const baseUrl = '//node-social-face.herokuapp.com/api/posts';
 const timeLineUrl = 'timeline/all';
 const userPostsUrl = '/user-posts';
-const commentAPostUrl = 'https://node-social-face.herokuapp.com/api/comments/';
+const commentAPostUrl = '//node-social-face.herokuapp.com/api/comments/';
 const likesPostUrl = '/likes';
 const sharePostUrl = '/share';
 

@@ -1,4 +1,4 @@
-const baseUrl = 'https://node-social-face.herokuapp.com/api/';
+const baseUrl = '//node-social-face.herokuapp.com/api/';
 const signUpUrl = `${baseUrl}auth/signup`;
 const signInUrl = `${baseUrl}auth/signin`;
 const signOutUrl = `${baseUrl}auth/signout`;

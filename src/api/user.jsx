@@ -1,4 +1,4 @@
-const baseUrl = 'https://node-social-face.herokuapp.com/api/users/';
+const baseUrl = '//node-social-face.herokuapp.com/api/users/';
 
 const acceptRequestUrl = '/accept-contact';
 const declineRequestUrl = '/decline-contact';
