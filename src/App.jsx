@@ -16,7 +16,7 @@ const App = () => {
     dispatch(checkSessionAsync());
   }, [dispatch]);
   console.log(process.env);
-  console.log(process.env.RECT_APP_API_URL);
+  console.log(process.env.REACT_APP_API_URL);
   return (
     <Router>
       {user ? <Header /> : null}
