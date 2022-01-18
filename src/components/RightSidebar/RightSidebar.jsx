@@ -30,7 +30,7 @@ const RightSidebar = () => {
   }, [user]);
   useEffect(() => {
     if (socket.disconnected) {
-      socket.connect('//node-social-face.herokuapp.com/', {
+      socket.connect('https://social-face.netlify.app', {
         withCredentials: true,
         forceNew: true,
         extraHeaders: {
