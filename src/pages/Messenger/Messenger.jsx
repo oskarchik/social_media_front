@@ -43,6 +43,9 @@ const Messenger = (props) => {
       socket.connect('https://node-social-face.herokuapp.com/', {
         withCredentials: true,
         forceNew: true,
+        extraHeaders: {
+          'Access-Control-Allow-Origin': '*',
+        },
       });
     }
     socket.emit('addUser', user._id);
