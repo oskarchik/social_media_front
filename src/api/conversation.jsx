@@ -41,6 +41,10 @@ export const createConversation = async (user1, user2) => {
       'Access-Control-Allow-Origin': '*',
     },
     credentials: 'include',
+    body: {
+      senderId: user1,
+      receiverId: user2,
+    },
   });
 
   const response = await request.json();
