@@ -40,7 +40,7 @@ const Messenger = (props) => {
   };
   useEffect(() => {
     if (socket.disconnected) {
-      socket.connect('https://social-face.netlify.app', {
+      socket.connect('https://node-social-face.herokuapp.com', {
         withCredentials: true,
         forceNew: true,
         extraHeaders: {
