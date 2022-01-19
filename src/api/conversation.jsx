@@ -32,3 +32,18 @@ export const getConversationsByMembers = async (user1, user2) => {
 
   return response;
 };
+export const createConversation = async (user1, user2) => {
+  const request = await fetch(`${baseUrl}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+    credentials: 'include',
+  });
+
+  const response = await request.json();
+
+  return response;
+};

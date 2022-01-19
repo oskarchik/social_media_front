@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { getConversationsByMembers } from '../../api/conversation';
+import { getConversationsByMembers, createConversation } from '../../api/conversation';
 
 import { StyledChatOnline } from './ChatOnline.style';
 
@@ -8,9 +8,15 @@ const ChatOnline = ({ setCurrentChat, onlineFriends }) => {
   const { user } = useSelector((state) => state.auth.user);
 
   const handleClick = async (friend) => {
-    const userConversation = await getConversationsByMembers(user._id, friend._id);
-
-    setCurrentChat(userConversation);
+    const response = await getConversationsByMembers(user._id, friend._id);
+    if (response.error) {
+      const userConversation = await createConversation(user._id, friend._id);
+      setCurrentChat(userConversation);
+    } else {
+      const userConversation = await getConversationsByMembers(user._id, friend._id);
+      setCurrentChat(userConversation);
+    }
+    return;
   };
 
   return (
