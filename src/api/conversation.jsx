@@ -33,6 +33,10 @@ export const getConversationsByMembers = async (user1, user2) => {
   return response;
 };
 export const createConversation = async (user1, user2) => {
+  const data = {
+    senderId: user1,
+    receiverId: user2,
+  };
   const request = await fetch(`${baseUrl}`, {
     method: 'POST',
     headers: {
@@ -41,10 +45,7 @@ export const createConversation = async (user1, user2) => {
       'Access-Control-Allow-Origin': '*',
     },
     credentials: 'include',
-    body: {
-      senderId: user1,
-      receiverId: user2,
-    },
+    body: JSON.stringify(data),
   });
 
   const response = await request.json();
