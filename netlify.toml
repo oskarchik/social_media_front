@@ -1,10 +1,8 @@
 [[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
-force = false
-[[redirects]]
 from = "/messenger"
 to = "/messenger.html"
+[[redirects]]
+from = "/*"
+to = "/index.html"
 status = 200
 force = false
