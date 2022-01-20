@@ -28,7 +28,7 @@ const App = () => {
           <SecureRoute exact path='/friends' component={(props) => <Friends {...props} />} />
           <SecureRoute exact path='/messenger' component={(props) => <Messenger {...props} />} />
           <Route exact path='/auth' component={Login} />
-          <Redirect from='*' to='/' />
+          {/* <Redirect from='*' to='/' /> */}
         </PostModalProvider>
       </Switch>
     </Router>
