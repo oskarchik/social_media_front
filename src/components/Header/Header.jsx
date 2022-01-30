@@ -64,8 +64,8 @@ const Header = () => {
     });
     const filteredUsers = users.filter((user) => {
       return (
-        user.firstName.toLowerCase().includes(str.toLowerCase()) ||
-        user.lastName.toLowerCase().includes(str.toLowerCase())
+        user.firstName?.toLowerCase().includes(str.toLowerCase()) ||
+        user.lastName?.toLowerCase().includes(str.toLowerCase())
       );
     });
     const filteredContacts = filteredUsers.filter((filteredUser) => {
@@ -101,7 +101,7 @@ const Header = () => {
     <StyledHeader className='header'>
       <div className='header__container'>
         <div className='logo__container'>
-          <span className='logo'>Fb</span>
+          <span className='logo'>Sf</span>
           <div className='searchbar__container'>
             <Search className='search__icon' />
             <form onSubmit={searchValue}>
