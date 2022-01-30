@@ -15,8 +15,6 @@ const App = () => {
   useEffect(() => {
     dispatch(checkSessionAsync());
   }, [dispatch]);
-  console.log(process.env);
-  console.log(process.env.REACT_APP_API_URL);
   return (
     <Router>
       {user ? <Header /> : null}
@@ -28,7 +26,6 @@ const App = () => {
           <SecureRoute exact path='/friends' component={(props) => <Friends {...props} />} />
           <SecureRoute exact path='/messenger' component={(props) => <Messenger {...props} />} />
           <Route exact path='/auth' component={Login} />
-          {/* <Redirect from='*' to='/' /> */}
         </PostModalProvider>
       </Switch>
     </Router>
