@@ -1,4 +1,8 @@
-const baseUrl = '//node-social-face.herokuapp.com/api/comments';
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? `${process.env.REACT_APP_API_URL_DEV}/comments`
+    : `
+    ${process.env.REACT_APP_API_URL_PROD}/comments`;
 const likeUnlikeCommentUrl = '/like-comment';
 const commentUrl = '/comment';
 

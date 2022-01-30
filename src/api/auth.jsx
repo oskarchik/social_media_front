@@ -1,8 +1,15 @@
-const baseUrl = '//node-social-face.herokuapp.com/api/';
-const signUpUrl = `${baseUrl}auth/signup`;
-const signInUrl = `${baseUrl}auth/signin`;
-const signOutUrl = `${baseUrl}auth/signout`;
-const checkSessionUrl = `${baseUrl}auth/check-session`;
+const baseApiUrl =
+  process.env.NODE_ENV === 'development'
+    ? `${process.env.REACT_APP_API_URL_DEV}/auth`
+    : `
+    ${process.env.REACT_APP_API_URL_PROD}/auth`;
+
+const signUpUrl = `${baseApiUrl}/signup`;
+const signInUrl = `${baseApiUrl}/signin`;
+const signOutUrl = `${baseApiUrl}/signout`;
+const checkSessionUrl = `${baseApiUrl}/check-session`;
+
+const frontUrl = process.env === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_FRONT_URL;
 
 export const signUp = async (userData) => {
   const req = await fetch(signUpUrl, {
@@ -59,7 +66,7 @@ export const checkSession = async () => {
     header: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'https://social-face.netlify.app/',
+      'Access-Control-Allow-Origin': frontUrl,
     },
     credentials: 'include',
   });

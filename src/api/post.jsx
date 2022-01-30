@@ -1,7 +1,15 @@
-const baseUrl = '//node-social-face.herokuapp.com/api/posts';
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? `${process.env.REACT_APP_API_URL_DEV}/posts`
+    : `
+    ${process.env.REACT_APP_API_URL_PROD}/posts`;
 const timeLineUrl = 'timeline/all';
 const userPostsUrl = '/user-posts';
-const commentAPostUrl = '//node-social-face.herokuapp.com/api/comments/';
+const commentAPostUrl =
+  process.env.NODE_ENV === 'development'
+    ? `${process.env.REACT_APP_API_URL_DEV}/comments/`
+    : `
+    ${process.env.REACT_APP_API_URL_PROD}/comments/`;
 const likesPostUrl = '/likes';
 const sharePostUrl = '/share';
 

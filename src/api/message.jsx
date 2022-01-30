@@ -1,4 +1,8 @@
-const baseUrl = '//node-social-face.herokuapp.com/api/messages/';
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? `${process.env.REACT_APP_API_URL_DEV}/messages`
+    : `
+    ${process.env.REACT_APP_API_URL_PROD}/messages`;
 
 export const getMessages = async (conversationId) => {
   const request = await fetch(`${baseUrl}${conversationId}`, {

@@ -1,4 +1,8 @@
-const baseUrl = '//node-social-face.herokuapp.com/api/conversations/';
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? `${process.env.REACT_APP_API_URL_DEV}/conversations`
+    : `
+    ${process.env.REACT_APP_API_URL_PROD}/conversations`;
 const conversationByMembersUrl = 'find/';
 
 export const getUserConversations = async (userId) => {
@@ -45,7 +49,7 @@ export const createConversation = async (user1, user2) => {
       'Access-Control-Allow-Origin': '*',
     },
     credentials: 'include',
-    body: JSON.stringify(data),
+    body: JSON.stringify(),
   });
 
   const response = await request.json();
