@@ -31,6 +31,12 @@ const Messenger = (props) => {
   const [scroll, setScroll] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const socketUrl =
+    process.env.NODE_ENV === 'development'
+      ? `${process.env.REACT_APP_API_URL_DEV}`
+      : `
+    ${process.env.REACT_APP_API_URL_PROD}`;
+
   const handleInputChange = (e) => {
     const value = e.target.value;
     setInput(value);
@@ -38,9 +44,10 @@ const Messenger = (props) => {
       setIsDisabled(false);
     }
   };
+
   useEffect(() => {
     if (socket.disconnected) {
-      socket.connect('https://node-social-face.herokuapp.com', {
+      socket.connect(socketUrl, {
         withCredentials: true,
         forceNew: true,
         extraHeaders: {

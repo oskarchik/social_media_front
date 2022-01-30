@@ -1,6 +1,12 @@
 import { io } from 'socket.io-client';
 
-export const socket = io('https://node-social-face.herokuapp.com', {
+const socketUrl =
+  process.env.NODE_ENV === 'development'
+    ? `${process.env.REACT_APP_API_URL_DEV}`
+    : `
+    ${process.env.REACT_APP_API_URL_PROD}`;
+
+export const socket = io(socketUrl, {
   withCredentials: true,
   forceNew: true,
   extraHeaders: {

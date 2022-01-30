@@ -14,6 +14,12 @@ const RightSidebar = () => {
   const [onlineFriends, setOnlineFriends] = useState([]);
   const [birthDays, setBirthDays] = useState([]);
 
+  const socketUrl =
+    process.env.NODE_ENV === 'development'
+      ? `${process.env.REACT_APP_API_URL_DEV}`
+      : `
+    ${process.env.REACT_APP_API_URL_PROD}`;
+
   const checkBirthDays = (user) => {
     user.contacts.map((contact) => {
       return new Date(contact.dateOfBirth).toLocaleString('en-us', { day: 'numeric', month: 'short' }) ==
@@ -30,7 +36,7 @@ const RightSidebar = () => {
   }, [user]);
   useEffect(() => {
     if (socket.disconnected) {
-      socket.connect('https://node-social-face.herokuapp.com', {
+      socket.connect(socketUrl, {
         withCredentials: true,
         forceNew: true,
         extraHeaders: {
@@ -46,7 +52,6 @@ const RightSidebar = () => {
   }, [user]);
 
   return (
-    // <div className='right-sidebar__wrapper'>
     <StyledRightSidebar className='right-sidebar__wrapper'>
       <div className='right-sidebar__container'>
         {birthDays.length > 0 && (
@@ -88,7 +93,6 @@ const RightSidebar = () => {
         </ul>
       </div>
     </StyledRightSidebar>
-    // </div>
   );
 };
 
