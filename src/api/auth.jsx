@@ -12,7 +12,7 @@ const checkSessionUrl = `${baseApiUrl}/check-session`;
 const frontUrl = process.env === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_FRONT_URL;
 
 export const signUp = async (userData) => {
-  const req = await fetch(signUpUrl, {
+  const request = await fetch(signUpUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -23,13 +23,13 @@ export const signUp = async (userData) => {
     body: JSON.stringify(userData),
   });
 
-  const resp = await req.json();
+  const response = await request.json();
 
-  return resp;
+  return response;
 };
 
 export const signIn = async (userData) => {
-  const req = await fetch(signInUrl, {
+  const request = await fetch(signInUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -40,12 +40,12 @@ export const signIn = async (userData) => {
     body: JSON.stringify(userData),
   });
 
-  const resp = await req.json();
+  const response = await request.json();
 
-  return resp;
+  return response;
 };
 export const signOut = async () => {
-  const req = await fetch(signOutUrl, {
+  const request = await fetch(signOutUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -55,13 +55,13 @@ export const signOut = async () => {
     credentials: 'include',
   });
 
-  const res = req.json();
+  const res = request.json();
 
   return res;
 };
 
 export const checkSession = async () => {
-  const req = await fetch(checkSessionUrl, {
+  const request = await fetch(checkSessionUrl, {
     method: 'GET',
     header: {
       Accept: 'application/json',
@@ -70,7 +70,7 @@ export const checkSession = async () => {
     },
     credentials: 'include',
   });
-  const res = req.json();
+  const res = request.json();
 
   return res;
 };

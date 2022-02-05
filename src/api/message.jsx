@@ -5,7 +5,7 @@ const baseUrl =
     ${process.env.REACT_APP_API_URL_PROD}/messages`;
 
 export const getMessages = async (conversationId) => {
-  const request = await fetch(`${baseUrl}${conversationId}`, {
+  const request = await fetch(`${baseUrl}/${conversationId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

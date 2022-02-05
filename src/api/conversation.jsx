@@ -6,7 +6,7 @@ const baseUrl =
 const conversationByMembersUrl = 'find/';
 
 export const getUserConversations = async (userId) => {
-  const request = await fetch(`${baseUrl}${userId}`, {
+  const request = await fetch(`${baseUrl}/${userId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export const getUserConversations = async (userId) => {
 };
 
 export const getConversationsByMembers = async (user1, user2) => {
-  const request = await fetch(`${baseUrl}${conversationByMembersUrl}${user1}/${user2}`, {
+  const request = await fetch(`${baseUrl}/${conversationByMembersUrl}${user1}/${user2}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export const createConversation = async (user1, user2) => {
       'Access-Control-Allow-Origin': '*',
     },
     credentials: 'include',
-    body: JSON.stringify(),
+    body: JSON.stringify(data),
   });
 
   const response = await request.json();
