@@ -50,9 +50,14 @@ export const StyledLeftSidebar = styled.aside`
       padding: 0;
       list-style: none;
       .friends__item {
-        display: flex;
-        align-items: center;
         margin-bottom: 15px;
+        cursor: pointer;
+        .friends__link {
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          color: black;
+        }
         .friends__profile-pic {
           width: 32px;
           height: 32px;

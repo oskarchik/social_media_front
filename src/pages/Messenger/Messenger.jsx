@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { ChatOnline, Conversation, Message, Spinner } from '../../components';
-import { socket } from '../../components/Socket/Socket';
+import { socket, socketUrl } from '../../components/Socket/Socket';
 
 import { getUserConversations } from '../../api/conversation';
 import { getMessages, newMessage } from '../../api/message';
@@ -40,16 +40,19 @@ const Messenger = (props) => {
   };
   useEffect(() => {
     if (socket.disconnected) {
-      socket.connect('ws:https://node-social-face.herokuapp.com/', {
+      socket.connect(socketUrl, {
         withCredentials: true,
         forceNew: true,
+        extraHeaders: {
+          'Access-Control-Allow-Origin': '*',
+        },
       });
     }
     socket.emit('addUser', user._id);
     socket.on('getUsers', (users) => {
       setOnlineFriends(user?.contacts?.filter((contact) => users.some((user) => user.userId === contact._id)));
     });
-    return () => socket.removeAllListeners();
+    return () => socket.disconnect();
   }, [user]);
 
   useEffect(() => {
@@ -63,7 +66,7 @@ const Messenger = (props) => {
     return () => socket.disconnect();
   }, []);
   useEffect(() => {
-    if (contact) {
+    if (contact && conversations.length > 0) {
       setCurrentChat(conversations?.find((conversation) => conversation.members.includes(contact._id)));
     }
   }, [contact, conversations]);
@@ -137,7 +140,7 @@ const Messenger = (props) => {
             <>
               <div className='chat-box__wrapper'>
                 <div className='chat-box__top'>
-                  {messages.length > 0 ? (
+                  {messages ? (
                     messages.map((message) => (
                       <div ref={scrollRef} key={message.createdAt}>
                         <Message

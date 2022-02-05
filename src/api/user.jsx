@@ -1,4 +1,8 @@
-const baseUrl = 'https://node-social-face.herokuapp.com/api/users/';
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? `${process.env.REACT_APP_API_URL_DEV}/users/`
+    : `
+    ${process.env.REACT_APP_API_URL_PROD}/users/`;
 
 const acceptRequestUrl = '/accept-contact';
 const declineRequestUrl = '/decline-contact';
@@ -9,7 +13,7 @@ const updateAvatarUrl = '/upload-avatar';
 const updateCoverUrl = '/upload-cover';
 
 export const getAllUsers = async () => {
-  const req = await fetch(`${baseUrl}`, {
+  const request = await fetch(`${baseUrl}`, {
     method: 'GET',
     header: {
       Accept: 'application/json',
@@ -19,12 +23,12 @@ export const getAllUsers = async () => {
     credentials: 'include',
   });
 
-  const res = req.json();
+  const response = request.json();
 
-  return res;
+  return response;
 };
 export const acceptRequest = async (data) => {
-  const req = await fetch(`${baseUrl}${data.userId}${acceptRequestUrl}`, {
+  const request = await fetch(`${baseUrl}${data.userId}${acceptRequestUrl}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -35,13 +39,13 @@ export const acceptRequest = async (data) => {
     body: JSON.stringify(data),
   });
 
-  const res = req.json();
+  const response = request.json();
 
-  return res;
+  return response;
 };
 
 export const declineRequest = async (data) => {
-  const req = await fetch(`${baseUrl}${data.userId}${declineRequestUrl}`, {
+  const request = await fetch(`${baseUrl}${data.userId}${declineRequestUrl}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -52,13 +56,13 @@ export const declineRequest = async (data) => {
     body: JSON.stringify(data),
   });
 
-  const res = req.json();
+  const response = request.json();
 
-  return res;
+  return response;
 };
 
 export const removeContact = async (data) => {
-  const req = await fetch(`${baseUrl}${data.userId}${removeContactUrl}`, {
+  const request = await fetch(`${baseUrl}${data.userId}${removeContactUrl}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -69,12 +73,12 @@ export const removeContact = async (data) => {
     body: JSON.stringify(data),
   });
 
-  const res = req.json();
+  const response = request.json();
 
-  return res;
+  return response;
 };
 export const sendContactRequest = async (data) => {
-  const req = await fetch(`${baseUrl}${data.userId}${requestContactUrl}`, {
+  const request = await fetch(`${baseUrl}${data.userId}${requestContactUrl}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -85,9 +89,9 @@ export const sendContactRequest = async (data) => {
     body: JSON.stringify(data),
   });
 
-  const res = req.json();
+  const response = request.json();
 
-  return res;
+  return response;
 };
 
 export const removeMention = async (data) => {

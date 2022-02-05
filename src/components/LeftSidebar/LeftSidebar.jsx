@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import {
   Bookmarks,
@@ -73,12 +74,14 @@ const LeftSidebar = () => {
             user.contacts?.map((contact) => {
               return (
                 <li className='friends__item' key={contact._id}>
-                  <img
-                    className='friends__profile-pic'
-                    src={contact.avatar || 'assets/profile/default_profile.png'}
-                    alt={contact.firstName}
-                  />
-                  <span className='friends__name'>{contact.firstName}</span>
+                  <Link to={{ pathname: '/user', state: { contact } }} className='friends__link'>
+                    <img
+                      className='friends__profile-pic'
+                      src={contact.avatar || 'assets/profile/default_profile.png'}
+                      alt={contact.firstName}
+                    />
+                    <span className='friends__name'>{contact.firstName}</span>
+                  </Link>
                 </li>
               );
             })}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { socket } from '../Socket/Socket';
+import { socket, socketUrl } from '../Socket/Socket';
 import { useViewport } from '../../hooks/useViewport';
 
 import { StyledRightSidebar } from './RightSidebar.style';
@@ -30,9 +30,16 @@ const RightSidebar = () => {
   }, [user]);
   useEffect(() => {
     if (socket.disconnected) {
+<<<<<<< HEAD
       socket.connect('ws:https://node-social-face.herokuapp.com/', {
+=======
+      socket.connect(socketUrl, {
+>>>>>>> fix-refactor
         withCredentials: true,
         forceNew: true,
+        extraHeaders: {
+          'Access-Control-Allow-Origin': '*',
+        },
       });
     }
     socket.emit('addUser', user._id);
@@ -43,7 +50,6 @@ const RightSidebar = () => {
   }, [user]);
 
   return (
-    // <div className='right-sidebar__wrapper'>
     <StyledRightSidebar className='right-sidebar__wrapper'>
       <div className='right-sidebar__container'>
         {birthDays.length > 0 && (
@@ -85,7 +91,6 @@ const RightSidebar = () => {
         </ul>
       </div>
     </StyledRightSidebar>
-    // </div>
   );
 };
 
