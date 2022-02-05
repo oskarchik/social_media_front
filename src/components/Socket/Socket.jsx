@@ -6,6 +6,7 @@ export const socketUrl =
     : `
     ${process.env.REACT_APP_SOCKET_URL}`;
 console.log(process.env.REACT_APP_SOCKET_URL);
+console.log(socketUrl);
 
 export const socket = io(socketUrl, {
   withCredentials: true,

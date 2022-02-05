@@ -4,6 +4,7 @@ const baseApiUrl =
     : 'https://node-social-face.herokuapp.com/api';
 // `
 // ${process.env.REACT_APP_API_URL}/api/auth`;
+console.log('baseUrl', baseApiUrl);
 
 const signUpUrl = `${baseApiUrl}/signup`;
 const signInUrl = `${baseApiUrl}/signin`;
