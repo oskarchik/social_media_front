@@ -30,11 +30,7 @@ const RightSidebar = () => {
   }, [user]);
   useEffect(() => {
     if (socket.disconnected) {
-<<<<<<< HEAD
-      socket.connect('ws:https://node-social-face.herokuapp.com/', {
-=======
       socket.connect(socketUrl, {
->>>>>>> fix-refactor
         withCredentials: true,
         forceNew: true,
         extraHeaders: {
