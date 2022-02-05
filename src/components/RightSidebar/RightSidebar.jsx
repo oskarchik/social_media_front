@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { socket } from '../Socket/Socket';
+import { socket, socketUrl } from '../Socket/Socket';
 import { useViewport } from '../../hooks/useViewport';
 
 import { StyledRightSidebar } from './RightSidebar.style';
@@ -13,12 +13,6 @@ const RightSidebar = () => {
 
   const [onlineFriends, setOnlineFriends] = useState([]);
   const [birthDays, setBirthDays] = useState([]);
-
-  const socketUrl =
-    process.env.NODE_ENV === 'development'
-      ? `${process.env.REACT_APP_API_URL_DEV}`
-      : `
-    ${process.env.REACT_APP_API_URL_PROD}`;
 
   const checkBirthDays = (user) => {
     user.contacts.map((contact) => {
