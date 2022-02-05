@@ -13,7 +13,7 @@ const checkSessionUrl = `${baseApiUrl}/check-session`;
 
 const frontUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_FRONT_URL;
 
-console.log(frontUrl);
+console.log('fronturl', frontUrl);
 
 export const signUp = async (userData) => {
   const request = await fetch(signUpUrl, {
