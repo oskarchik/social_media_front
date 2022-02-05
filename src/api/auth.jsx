@@ -11,7 +11,7 @@ const signInUrl = `${baseApiUrl}/signin`;
 const signOutUrl = `${baseApiUrl}/signout`;
 const checkSessionUrl = `${baseApiUrl}/check-session`;
 
-const frontUrl = process.env === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_FRONT_URL;
+const frontUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_FRONT_URL;
 
 console.log(frontUrl);
 
@@ -70,7 +70,7 @@ export const checkSession = async () => {
     header: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'https://social-face.netlify.app/',
+      'Access-Control-Allow-Origin': '*',
     },
     credentials: 'include',
   });
