@@ -1,8 +1,9 @@
 const baseApiUrl =
   process.env.NODE_ENV === 'development'
     ? `${process.env.REACT_APP_API_URL_DEV}/auth`
-    : `
-    ${process.env.REACT_APP_API_URL}/auth`;
+    : 'https://node-social-face.herokuapp.com/api';
+// `
+// ${process.env.REACT_APP_API_URL}/api/auth`;
 
 const signUpUrl = `${baseApiUrl}/signup`;
 const signInUrl = `${baseApiUrl}/signin`;

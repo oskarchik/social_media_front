@@ -12,6 +12,7 @@ import './index.css';
 const App = () => {
   const { user } = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  console.log('REACT APP URL', process.env.REACT_APP_API_URL);
 
   useEffect(() => {
     dispatch(checkSessionAsync());
