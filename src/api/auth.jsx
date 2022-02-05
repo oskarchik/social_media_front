@@ -1,7 +1,7 @@
 const baseApiUrl =
   process.env.NODE_ENV === 'development'
     ? `${process.env.REACT_APP_API_URL_DEV}/auth`
-    : 'https://node-social-face.herokuapp.com/api';
+    : 'https://node-social-face.herokuapp.com/api/auth';
 // `
 // ${process.env.REACT_APP_API_URL}/api/auth`;
 console.log('baseUrl', baseApiUrl);
@@ -12,6 +12,8 @@ const signOutUrl = `${baseApiUrl}/signout`;
 const checkSessionUrl = `${baseApiUrl}/check-session`;
 
 const frontUrl = process.env === 'development' ? 'http://localhost:3000' : process.env.REACT_APP_FRONT_URL;
+
+console.log(frontUrl);
 
 export const signUp = async (userData) => {
   const request = await fetch(signUpUrl, {
