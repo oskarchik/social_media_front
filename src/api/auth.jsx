@@ -68,7 +68,7 @@ export const checkSession = async () => {
     header: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': frontUrl,
+      'Access-Control-Allow-Origin': 'https://social-face.netlify.app/',
     },
     credentials: 'include',
   });
