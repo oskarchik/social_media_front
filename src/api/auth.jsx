@@ -2,7 +2,7 @@ const baseApiUrl =
   process.env.NODE_ENV === 'development'
     ? `${process.env.REACT_APP_API_URL_DEV}/auth`
     : `
-    ${process.env.REACT_APP_API_URL_PROD}/auth`;
+    ${process.env.REACT_APP_API_URL}/auth`;
 
 const signUpUrl = `${baseApiUrl}/signup`;
 const signInUrl = `${baseApiUrl}/signin`;

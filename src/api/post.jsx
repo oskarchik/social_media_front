@@ -2,14 +2,14 @@ const baseUrl =
   process.env.NODE_ENV === 'development'
     ? `${process.env.REACT_APP_API_URL_DEV}/posts`
     : `
-    ${process.env.REACT_APP_API_URL_PROD}/posts`;
+    ${process.env.REACT_APP_API_URL}/posts`;
 const timeLineUrl = 'timeline/all';
 const userPostsUrl = '/user-posts';
 const commentAPostUrl =
   process.env.NODE_ENV === 'development'
     ? `${process.env.REACT_APP_API_URL_DEV}/comments/`
     : `
-    ${process.env.REACT_APP_API_URL_PROD}/comments/`;
+    ${process.env.REACT_APP_API_URL}/comments/`;
 const likesPostUrl = '/likes';
 const sharePostUrl = '/share';
 

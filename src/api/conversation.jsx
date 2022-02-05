@@ -2,7 +2,7 @@ const baseUrl =
   process.env.NODE_ENV === 'development'
     ? `${process.env.REACT_APP_API_URL_DEV}/conversations`
     : `
-    ${process.env.REACT_APP_API_URL_PROD}/conversations`;
+    ${process.env.REACT_APP_API_URL}/conversations`;
 const conversationByMembersUrl = 'find/';
 
 export const getUserConversations = async (userId) => {

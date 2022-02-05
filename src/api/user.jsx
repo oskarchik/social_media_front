@@ -2,7 +2,7 @@ const baseUrl =
   process.env.NODE_ENV === 'development'
     ? `${process.env.REACT_APP_API_URL_DEV}/users/`
     : `
-    ${process.env.REACT_APP_API_URL_PROD}/users/`;
+    ${process.env.REACT_APP_API_URL}/users/`;
 
 const acceptRequestUrl = '/accept-contact';
 const declineRequestUrl = '/decline-contact';

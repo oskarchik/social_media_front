@@ -2,7 +2,7 @@ const baseUrl =
   process.env.NODE_ENV === 'development'
     ? `${process.env.REACT_APP_API_URL_DEV}/messages`
     : `
-    ${process.env.REACT_APP_API_URL_PROD}/messages`;
+    ${process.env.REACT_APP_API_URL}/messages`;
 
 export const getMessages = async (conversationId) => {
   const request = await fetch(`${baseUrl}/${conversationId}`, {

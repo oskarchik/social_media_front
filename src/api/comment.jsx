@@ -2,7 +2,7 @@ const baseUrl =
   process.env.NODE_ENV === 'development'
     ? `${process.env.REACT_APP_API_URL_DEV}/comments`
     : `
-    ${process.env.REACT_APP_API_URL_PROD}/comments`;
+    ${process.env.REACT_APP_API_URL}/comments`;
 const likeUnlikeCommentUrl = '/like-comment';
 const commentUrl = '/comment';
 
