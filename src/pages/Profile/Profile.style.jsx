@@ -228,6 +228,9 @@ export const StyledProfile = styled.main`
         width: 45vw;
         margin-right: 20px;
       }
+      .left > * {
+        margin-bottom: 30px;
+      }
       .right {
         width: 45vw;
 
