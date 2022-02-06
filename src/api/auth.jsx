@@ -75,7 +75,6 @@ export const checkSession = async () => {
     credentials: 'include',
   });
 
-  console.log(request);
   const response = request.json();
 
   return response;

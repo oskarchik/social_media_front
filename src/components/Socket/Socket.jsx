@@ -8,7 +8,7 @@ export const socketUrl =
 console.log(process.env.REACT_APP_SOCKET_URL);
 console.log(socketUrl);
 
-export const socket = io(socketUrl, {
+export const socket = io('https://social-face.netlify.app', {
   withCredentials: true,
   forceNew: true,
   extraHeaders: {
