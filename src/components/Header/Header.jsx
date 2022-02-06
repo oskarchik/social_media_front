@@ -6,7 +6,6 @@ import { signOutAsync } from '../../redux/slices/auth.slice';
 import { getAllUsersAsync } from '../../redux/slices/user.slice';
 import { getTimeLineAsync } from '../../redux/slices/post.slice';
 import { removeMention } from '../../api/user';
-import { socket } from '../Socket/Socket';
 
 import { Chat, Home, Logout, Menu, Notifications, Person, Search, Settings } from '@mui/icons-material';
 
@@ -28,7 +27,6 @@ const Header = () => {
 
   const logOut = () => {
     dispatch(signOutAsync());
-    socket.disconnect();
   };
   const [mentions, setMentions] = useState([]);
   const displayNotifications = (mention, i) => {
