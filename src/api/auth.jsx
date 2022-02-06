@@ -1,7 +1,7 @@
 const baseApiUrl =
   process.env.NODE_ENV === 'development'
     ? `${process.env.REACT_APP_API_URL_DEV}/auth`
-    : 'https://node-social-face.herokuapp.com/api/auth';
+    : `${process.env.REACT_APP_API_URL}/auth`;
 // `
 // ${process.env.REACT_APP_API_URL}/api/auth`;
 console.log('baseUrl', baseApiUrl);
@@ -74,7 +74,9 @@ export const checkSession = async () => {
     },
     credentials: 'include',
   });
-  const res = request.json();
 
-  return res;
+  console.log(request);
+  const response = request.json();
+
+  return response;
 };
