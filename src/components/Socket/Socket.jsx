@@ -3,10 +3,7 @@ import { io } from 'socket.io-client';
 export const socketUrl =
   process.env.NODE_ENV === 'development'
     ? `${process.env.REACT_APP_SOCKET_URL_DEV}`
-    : `
-    ${process.env.REACT_APP_SOCKET_URL}`;
-console.log(process.env.REACT_APP_SOCKET_URL);
-console.log(socketUrl);
+    : 'https://node-social-face.herokuapp.com';
 
 export const socket = io(socketUrl, {
   withCredentials: true,
