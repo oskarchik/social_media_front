@@ -8,7 +8,7 @@ import { useViewport } from '../../hooks/useViewport';
 import './Home.css';
 
 const Home = () => {
-  const { isOpen, mode, postId } = useContext(PostModalContext);
+  const { isOpenPostModal, mode, postId } = useContext(PostModalContext);
   const { width } = useViewport();
   const breakpoint = 700;
 
@@ -19,7 +19,7 @@ const Home = () => {
         <Feed />
         {width > breakpoint - 150 && <RightSidebar />}
       </div>
-      {isOpen && <PostModal className='post__modal' mode={mode} postId={postId} />}
+      {isOpenPostModal && <PostModal className='post__modal' mode={mode} postId={postId} />}
     </>
   );
 };

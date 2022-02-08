@@ -1,24 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Post, Share, Spinner } from '../../components';
+import { Post, PostModal, Share, Spinner } from '../../components';
 
+import PostModalContext from '../../context/PostModalContext';
 import { getUserPostsAsync } from '../../redux/slices/post.slice';
 
 import { StyledProfile } from './Profile.style';
 import { CameraAlt, ControlPoint, ModeEdit } from '@mui/icons-material';
 import { useViewport } from '../../hooks/useViewport';
-import { updateAvatarAsync, updateCoverAsync } from '../../redux/slices/auth.slice';
+import { updateAvatarAsync, updateCoverAsync } from '../../redux/slices/user.slice';
 
 const Profile = (props) => {
-  const { user } = useSelector((state) => state.auth.user);
+  const { isOpenPostModal, mode, postId } = useContext(PostModalContext);
+  const { user } = useSelector((state) => state.user.user);
   const contact = props?.location?.state?.contact;
   const pathname = props?.location?.pathname;
   const [data, setData] = useState(null);
   const [isContact, setIsContact] = useState(undefined);
   const { posts } = useSelector((state) => state.post);
   const [file, setFile] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenUpload, setIsOpenUpload] = useState(false);
   const [imageData, setImageData] = useState(null);
   const hiddenAvatarInput = useRef(null);
   const hiddenCoverInput = useRef(null);
@@ -34,12 +36,12 @@ const Profile = (props) => {
 
     if (e.currentTarget.id === 'avatar') {
       hiddenAvatarInput.current.click();
-      setIsOpen(true);
+      setIsOpenUpload(true);
       setSelectedInput(hiddenAvatarInput.current);
     }
     if (e.currentTarget.id === 'cover') {
       hiddenCoverInput.current.click();
-      setIsOpen(true);
+      setIsOpenUpload(true);
       setSelectedInput(hiddenCoverInput.current);
     }
   };
@@ -75,7 +77,7 @@ const Profile = (props) => {
   useEffect(() => {
     let handler = (e) => {
       if (!modalRef.current?.contains(e.target)) {
-        setIsOpen(false);
+        setIsOpenUpload(false);
       }
     };
     document.addEventListener('mousedown', handler);
@@ -107,7 +109,7 @@ const Profile = (props) => {
           ) : (
             <StyledProfile>
               <div className='profile__container'>
-                {isOpen && (
+                {isOpenUpload && (
                   <div className='upload__container'>
                     <div className='image__container' ref={modalRef}>
                       {selectedInput.id === 'avatarInput' && file && (
@@ -239,11 +241,9 @@ const Profile = (props) => {
                             posts.map((post) => {
                               return (
                                 post.image && (
-                                  <>
-                                    <div className='grid__tile' key={post.createdAt}>
-                                      <img className='photos__friends' src={post.image} alt='Post' key={post._id} />
-                                    </div>
-                                  </>
+                                  <div className='grid__tile' key={post.createdAt}>
+                                    <img className='photos__friends' src={post.image} alt='Post' key={post._id} />
+                                  </div>
                                 )
                               );
                             })}
@@ -268,12 +268,7 @@ const Profile = (props) => {
                           data?.contacts?.map((contact) => {
                             return (
                               <div className='contacts__tile' key={contact.createdAt}>
-                                <img
-                                  className='contacts__picture'
-                                  src={contact.avatar}
-                                  key={contact.device}
-                                  alt='contact'
-                                />
+                                <img className='contacts__picture' src={contact.avatar} alt='contact' />
                                 <h4 className='contacts__name'>
                                   {contact.firstName} {contact.lastName}
                                 </h4>
@@ -285,6 +280,7 @@ const Profile = (props) => {
                   </div>
                 </main>
               </div>
+              {isOpenPostModal && <PostModal className='post__modal' mode={mode} postId={postId} />}
             </StyledProfile>
           )}
         </>

@@ -7,19 +7,19 @@ import { Label, PermMedia, Room, TagFaces } from '@mui/icons-material';
 import { StyledShare } from './Share.style';
 
 const Share = () => {
-  const { user } = useSelector((state) => state.auth.user);
-  const { isOpen, setIsOpen, setMode } = useContext(PostModalContext);
+  const { user } = useSelector((state) => state.user.user);
+  const { isOpenPostModal, setIsOpenPostModal, setMode } = useContext(PostModalContext);
   const [isDisabled, setIsDisabled] = useState(false);
 
   const handleCreatePostForm = (e) => {
     e.preventDefault();
     setIsDisabled(true);
-    setIsOpen((prevState) => !prevState);
+    setIsOpenPostModal((prevState) => !prevState);
     setMode('Create');
   };
   useEffect(() => {
-    !isOpen && setIsDisabled(false);
-  }, [isOpen]);
+    !isOpenPostModal && setIsDisabled(false);
+  }, [isOpenPostModal]);
   return (
     <>
       <StyledShare>
