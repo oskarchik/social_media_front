@@ -1,16 +1,19 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter, useLocation, Redirect } from 'react-router-dom';
 
 import { Header, SecureRoute } from './components';
 import { Home, Profile, Search, Friends, Messenger, Login } from './pages';
 
-import { checkSessionAsync } from './redux/slices/auth.slice';
+import { checkSessionAsync } from './redux/slices/user.slice';
 import { PostModalProvider } from './context/PostModalContext';
 import './index.css';
 
 const App = () => {
-  const { user } = useSelector((state) => state.auth.user);
+  const { hasUser } = useSelector((state) => state.user);
+
+  const location = useLocation();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,8 +21,8 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <Router>
-      {user ? <Header /> : null}
+    <>
+      {hasUser && location.pathname !== '/auth' ? <Header /> : null}
       <Switch>
         <PostModalProvider>
           <SecureRoute exact path='/' component={(props) => <Home {...props} />} />
@@ -28,11 +31,12 @@ const App = () => {
           <SecureRoute exact path='/search' component={(props) => <Search {...props} />} />
           <SecureRoute exact path='/friends' component={(props) => <Friends {...props} />} />
           <SecureRoute exact path='/messenger' component={(props) => <Messenger {...props} />} />
-          <Route exact path='/auth' component={Login} />
+          <Route path='/auth' component={Login} />
+          {hasUser && location.pathname === '/auth' && <Redirect to={Home} />}
         </PostModalProvider>
       </Switch>
-    </Router>
+    </>
   );
 };
 
-export default App;
+export default withRouter(App);
