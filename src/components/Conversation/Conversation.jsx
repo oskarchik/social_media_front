@@ -5,7 +5,7 @@ import { useViewport } from '../../hooks/useViewport';
 import { StyledConversation } from './Conversation.style';
 
 const Conversation = ({ conversation, setChatter }) => {
-  const { user } = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.user.user);
 
   const { width } = useViewport();
   const breakpoint = 700;

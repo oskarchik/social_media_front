@@ -19,7 +19,7 @@ import { StyledLeftSidebar } from './LeftSidebar.style';
 import { useState } from 'react';
 
 const LeftSidebar = () => {
-  const { user } = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.user.user);
   const [isOpen, setIsOpen] = useState(false);
   return (
     <StyledLeftSidebar className='left-sidebar__wrapper'>

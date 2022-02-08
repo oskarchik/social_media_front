@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
 
-import { signOutAsync } from '../../redux/slices/auth.slice';
-import { getAllUsersAsync } from '../../redux/slices/user.slice';
+import { signOutAsync } from '../../redux/slices/user.slice';
+import { getAllUsersAsync } from '../../redux/slices/users.slice';
 import { getTimeLineAsync } from '../../redux/slices/post.slice';
 import { removeMention } from '../../api/user';
+import { socket } from '../Socket/Socket';
 
 import { Chat, Home, Logout, Menu, Notifications, Person, Search, Settings } from '@mui/icons-material';
 
@@ -13,8 +14,8 @@ import { StyledHeader } from './Header.styled';
 import { useViewport } from '../../hooks/useViewport';
 
 const Header = () => {
-  const { user } = useSelector((state) => state.auth.user);
-  const { users } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user.user);
+  const { users } = useSelector((state) => state.users);
   const { posts } = useSelector((state) => state.post);
 
   const [input, setInput] = useState('');
@@ -24,9 +25,9 @@ const Header = () => {
   const dispatch = useDispatch();
   const { width } = useViewport();
   const breakpoint = 700;
-
   const logOut = () => {
     dispatch(signOutAsync());
+    socket.disconnect();
   };
   const [mentions, setMentions] = useState([]);
   const displayNotifications = (mention, i) => {

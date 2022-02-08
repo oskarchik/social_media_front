@@ -5,7 +5,7 @@ import { format } from 'timeago.js';
 import { StyledMessage } from './Message.style';
 
 const Message = ({ message, own }) => {
-  const { user } = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.user.user);
   const [chatter, setChatter] = useState(null);
 
   useEffect(() => {

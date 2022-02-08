@@ -8,7 +8,7 @@ import { getTimeLineAsync } from '../../redux/slices/post.slice';
 import { StyledFeed } from './Feed.style';
 
 const Feed = () => {
-  const { user } = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.user.user);
   const { posts, postDetails } = useSelector((state) => state.post);
 
   const [isOpen, setIsOpen] = useState(false);

@@ -5,7 +5,7 @@ import { getConversationsByMembers, createConversation } from '../../api/convers
 import { StyledChatOnline } from './ChatOnline.style';
 
 const ChatOnline = ({ setCurrentChat, onlineFriends }) => {
-  const { user } = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.user.user);
 
   const handleClick = async (friend) => {
     const response = await getConversationsByMembers(user._id, friend._id);

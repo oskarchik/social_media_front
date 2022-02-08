@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { sendContactRequestAsync } from '../../redux/slices/auth.slice';
+import { sendContactRequestAsync } from '../../redux/slices/user.slice';
 
 import { StyledCard } from './Card.style';
 
@@ -8,7 +8,7 @@ import { Chat, PersonAddAlt1 } from '@mui/icons-material';
 
 const Card = ({ contact, person, last }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.user.user);
   const sendContactRequest = async (userId, contactRequestId) => {
     const data = { userId, contactRequestId };
     await dispatch(sendContactRequestAsync(data));

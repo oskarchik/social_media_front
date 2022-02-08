@@ -13,18 +13,16 @@ import { ChatBubbleOutline, Favorite, MoreHoriz, Send, Share, ThumbUp, ThumbUpOf
 import { StyledPost } from './Post.style';
 
 const Post = ({ post }) => {
-  const { user } = useSelector((state) => state.auth.user);
-  const { postDetails } = useSelector((state) => state.post);
+  const { user } = useSelector((state) => state.user.user);
 
   const dispatch = useDispatch();
 
   const [likesPostCounter, setLikesPostCounter] = useState(post?.likes?.length);
   const [isOpenComments, setIsOpenComments] = useState(false);
-  const [isOpenDelete, setIsOpenDelete] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [input, setInput] = useState('');
   const [isLiked, setIsLiked] = useState(post.likes?.some((like) => (like._id === user._id ? true : false)));
-  const { isOpen, setIsOpen, mode, setMode, postId, setPostId } = useContext(PostModalContext);
+  const { setIsOpenPostModal, setMode, setPostId } = useContext(PostModalContext);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -59,13 +57,9 @@ const Post = ({ post }) => {
   const handleEditing = () => {
     setMode('Edit');
   };
-  const handleShare = (postId, userId) => {
-    const data = { postId, userId };
-    dispatch(sharePostAsync(data));
-  };
 
   const handleOpenSharePost = () => {
-    setIsOpen((prevState) => !prevState);
+    setIsOpenPostModal((prevState) => !prevState);
     setPostId(post._id);
     setMode('Share');
   };

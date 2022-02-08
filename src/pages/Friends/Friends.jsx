@@ -7,7 +7,7 @@ import { StyledFriendsPage } from './Friends.style';
 import { ArrowForwardIos, PeopleAlt, PersonAddAlt1 } from '@mui/icons-material';
 
 const Friends = () => {
-  const { user } = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.user.user);
   const [filter, setFilter] = useState(user.receivedRequests.length < 1 ? 'contacts' : 'requests');
   const handleClick = (e) => {
     const data = e.currentTarget.dataset.id;

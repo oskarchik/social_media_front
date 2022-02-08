@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { acceptRequestAsync, declineRequestAsync, removeContactAsync } from '../../redux/slices/auth.slice';
+import { acceptRequestAsync, declineRequestAsync, removeContactAsync } from '../../redux/slices/user.slice';
 
 import { StyledRequestCard } from './RequestCard.style';
 
@@ -9,7 +9,7 @@ const RequestCard = ({ request, isContact, contact }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.user.user);
 
   const acceptRequest = async (userId, reqUserId) => {
     const data = { userId, reqUserId };

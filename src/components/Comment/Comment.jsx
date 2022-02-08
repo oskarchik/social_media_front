@@ -10,7 +10,7 @@ import { StyledComment } from './Comment.style';
 
 const Comment = (props) => {
   const { comment } = props;
-  const { user } = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.user.user);
 
   const dispatch = useDispatch();
 

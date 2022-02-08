@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 
 import { Checkbox, Picker } from '../../components';
 
-import { signUpAsync } from '../../redux/slices/auth.slice';
+import { signUpAsync } from '../../redux/slices/user.slice';
 
 import { Close, Help } from '@mui/icons-material';
 import { StyledModal } from './Modal.style';
