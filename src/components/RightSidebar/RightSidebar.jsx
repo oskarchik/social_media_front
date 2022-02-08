@@ -7,12 +7,16 @@ import { useViewport } from '../../hooks/useViewport';
 import { StyledRightSidebar } from './RightSidebar.style';
 
 const RightSidebar = () => {
-  const { user } = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.user.user);
   const { width } = useViewport();
   const breakpoint = 700;
 
   const [onlineFriends, setOnlineFriends] = useState([]);
   const [birthDays, setBirthDays] = useState([]);
+
+  const onlineFriendsCallback = (users) => {
+    setOnlineFriends(user?.contacts?.filter((contact) => users.some((user) => user.userId === contact._id)));
+  };
 
   const checkBirthDays = (user) => {
     user.contacts.map((contact) => {
@@ -39,11 +43,11 @@ const RightSidebar = () => {
       });
     }
     socket.emit('addUser', user._id);
-    socket.on('getUsers', (users) => {
-      setOnlineFriends(user?.contacts?.filter((contact) => users.some((user) => user.userId === contact._id)));
-    });
-    return () => socket.disconnect();
-  }, [user]);
+    socket.on('getUsers', onlineFriendsCallback);
+    return () => {
+      socket.off('getUsers', onlineFriendsCallback);
+    };
+  }, [user, socket]);
 
   return (
     <StyledRightSidebar className='right-sidebar__wrapper'>

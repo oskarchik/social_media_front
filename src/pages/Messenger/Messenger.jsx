@@ -12,7 +12,7 @@ import { Search, Send } from '@mui/icons-material';
 import { useViewport } from '../../hooks/useViewport';
 
 const Messenger = (props) => {
-  const { user } = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.user.user);
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -38,6 +38,18 @@ const Messenger = (props) => {
       setIsDisabled(false);
     }
   };
+
+  const onlineFriendsCallback = (users) => {
+    setOnlineFriends(user?.contacts?.filter((contact) => users.some((user) => user.userId === contact._id)));
+  };
+
+  const arrivalMessageCallback = (data) => {
+    setArrivalMessage({
+      sender: data.senderId,
+      text: data.text,
+      createdAt: Date.now(),
+    });
+  };
   useEffect(() => {
     if (socket.disconnected) {
       socket.connect(socketUrl, {
@@ -49,21 +61,17 @@ const Messenger = (props) => {
       });
     }
     socket.emit('addUser', user._id);
-    socket.on('getUsers', (users) => {
-      setOnlineFriends(user?.contacts?.filter((contact) => users.some((user) => user.userId === contact._id)));
-    });
-    return () => socket.disconnect();
+    socket.on('getUsers', onlineFriendsCallback);
+    return () => {
+      socket.off('getUsers', onlineFriendsCallback);
+    };
   }, [user]);
 
   useEffect(() => {
-    socket.on('getMessage', (data) => {
-      setArrivalMessage({
-        sender: data.senderId,
-        text: data.text,
-        createdAt: Date.now(),
-      });
-    });
-    return () => socket.disconnect();
+    socket.on('getMessage', arrivalMessageCallback);
+    return () => {
+      socket.off('getMessage', arrivalMessageCallback);
+    };
   }, []);
   useEffect(() => {
     if (contact && conversations.length > 0) {
