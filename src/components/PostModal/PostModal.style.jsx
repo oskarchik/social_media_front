@@ -13,6 +13,7 @@ export const StyledPostModal = styled.div`
     width: 100%;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.7);
+    z-index: 1;
     .modal__container {
       display: flex;
       flex-direction: column;
@@ -24,6 +25,7 @@ export const StyledPostModal = styled.div`
       -moz-box-shadow: 0px 5px 15px -4px rgba(0, 0, 0, 0.48);
       box-shadow: 0px 5px 15px -4px rgba(0, 0, 0, 0.48);
       background-color: white;
+
       .modal__top {
         width: 100%;
         padding: 20px;

@@ -15,9 +15,9 @@ import '@draft-js-plugins/emoji/lib/plugin.css';
 
 const PostModal = ({ mode }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.user.user);
   const { posts } = useSelector((state) => state.post);
-  const { isOpen, setIsOpen, postId } = useContext(PostModalContext);
+  const { isOpenPostModal, setIsOpenPostModal, postId } = useContext(PostModalContext);
   const [isFileLoaderOpen, setIsFileLoaderOpen] = useState(false);
   const [formData, setFormData] = useState();
   const [contacts, setContacts] = useState([]);
@@ -63,7 +63,7 @@ const PostModal = ({ mode }) => {
   });
 
   const closeModal = () => {
-    return !isOpen ? isOpen : setIsOpen((prevState) => !prevState);
+    return !isOpenPostModal ? isOpenPostModal : setIsOpenPostModal((prevState) => !prevState);
   };
 
   const handleInputFile = () => {
@@ -89,7 +89,7 @@ const PostModal = ({ mode }) => {
     }
 
     setFormData({ userId: '' });
-    setIsOpen((prevState) => !prevState);
+    setIsOpenPostModal((prevState) => !prevState);
   };
 
   const selectMode = () => {

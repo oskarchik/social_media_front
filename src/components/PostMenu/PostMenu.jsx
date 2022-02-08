@@ -7,10 +7,10 @@ import { Close, Delete, Edit } from '@mui/icons-material';
 import { StyledPostMenu } from './PostMenu.style';
 
 const PostMenu = ({ handleOpenMenu, deletePost, data }) => {
-  const { setIsOpen, setMode, setPostId } = useContext(PostModalContext);
+  const { setIsOpenPostModal, setMode, setPostId } = useContext(PostModalContext);
 
   const handleEditMenu = () => {
-    setIsOpen((prevState) => !prevState);
+    setIsOpenPostModal((prevState) => !prevState);
     handleOpenMenu((prevState) => !prevState);
     setMode('Edit');
 
