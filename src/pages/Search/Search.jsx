@@ -6,7 +6,7 @@ import { Card, Post } from '../../components';
 import { StyledSearch } from './Search.style';
 
 const Search = (props) => {
-  const { user } = useSelector((state) => state.auth.user);
+  const { user } = useSelector((state) => state.user.user);
   const { users, contacts, posts } = props.location.state.data;
 
   const filteredUsers = users?.filter((u) => u._id !== user._id);
